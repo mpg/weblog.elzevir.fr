@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr-FR">
+<head profile="http://gmpg.org/xfn/11">
+<title>   TeX Live 2009 dans Debian Sid at Le mpg-blog</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="description" content="LaTeX et autres geekeries" />
+<link href="/style.css" rel="stylesheet" type="text/css" media="screen" />
+<link rel="shortcut icon" type="image/x-png" href="/favicon.png" />
+<link rel='stylesheet' id='wp-syntax-css-css'  href='/wp-syntax.css' type='text/css' media='all' />
+</head>
+
+<body>
+<div id="container" class="group">
+
+<h1><a href="../../../">Le mpg-blog</a></h1>
+<div id="bubble"><p>LaTeX et autres geekeries</p></div> <!-- erase this line if you want to turn the bubble off -->
+
+<div id="content" class="group">
+
+<h2 id="post-66"><a href="index.html" rel="bookmark">TeX Live 2009 dans Debian Sid</a></h2>
+<p class="comments"><a href="index.html#comments">without comments</a></p>
+
+<div class="main">
+	<p>Comme je l&rsquo;<a href="../../11/tex-live-2009-est-sortie/">annonçais</a> lors de la sortie de TeX Live 2009 il y a un mois,
+des paquets Debian expérimentaux étaient en phase de test, dès avant la sortie
+officielle de TeX Live 2009. Après être resté quelque temps dans l&rsquo;archive
+« experimental » de Debian, il sont désormais disponibles dans « sid », la
+version instable de la distribution.<span id="more-66"></span>Il est possible de les installer sur Debian testing. Pour cela, il suffit
+d&rsquo;ajouter un dépôt « sid » à son <code>/etc/apt/sources.list</code> si ce n&rsquo;est déjà fait,
+puis de lancer <code>aptitude update</code> et enfin <code>aptitude -t unstable install
+texlive-full</code>.</p>
+
+<p>Les paquets ne sont <a href="http://packages.ubuntu.com/search?keywords=texlive&amp;searchon=names&amp;suite=all&amp;section=all">visiblement</a> pas encore arrivés dans Ubuntu lucid. Si
+je comprends bien la politique d&rsquo;Ubuntu, ils devraient s&rsquo;y trouver avant sa
+sortie (prévue en avril 2010). Je n&rsquo;ai aucune information sur la possibilité
+qu&rsquo;ils soient aussi <em>backportés</em> pour karmic.</p>
+
+<h2>Comparaison avec la TeX Live à la vanille</h2>
+
+<p>La première grosse différence entre une TeX Live nature et celle des paquets
+Debian, c&rsquo;est que le <a href="http://www.tug.org/texlive/tlmgr.html">gestionnaire de paquets TeX Live</a> est tout
+simplement absent de cette dernière. En effet, Debian a son propre gestionnaire
+de paquets, et utiliser deux gestionnaires différents pour la même chose, c&rsquo;est
+aller au devant de graves ennuis. Exit donc les mises à jour quotidiennes de
+paquets. (Ce qui n&rsquo;est pas forcément grave, selon votre usage.)</p>
+
+<p>L&rsquo;autre grosse différence, qui va dans le sens contraire, c&rsquo;est que le paquet
+Debian de LuaTeX est mis à jour en continu, contrairement au LuaTeX de TeX Live.
+Actuellement, c&rsquo;est donc LuaTeX 0.46 qui est livré, et sans doute tout bientôt
+0.47 (sorti hier). En même temps, LuaTeX est encore assez expérimental, donc
+cette information ne concerne que ceux qui sont assez aventureux pour les tester
+et avoir besoin des dernières fonctionnalités, mais qui n&rsquo;ont pas envie de
+l&rsquo;<a href="../../02/integrer-un-luatex-recent-a-tex-live/">installer à la main</a> sur leur TeX Live comme je l&rsquo;expliquais
+précédemment.</p>
+
+<p>(<em>Ajout du 25 janvier.</em>) Par ailleurs, <a href="http://ctan.org/pkg/biblatex">biblatex</a> n&rsquo;est pas encore inclus dans
+TeX Live, par respect d&rsquo;une demande explicite de l&rsquo;auteur. Par contre, il a
+accepté que ce paquet soit inclus dans Debian, sans doute parce que le paquet
+n&rsquo;est pour l&rsquo;instant que dans la version <em>testing</em>, et qu&rsquo;il espère sortir une
+version plus mature de biblatex avant que la prochaine Debian stable ne soit
+gelée.</p>
+
+<p>À part ça, il est possible que quelques paquets ou documents aient été retirés
+des paquets Debian pour des raisons de licence. Globalement, les exigences de
+TeX Live et de Debian en matière de licences libres sont semblables, sauf sur
+deux points : TeX Live accepte les documents produits avec des polices
+non-libres, ainsi que ceux sous GFDL avec sections invariantes, que Debian
+n&rsquo;accepte pas.</p>
+</div>
+
+<div class="meta group">
+<div class="signature">
+    <p>Written by mpg <span class="edit"></span></p>
+    <p>décembre 19th, 2009 at 2:14  </p>
+</div>	
+<div class="tags">
+    <p>Posted in <a href="../../../par-sujet/tex-et-cie/" title="Voir tous les articles dans TeX et compagnie" rel="category tag">TeX et compagnie</a></p>
+    <p>Tagged with <a href="../../../par-tag/debian/" rel="tag">debian</a>, <a href="../../../par-tag/texlive/index.html" rel="tag">texlive</a></p></div>
+</div>
+
+<div class="navigation group">
+    <div class="alignleft">&laquo; <a href="../../11/tex-live-2009-est-sortie/" rel="prev">TeX Live 2009 est sortie</a></div>
+    <div class="alignright"><a href="../../../2010/01/des-nouvelles-de-latex-3/" rel="next">Des nouvelles de LaTeX 3</a> &raquo;</div>
+</div>
+
+
+<!-- You can start editing here. -->
+
+<a name="comments" id="comments"></a>
+
+
+ 
+<!-- If comments are open, but there are no comments. -->
+
+
+
+
+</div> 
+
+<div id="sidebar">
+<h3>Pages</h3>		<ul>
+			<li class="page_item page-item-4"><a href="../../../qui-suis-je/">À propos</a></li>
+		</ul>
+		<h3>Mots-clés</h3><div class="tagcloud"><a href='../../../par-tag/astuce/' class='tag-link-24' title='2 sujets' style='font-size: 11.111111111111pt;'>astuce</a>
+<a href='../../../par-tag/biblatex/' class='tag-link-41' title='1 sujet' style='font-size: 8pt;'>biblatex</a>
+<a href='../../../par-tag/context/' class='tag-link-28' title='8 sujets' style='font-size: 19.234567901235pt;'>context</a>
+<a href='../../../par-tag/cap/' class='tag-link-49' title='1 sujet' style='font-size: 8pt;'>càp</a>
+<a href='../../../par-tag/debian/' class='tag-link-4' title='6 sujets' style='font-size: 17.506172839506pt;'>debian</a>
+<a href='../../../par-tag/fontes/' class='tag-link-30' title='2 sujets' style='font-size: 11.111111111111pt;'>fontes</a>
+<a href='../../../par-tag/google/' class='tag-link-37' title='1 sujet' style='font-size: 8pt;'>google</a>
+<a href='../../../par-tag/gutenberg/' class='tag-link-44' title='1 sujet' style='font-size: 8pt;'>gutenberg</a>
+<a href='../../../par-tag/howto/' class='tag-link-31' title='9 sujets' style='font-size: 20.098765432099pt;'>howto</a>
+<a href='../../../par-tag/latex/' class='tag-link-3' title='6 sujets' style='font-size: 17.506172839506pt;'>latex</a>
+<a href='../../../par-tag/latex3/' class='tag-link-39' title='1 sujet' style='font-size: 8pt;'>latex3</a>
+<a href='../../../par-tag/lualatex/' class='tag-link-43' title='1 sujet' style='font-size: 8pt;'>lualatex</a>
+<a href='../../../par-tag/luatex/' class='tag-link-21' title='7 sujets' style='font-size: 18.37037037037pt;'>luatex</a>
+<a href='../../../par-tag/miktex/' class='tag-link-47' title='1 sujet' style='font-size: 8pt;'>miktex</a>
+<a href='../../../par-tag/mplib/' class='tag-link-46' title='1 sujet' style='font-size: 8pt;'>mplib</a>
+<a href='../../../par-tag/ssh/' class='tag-link-36' title='2 sujets' style='font-size: 11.111111111111pt;'>ssh</a>
+<a href='../../../par-tag/texdoc/' class='tag-link-42' title='5 sujets' style='font-size: 16.296296296296pt;'>texdoc</a>
+<a href='../../../par-tag/texlive/' class='tag-link-34' title='12 sujets' style='font-size: 22pt;'>texlive</a>
+<a href='../../../par-tag/tlcontrib/' class='tag-link-45' title='1 sujet' style='font-size: 8pt;'>tlcontrib</a>
+<a href='../../../par-tag/unix-admin/' class='tag-link-33' title='3 sujets' style='font-size: 13.185185185185pt;'>unix-admin</a>
+<a href='../../../par-tag/unix-user/' class='tag-link-35' title='2 sujets' style='font-size: 11.111111111111pt;'>unix-user</a>
+<a href='../../../par-tag/vim/' class='tag-link-22' title='1 sujet' style='font-size: 8pt;'>vim</a>
+<a href='../../../par-tag/wordpress/' class='tag-link-40' title='2 sujets' style='font-size: 11.111111111111pt;'>wordpress</a>
+<a href='../../../par-tag/xetex/' class='tag-link-20' title='2 sujets' style='font-size: 11.111111111111pt;'>xetex</a></div>
+<h3>Catégories</h3>		<ul>
+	<li class="cat-item cat-item-14"><a href="../../../par-sujet/comp/" title="Geekeries diverses">Geekeries diverses</a>
+</li>
+	<li class="cat-item cat-item-1"><a href="../../../par-sujet/non-classe/" title="Voir tous les articles classés dans Non classé">Non classé</a>
+</li>
+	<li class="cat-item cat-item-13"><a href="../../../par-sujet/tex-et-cie/" title="Voir tous les articles classés dans TeX et compagnie">TeX et compagnie</a>
+</li>
+		</ul>
+
+
+</div>
+
+</div>
+
+<div id="footer">
+	<p>The Journalist template by <a href="http://lucianmarin.com/" rel="designer">Lucian E. Marin</a> &mdash; Built for <a href="http://wordpress.org/">WordPress</a></p>
+</div>
+
+</body>
+</html>

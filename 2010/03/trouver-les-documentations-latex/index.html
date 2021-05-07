@@ -1,0 +1,193 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr-FR">
+<head profile="http://gmpg.org/xfn/11">
+<title>   Trouver les documentations (La)TeX at Le mpg-blog</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="description" content="LaTeX et autres geekeries" />
+<link href="/style.css" rel="stylesheet" type="text/css" media="screen" />
+<link rel="shortcut icon" type="image/x-png" href="/favicon.png" />
+<link rel='stylesheet' id='wp-syntax-css-css'  href='/wp-syntax.css' type='text/css' media='all' />
+</head>
+
+<body>
+<div id="container" class="group">
+
+<h1><a href="../../../">Le mpg-blog</a></h1>
+<div id="bubble"><p>LaTeX et autres geekeries</p></div> <!-- erase this line if you want to turn the bubble off -->
+
+<div id="content" class="group">
+
+<h2 id="post-105"><a href="index.html" rel="bookmark">Trouver les documentations (La)TeX</a></h2>
+<p class="comments"><a href="index.html#comments">with one comment</a></p>
+
+<div class="main">
+	<p>Une des grandes forces de LaTeX est son système de modules (<em>packages</em>) et le
+nombre colossal de modules disponibles. Dans un sens, c&rsquo;est aussi une de ses
+faiblesses, car il est parfois difficile pour l&rsquo;utilisateur de trouver ses
+repères dans cet écosystème complexe. Heureusement, l&rsquo;immense majorité des
+modules LaTeX (et plus généralement, des outils reliés) sont fournis avec une
+documentation spécifique et détaillées. Il est très utile de savoir trouver
+cette documentation et y accéder rapidement.<span id="more-105"></span>Avant d&rsquo;aller plus loin, notons que pour rechercher des informations sur LaTeX,
+google (ou tout autre moteur de recherche) n&rsquo;est pas forcément votre ami.
+Certes, le web regorge de fils de discussion sur LaTeX, de FAQ, de pages de
+trucs et astuces, mais la qualité de ces ressources est très variable, en
+particulier parce qu&rsquo;elles datent parfois du siècle dernier.</p>
+
+<p>La documentation spécifique d&rsquo;un module, en revanche, est écrite et mise à jour
+par l&rsquo;auteur du module lui-même.  Sans me lancer dans une grande tirade
+concernant la qualité de l&rsquo;information sur le web, j&rsquo;aimerais souligner qu&rsquo;il me
+paraît utile (et pas seulement dans le monde de LaTeX) de savoir identifier la
+source d&rsquo;information faisant autorité et de prendre l&rsquo;habitude de s&rsquo;y référer ;
+les autres sources d&rsquo;information ont bien sûr leur intérêt mais constituent à
+mon avis un complément plutôt qu&rsquo;un substitut à la documentation originale.</p>
+
+<h2>En ligne</h2>
+
+<p>Tous les modules présents dans les distributions modernes (TeX Live et MikTeX)
+proviennent du CTAN, le <em>Comprehensive TeX archive network</em>, qui accueille,
+outre les modules, leur documentation au format PDF (et leur source).</p>
+
+<p>Pour y accéder, le moyen le plus commode est sans doute d&rsquo;utiliser l&rsquo;URL
+« magique » <code>http://ctan.org/pkg/</code>nom-du-module. Par exemple, si l&rsquo;on cherche
+des renseignements sur biblatex, on peut visiter <a href="http://ctan.org/pkg/biblatex">http://ctan.org/pkg/biblatex</a>.
+En dessous de la description, on trouvera un champ « <em>Documentation on CTAN</em> »
+avec des liens vers les principaux documents décrivant le module.</p>
+
+<p>Si l&rsquo;on ne connaît pas précisément le nom du paquet sur le CTAN (qui n&rsquo;est pas
+forcément le même que le nom du module LaTeX), on peut essayer la <a href="http://ctan.org/search.html">page de
+recherche</a> du CTAN.</p>
+
+<h2>En local</h2>
+
+<p>L&rsquo;inconvénient d&rsquo;accéder à la documentation sur le web, c&rsquo;est qu&rsquo;on a pas
+toujours accès au réseau au moment où l&rsquo;on travaille (par exemple dans le
+train). Heureusement, les distributions TeX en installent une copie sur votre
+disque dur. Même quand vous avez accès au réseau, cette version est souvent plus
+rapide à consulter. Des outils sont disponibles pour vous aider à localiser le
+document cherché.</p>
+
+<p>Sous MikTeX, l&rsquo;outil privilégié s&rsquo;appelle mthelp. Il s&rsquo;utilise en ligne de
+commande (faire Window-R puis taper <code>cmd</code> pour obtenir une invite de commande
+sous Windows), en tapant <code>mthelp</code> <em>nom-du-module</em>. Selon les cas, il ouvre
+directement la documentation dans votre lecteur PDF, ou bien crée une liste de
+liens vers les documents potentiellement intéressants, et charge ces liens dans
+votre navigateur.</p>
+
+<p>Sous TeX Live, on utilise <a href="http://tug.org/texdoc/">texdoc</a>, également en ligne de commande.
+L&rsquo;utilisation de base est la même : <code>texdoc</code> <em>nom-du-module</em>. Par contre, ceci
+ouvre toujours le document correspondant ; on peut aussi obtenir une liste de
+résultats en tapant <code>texdoc -l</code> <em>nom-du_module</em> à la place, et ensuite choisir
+le document à ouvrir depuis la liste. Sous MacTeX, <a href="http://code.google.com/p/mactlmgr/">TeX Live utility</a>
+propose (entre autres) une interface graphique pour utiliser texdoc.</p>
+
+<p>TeX Live inclus aussi un outil graphique de recherche de documentation,
+texdoctk. Celui-ci propose une navigation par catégorie, et un mode de
+recherche. Attention, le recherche ne s&rsquo;effectue pas dans l&rsquo;ensemble de la
+documentation, uniquement dans le catalogue de texdoctk (mise à jour : il y a
+désormais <a href="../../04/texdoc-et-texdoctk/">deux modes de recherche</a>). Notons que texdoctk n&rsquo;est pas
+maintenu (je m&rsquo;assure régulièrement que la base de données ne recense que des
+fichiers qui existent, mais c&rsquo;est tout). Par ailleurs, malgré la similarité des
+noms, texdoc et texdoctk n&rsquo;ont en fait aucun rapport.</p>
+
+<p>Depuis 2008, j&rsquo;ai repris le développement de texdoc. Cet article est le premier
+d&rsquo;une série dans laquelle je présenterai ses principales fonctionnalités,
+quelques réflexions sur son évolution, et des plans pour la suite du
+développement.</p>
+</div>
+
+<div class="meta group">
+<div class="signature">
+    <p>Written by mpg <span class="edit"></span></p>
+    <p>mars 11th, 2010 at 1:49  </p>
+</div>	
+<div class="tags">
+    <p>Posted in <a href="../../../par-sujet/tex-et-cie/" title="Voir tous les articles dans TeX et compagnie" rel="category tag">TeX et compagnie</a></p>
+    <p>Tagged with <a href="../../../par-tag/texdoc/" rel="tag">texdoc</a></p></div>
+</div>
+
+<div class="navigation group">
+    <div class="alignleft">&laquo; <a href="../../02/la-courte-intro-a-latex-est-de-retour/" rel="prev">La courte intro à LaTeX est de retour</a></div>
+    <div class="alignright"><a href="../les-differents-modes-de-texdoc/" rel="next">Les différents modes de texdoc</a> &raquo;</div>
+</div>
+
+
+<!-- You can start editing here. -->
+
+<a name="comments" id="comments"></a>
+
+<h3 class="reply">One Response to 'Trouver les documentations (La)TeX'</h3> 
+
+<ol class="commentlist">
+
+
+<li id="comment-7224" class="pingback">
+	<div class="comment_mod">
+		</div>
+	
+	<div class="comment_text">
+	<p>[...] je le mentionnais dans un billet précédent, TeX Live propose deux utilitaires pour accéder à la documentation : texdoc, en ligne de [...]</p>
+	</div>
+	
+	<div class="comment_author">
+		<img alt='' src='https://secure.gravatar.com/avatar/?d=identicon&amp;s=32' class='avatar avatar-32 photo avatar-default' height='32' width='32' />		<p><strong><a href='../../04/texdoc-et-texdoctk/' rel='external nofollow' class='url'>Le mpg-blog &raquo; texdoc et texdoctk</a></strong></p>
+	<p><small>19 avr 10 at <a href="index.html#comment-7224">15:13</a> <? edit_comment_link(__('Edit', 'sandbox'), ' ', ''); ?></small></p>
+	</div>
+	<div class="clear"></div>
+</li>
+
+
+</ol>
+
+
+
+
+</div> 
+
+<div id="sidebar">
+<h3>Pages</h3>		<ul>
+			<li class="page_item page-item-4"><a href="../../../qui-suis-je/">À propos</a></li>
+		</ul>
+		<h3>Mots-clés</h3><div class="tagcloud"><a href='../../../par-tag/astuce/' class='tag-link-24' title='2 sujets' style='font-size: 11.111111111111pt;'>astuce</a>
+<a href='../../../par-tag/biblatex/' class='tag-link-41' title='1 sujet' style='font-size: 8pt;'>biblatex</a>
+<a href='../../../par-tag/context/' class='tag-link-28' title='8 sujets' style='font-size: 19.234567901235pt;'>context</a>
+<a href='../../../par-tag/cap/' class='tag-link-49' title='1 sujet' style='font-size: 8pt;'>càp</a>
+<a href='../../../par-tag/debian/' class='tag-link-4' title='6 sujets' style='font-size: 17.506172839506pt;'>debian</a>
+<a href='../../../par-tag/fontes/' class='tag-link-30' title='2 sujets' style='font-size: 11.111111111111pt;'>fontes</a>
+<a href='../../../par-tag/google/' class='tag-link-37' title='1 sujet' style='font-size: 8pt;'>google</a>
+<a href='../../../par-tag/gutenberg/' class='tag-link-44' title='1 sujet' style='font-size: 8pt;'>gutenberg</a>
+<a href='../../../par-tag/howto/' class='tag-link-31' title='9 sujets' style='font-size: 20.098765432099pt;'>howto</a>
+<a href='../../../par-tag/latex/' class='tag-link-3' title='6 sujets' style='font-size: 17.506172839506pt;'>latex</a>
+<a href='../../../par-tag/latex3/' class='tag-link-39' title='1 sujet' style='font-size: 8pt;'>latex3</a>
+<a href='../../../par-tag/lualatex/' class='tag-link-43' title='1 sujet' style='font-size: 8pt;'>lualatex</a>
+<a href='../../../par-tag/luatex/' class='tag-link-21' title='7 sujets' style='font-size: 18.37037037037pt;'>luatex</a>
+<a href='../../../par-tag/miktex/' class='tag-link-47' title='1 sujet' style='font-size: 8pt;'>miktex</a>
+<a href='../../../par-tag/mplib/' class='tag-link-46' title='1 sujet' style='font-size: 8pt;'>mplib</a>
+<a href='../../../par-tag/ssh/' class='tag-link-36' title='2 sujets' style='font-size: 11.111111111111pt;'>ssh</a>
+<a href='../../../par-tag/texdoc/' class='tag-link-42' title='5 sujets' style='font-size: 16.296296296296pt;'>texdoc</a>
+<a href='../../../par-tag/texlive/' class='tag-link-34' title='12 sujets' style='font-size: 22pt;'>texlive</a>
+<a href='../../../par-tag/tlcontrib/' class='tag-link-45' title='1 sujet' style='font-size: 8pt;'>tlcontrib</a>
+<a href='../../../par-tag/unix-admin/' class='tag-link-33' title='3 sujets' style='font-size: 13.185185185185pt;'>unix-admin</a>
+<a href='../../../par-tag/unix-user/' class='tag-link-35' title='2 sujets' style='font-size: 11.111111111111pt;'>unix-user</a>
+<a href='../../../par-tag/vim/' class='tag-link-22' title='1 sujet' style='font-size: 8pt;'>vim</a>
+<a href='../../../par-tag/wordpress/' class='tag-link-40' title='2 sujets' style='font-size: 11.111111111111pt;'>wordpress</a>
+<a href='../../../par-tag/xetex/' class='tag-link-20' title='2 sujets' style='font-size: 11.111111111111pt;'>xetex</a></div>
+<h3>Catégories</h3>		<ul>
+	<li class="cat-item cat-item-14"><a href="../../../par-sujet/comp/" title="Geekeries diverses">Geekeries diverses</a>
+</li>
+	<li class="cat-item cat-item-1"><a href="../../../par-sujet/non-classe/" title="Voir tous les articles classés dans Non classé">Non classé</a>
+</li>
+	<li class="cat-item cat-item-13"><a href="../../../par-sujet/tex-et-cie/" title="Voir tous les articles classés dans TeX et compagnie">TeX et compagnie</a>
+</li>
+		</ul>
+
+
+</div>
+
+</div>
+
+<div id="footer">
+	<p>The Journalist template by <a href="http://lucianmarin.com/" rel="designer">Lucian E. Marin</a> &mdash; Built for <a href="http://wordpress.org/">WordPress</a></p>
+</div>
+
+</body>
+</html>

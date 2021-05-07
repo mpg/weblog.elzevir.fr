@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+<language>fr-FR</language>
+<title>Le mpg-blog</title>
+<link>https://weblog.elzevir.fr/</link>
+<atom:link href="http://weblog.elzevir.fr/feed" rel="self"
+type="application/rss+xml" />
+<description>LaTeX et autres geekeries</description>
+<lastBuildDate>Fri, 03 Oct 2013 21:00:00 +0200</lastBuildDate>
+<item>
+	<title>Le mpg-blog ferme !</title>
+	<link>https://ct/weblog.elzevir.fr/qui-suis-je/</link>
+	<guid>http://ludi-idf.com/actus/974/</guid>
+	<pubDate>Fri, 03 Oct 2013 20:00:00 +0200</pubDate>
+	<description><![CDATA[<p>
+        Après plus de deux ans sans billets, j'ai décidé de fermer ce blog.
+        Les billets restent disponibles à l'adresse habituelle.
+        Merci pour votre intérêt.
+</p>]]></description>
+</item>
+
+</channel>
+</rss>
+

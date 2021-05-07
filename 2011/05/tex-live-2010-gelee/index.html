@@ -1,0 +1,202 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr-FR">
+<head profile="http://gmpg.org/xfn/11">
+<title>   TeX Live 2010 gelée at Le mpg-blog</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="description" content="LaTeX et autres geekeries" />
+<link href="/style.css" rel="stylesheet" type="text/css" media="screen" />
+<link rel="shortcut icon" type="image/x-png" href="/favicon.png" />
+<link rel='stylesheet' id='wp-syntax-css-css'  href='/wp-syntax.css' type='text/css' media='all' />
+</head>
+
+<body>
+<div id="container" class="group">
+
+<h1><a href="../../../">Le mpg-blog</a></h1>
+<div id="bubble"><p>LaTeX et autres geekeries</p></div> <!-- erase this line if you want to turn the bubble off -->
+
+<div id="content" class="group">
+
+<h2 id="post-145"><a href="index.html" rel="bookmark">TeX Live 2010 gelée</a></h2>
+<p class="comments"><a href="index.html#comments">with 3 comments</a></p>
+
+<div class="main">
+	<p>Cette nuit a eu lieu la dernière mise à jour de TeX Live 2010. D&rsquo;ici quelques
+jours (temps de propagation aux miroirs) <code>tlmgr update --all</code> vous répondra
+systématiquement qu&rsquo;aucune mise à jour n&rsquo;est disponible, même si des paquets
+ont été mis à jour sur le CTAN, et ce sera le cas jusqu&rsquo;à la sortie de TeX
+Live 2011.<span id="more-145"></span></p>
+
+<p>Soyons précis : TeX Live 2010 est gelée, TeX Live 2011 ne l&rsquo;est pas encore.
+Les paquets mis à jour sur le CTAN continuent d&rsquo;arriver dans TeX Live, seuls
+deux points changent :</p>
+
+<ul>
+<li>les mises à jour ne sont plus propagées sur <code>tlnet</code>, le dépôt de paquet TeX
+Live principal ; en revanche elles seront bientôt propagées sur
+<code>tlprestest</code>, le dépôt de paquets temporaire de la phase de test, qui est en
+train d&rsquo;être mis en place ;</li>
+<li>alors que les mises à jour sont habituellement systématiques, elles seront
+désormais faites avec plus de circonspection afin d&rsquo;éviter d&rsquo;inclure dans le
+DVD des versions boguées de paquets importants.</li>
+</ul>
+
+<p>Soyons encore plus précis : une partie de TeX Live 2011 est d&rsquo;ores et déjà
+(presque) gelée. Il s&rsquo;agit des programmes exécutables compilés (pdfTeX, XeTeX,
+LuaTeX, dvips, dvipdfm, synctex, etc.) dont les sources finales (sauf
+corrections de bogues) sont en principe déjà incluses. En effet, construire
+les 21 versions des exécutables pour les nombreuses plate-formes supportées
+n&rsquo;est pas une mince affaire pour les nombreux volontaires impliqués. Obtenir
+les versions finales des binaires sera une étape importante dans le
+calendrier.</p>
+
+<p>L&rsquo;autre étape importante, qui est traitée en parallèle, est la mise à jour de
+la <a href="http://tug.org/texlive/doc/texlive-en/texlive-en.html">documentation TeX Live</a> puis de ses <a href="http://tug.org/texlive/doc/texlive-fr/texlive-fr.html">traductions</a>. Pendant
+ce temps, les mises à jour des paquets ordinaires continueront comme indiqué
+ci-dessus, puis un gel complet interviendra probablement quelques jours avant
+la fabrication des images finales pour le DVD, ce qui est (pour l&rsquo;instant)
+prévu pour début juillet.</p>
+
+<p>L&rsquo;infrastructure TeX Live n&rsquo;ayant pas connu d&rsquo;évolution trop importante cette
+année, il devrait être possible de mettre à jour une installation TeX Live
+2010 vers 2011 sans réinstallation complète, au moins sous Unix. À suivre.</p>
+</div>
+
+<div class="meta group">
+<div class="signature">
+    <p>Written by mpg <span class="edit"></span></p>
+    <p>mai 28th, 2011 at 1:58  </p>
+</div>	
+<div class="tags">
+    <p>Posted in <a href="../../../par-sujet/tex-et-cie/" title="Voir tous les articles dans TeX et compagnie" rel="category tag">TeX et compagnie</a></p>
+    <p>Tagged with <a href="../../../par-tag/texlive/" rel="tag">texlive</a></p></div>
+</div>
+
+<div class="navigation group">
+    <div class="alignleft">&laquo; <a href="../texdoc-0-8-et-les-langues/" rel="prev">Texdoc 0.8 et les langues</a></div>
+    <div class="alignright"><a href="../../07/tex-live-2011-est-sortie/" rel="next">TeX Live 2011 est sortie</a> &raquo;</div>
+</div>
+
+
+<!-- You can start editing here. -->
+
+<a name="comments" id="comments"></a>
+
+<h3 class="reply">3 Responses to 'TeX Live 2010 gelée'</h3> 
+
+<ol class="commentlist">
+
+
+<li id="comment-7328" class="">
+	<div class="comment_mod">
+		</div>
+	
+	<div class="comment_text">
+	<p>Bonjour,</p>
+
+<p>Ayant lu ce billet, je pense que je n&rsquo;ai plus d&rsquo;interêt à conserver mon installation de Texlive 2009, aussi je souhaiterais la désinstaller. J&rsquo;ai cependant un problème :
+Je ne sais sur quelle version la commande &lsquo;tlmgr uninstall&rsquo;  opèrera.
+Y a t-il un moyen de choisir ?
+Merci d&rsquo;avance et bravo pour tes billets.</p>
+
+<p>Fred.</p>
+	</div>
+	
+	<div class="comment_author">
+		<img alt='' src='https://secure.gravatar.com/avatar/e547a76d18585a778dc30f506b4ee38d?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />		<p><strong>Fred</strong></p>
+	<p><small>23 juin 11 at <a href="index.html#comment-7328">14:40</a> <? edit_comment_link(__('Edit', 'sandbox'), ' ', ''); ?></small></p>
+	</div>
+	<div class="clear"></div>
+</li>
+
+
+<li id="comment-7329" class=" byuser comment-author-admin bypostauthor">
+	<div class="comment_mod">
+		</div>
+	
+	<div class="comment_text">
+	<p>La commande <code>tlmgr</code> opère toujours sur l&rsquo;installation dont fait partie le programme <code>tlmgr</code> appelé. Le moyen le plus simple pour choisir l&rsquo;installation à supprimer est donc d&rsquo;appeler <code>tlmgr</code> avec son chemin complet, par exemple <code>/usr/local/texlive/2009/bin/i386-linux/tlmgr uninstall</code>.</p>
+
+<p>En fait, sous Unix, à moins d&rsquo;avoir installé des liens symboliques dans les répertoires standard avec l&rsquo;option d&rsquo;installation correspondante ou la commande <code>tlmgr path add</code>, le moyen de plus simple et le plus sûr de supprimer une installation est encore un bon vieux <code>rm -r /usr/local/texlive/2009</code>.</p>
+	</div>
+	
+	<div class="comment_author">
+		<img alt='' src='https://secure.gravatar.com/avatar/18f47779fe3a7aaa0c13d18460497a9a?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />		<p><strong><a href='https://elzevir.fr/imj/' rel='external nofollow' class='url'>mpg</a></strong></p>
+	<p><small>23 juin 11 at <a href="index.html#comment-7329">17:44</a> <? edit_comment_link(__('Edit', 'sandbox'), ' ', ''); ?></small></p>
+	</div>
+	<div class="clear"></div>
+</li>
+
+
+<li id="comment-7330" class="">
+	<div class="comment_mod">
+		</div>
+	
+	<div class="comment_text">
+	<p><a href="index.html#comment-7329" rel="nofollow">@mpg </a> 
+Merci beaucoup.</p>
+	</div>
+	
+	<div class="comment_author">
+		<img alt='' src='https://secure.gravatar.com/avatar/e547a76d18585a778dc30f506b4ee38d?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />		<p><strong>Fred</strong></p>
+	<p><small>24 juin 11 at <a href="index.html#comment-7330">15:07</a> <? edit_comment_link(__('Edit', 'sandbox'), ' ', ''); ?></small></p>
+	</div>
+	<div class="clear"></div>
+</li>
+
+
+</ol>
+
+
+
+
+</div> 
+
+<div id="sidebar">
+<h3>Pages</h3>		<ul>
+			<li class="page_item page-item-4"><a href="../../../qui-suis-je/">À propos</a></li>
+		</ul>
+		<h3>Mots-clés</h3><div class="tagcloud"><a href='../../../par-tag/astuce/' class='tag-link-24' title='2 sujets' style='font-size: 11.111111111111pt;'>astuce</a>
+<a href='../../../par-tag/biblatex/' class='tag-link-41' title='1 sujet' style='font-size: 8pt;'>biblatex</a>
+<a href='../../../par-tag/context/' class='tag-link-28' title='8 sujets' style='font-size: 19.234567901235pt;'>context</a>
+<a href='../../../par-tag/cap/' class='tag-link-49' title='1 sujet' style='font-size: 8pt;'>càp</a>
+<a href='../../../par-tag/debian/' class='tag-link-4' title='6 sujets' style='font-size: 17.506172839506pt;'>debian</a>
+<a href='../../../par-tag/fontes/' class='tag-link-30' title='2 sujets' style='font-size: 11.111111111111pt;'>fontes</a>
+<a href='../../../par-tag/google/' class='tag-link-37' title='1 sujet' style='font-size: 8pt;'>google</a>
+<a href='../../../par-tag/gutenberg/' class='tag-link-44' title='1 sujet' style='font-size: 8pt;'>gutenberg</a>
+<a href='../../../par-tag/howto/' class='tag-link-31' title='9 sujets' style='font-size: 20.098765432099pt;'>howto</a>
+<a href='../../../par-tag/latex/' class='tag-link-3' title='6 sujets' style='font-size: 17.506172839506pt;'>latex</a>
+<a href='../../../par-tag/latex3/' class='tag-link-39' title='1 sujet' style='font-size: 8pt;'>latex3</a>
+<a href='../../../par-tag/lualatex/' class='tag-link-43' title='1 sujet' style='font-size: 8pt;'>lualatex</a>
+<a href='../../../par-tag/luatex/' class='tag-link-21' title='7 sujets' style='font-size: 18.37037037037pt;'>luatex</a>
+<a href='../../../par-tag/miktex/' class='tag-link-47' title='1 sujet' style='font-size: 8pt;'>miktex</a>
+<a href='../../../par-tag/mplib/' class='tag-link-46' title='1 sujet' style='font-size: 8pt;'>mplib</a>
+<a href='../../../par-tag/ssh/' class='tag-link-36' title='2 sujets' style='font-size: 11.111111111111pt;'>ssh</a>
+<a href='../../../par-tag/texdoc/' class='tag-link-42' title='5 sujets' style='font-size: 16.296296296296pt;'>texdoc</a>
+<a href='../../../par-tag/texlive/' class='tag-link-34' title='12 sujets' style='font-size: 22pt;'>texlive</a>
+<a href='../../../par-tag/tlcontrib/' class='tag-link-45' title='1 sujet' style='font-size: 8pt;'>tlcontrib</a>
+<a href='../../../par-tag/unix-admin/' class='tag-link-33' title='3 sujets' style='font-size: 13.185185185185pt;'>unix-admin</a>
+<a href='../../../par-tag/unix-user/' class='tag-link-35' title='2 sujets' style='font-size: 11.111111111111pt;'>unix-user</a>
+<a href='../../../par-tag/vim/' class='tag-link-22' title='1 sujet' style='font-size: 8pt;'>vim</a>
+<a href='../../../par-tag/wordpress/' class='tag-link-40' title='2 sujets' style='font-size: 11.111111111111pt;'>wordpress</a>
+<a href='../../../par-tag/xetex/' class='tag-link-20' title='2 sujets' style='font-size: 11.111111111111pt;'>xetex</a></div>
+<h3>Catégories</h3>		<ul>
+	<li class="cat-item cat-item-14"><a href="../../../par-sujet/comp/" title="Geekeries diverses">Geekeries diverses</a>
+</li>
+	<li class="cat-item cat-item-1"><a href="../../../par-sujet/non-classe/" title="Voir tous les articles classés dans Non classé">Non classé</a>
+</li>
+	<li class="cat-item cat-item-13"><a href="../../../par-sujet/tex-et-cie/" title="Voir tous les articles classés dans TeX et compagnie">TeX et compagnie</a>
+</li>
+		</ul>
+
+
+</div>
+
+</div>
+
+<div id="footer">
+	<p>The Journalist template by <a href="http://lucianmarin.com/" rel="designer">Lucian E. Marin</a> &mdash; Built for <a href="http://wordpress.org/">WordPress</a></p>
+</div>
+
+</body>
+</html>

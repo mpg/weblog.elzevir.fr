@@ -1,0 +1,169 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr-FR">
+<head profile="http://gmpg.org/xfn/11">
+<title>   Encore des paquets Debian et Ubuntu at Le mpg-blog</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="description" content="LaTeX et autres geekeries" />
+<link href="/style.css" rel="stylesheet" type="text/css" media="screen" />
+<link rel="shortcut icon" type="image/x-png" href="/favicon.png" />
+<link rel='stylesheet' id='wp-syntax-css-css'  href='/wp-syntax.css' type='text/css' media='all' />
+</head>
+
+<body>
+<div id="container" class="group">
+
+<h1><a href="../../../">Le mpg-blog</a></h1>
+<div id="bubble"><p>LaTeX et autres geekeries</p></div> <!-- erase this line if you want to turn the bubble off -->
+
+<div id="content" class="group">
+
+<h2 id="post-73"><a href="index.html" rel="bookmark">Encore des paquets Debian et Ubuntu</a></h2>
+<p class="comments"><a href="index.html#comments">with 2 comments</a></p>
+
+<div class="main">
+	<p>Les paquets <a href="http://www.debian.org/">Debian</a> pour <a href="http://tug.org/texlive/">TeX Live</a> 2009, dont j&rsquo;<a href="../../../2009/12/tex-live-2009-dans-debian-sid/">annonçais
+dernièrement</a> l&rsquo;arrivée dans les dépôts <em>sid</em>, sont désormais disponibles
+dans la version <em>testing</em> de la distribution. Par ailleurs, des paquets pour
+Ubuntu sont disponibles, soit pour <em>Karmic</em> (<a href="https://launchpad.net/~aelmahmoudy/+archive/tl2009">dépôt non officiel</a>), soit
+pour <em>Lucid</em> dans les dépôts officiels. Ainsi, TeX Live 2009 sera intégré aux
+prochaines versions stables de ces deux distributions.<span id="more-73"></span>Je rappelle les principales différences entre ces paquets et une TeX Live
+nature (mis à part la facilité d&rsquo;installation) : la version Debian/Ubuntu <em>ne</em>
+contient <em>pas</em> <a href="http://tug.org/texlive/tlmgr.html">tlmgr</a>, le gestionnaire de paquets TeX Live permettant une
+mise à jour en continu de paquets ; en revanche, <a href="http://ctan.org/pkg/biblatex">biblatex</a>, le nouveau
+gestionnaire de bibliographies avec BibTeX (encore en version beta) est
+inclus, et <a href="http://luatex.org/">LuaTeX</a>, le moteur TeX du futur, bénéficie de mises à jour en
+continu.</p>
+
+<h2>TeXworks</h2>
+
+<p>Par ailleurs, le nouvel éditeur intégré offrant une synchronisation native entre
+le source et le PDF, <a href="http://tug.org/texworks/">TeXworks</a>, qui est distribué avec TeX Live sous Windows
+et avec <a href="http://tug.org/mactex/">MacTeX</a> sous OS X, est également disponible en paquet Debian pour
+<em>testing</em> et en paquet Ubuntu pour <em>Lucid</em>.</p>
+</div>
+
+<div class="meta group">
+<div class="signature">
+    <p>Written by mpg <span class="edit"></span></p>
+    <p>janvier 25th, 2010 at 3:39  </p>
+</div>	
+<div class="tags">
+    <p>Posted in <a href="../../../par-sujet/tex-et-cie/" title="Voir tous les articles dans TeX et compagnie" rel="category tag">TeX et compagnie</a></p>
+    <p>Tagged with <a href="../../../par-tag/debian/" rel="tag">debian</a>, <a href="../../../par-tag/texlive/index.html" rel="tag">texlive</a></p></div>
+</div>
+
+<div class="navigation group">
+    <div class="alignleft">&laquo; <a href="../des-nouvelles-de-latex-3/" rel="prev">Des nouvelles de LaTeX 3</a></div>
+    <div class="alignright"><a href="../../02/biblatex-0-9-est-sorti/" rel="next">Biblatex 0.9 est sorti</a> &raquo;</div>
+</div>
+
+
+<!-- You can start editing here. -->
+
+<a name="comments" id="comments"></a>
+
+<h3 class="reply">2 Responses to 'Encore des paquets Debian et Ubuntu'</h3> 
+
+<ol class="commentlist">
+
+
+<li id="comment-7229" class="">
+	<div class="comment_mod">
+		</div>
+	
+	<div class="comment_text">
+	<p>Bonsoir !</p>
+
+<p>Je m&rsquo;apprête à migrer complètement vers linux, avec ubuntu 9&#8230;</p>
+
+<p>Aurais je le dernière version complète de texlive avec timgr qui fera une mise à jour automatique de texlive ?</p>
+
+<p>Et quel est l&rsquo;éditeur fournit avec Texlive ? Texmaker ? Ou faut-il un autre éditeur qui téléchargerait à la volée les packages manquants ?</p>
+
+<p>Merci et à bientôt 
+Jean Sébastien</p>
+	</div>
+	
+	<div class="comment_author">
+		<img alt='' src='https://secure.gravatar.com/avatar/327c5e17f053e957e287958ec60d6274?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />		<p><strong>Jean Sébastien</strong></p>
+	<p><small>3 mai 10 at <a href="index.html#comment-7229">20:07</a> <? edit_comment_link(__('Edit', 'sandbox'), ' ', ''); ?></small></p>
+	</div>
+	<div class="clear"></div>
+</li>
+
+
+<li id="comment-7230" class=" byuser comment-author-admin bypostauthor">
+	<div class="comment_mod">
+		</div>
+	
+	<div class="comment_text">
+	<p>La version incluse dans Ubuntu est complète concernant les paquets (La)TeX, mais ne contient pas tlmgr : les mises à jour se font comme pour les autres paquets (par APT ou son interface Synaptic). Elles sont bien moins fréquentes que celles par tlmgr, mais avez-vous besoin des mises à jour quotidiennes ? Si oui, il vous faudra installer TeX Live vous-même, ce qui n&rsquo;est pas très difficile dans l&rsquo;absolu, mais n&rsquo;est pas forcément le plus facile si vous débutez avec Linux.</p>
+
+<p>Concernant l&rsquo;éditeur, aucun n&rsquo;est fournit directement avec TeX Live sous Linux, mais plusieurs sont disponibles en paquets Ubuntu : TeXworks et TeXmaker, qui existent aussi sous les autres plate-formes, Kile qui est peut-être le plus populaire sous Linux, et bien d&rsquo;autres.</p>
+
+<p>Enfin, il n&rsquo;y a pas de possibilité d&rsquo;installer à la volée les paquets manquants comme sous MikTeX. Je recommande d&rsquo;installer TeX Live en entier pour ne pas avoir de question à se poser (paquet texlive-full dans Ubuntu).</p>
+	</div>
+	
+	<div class="comment_author">
+		<img alt='' src='https://secure.gravatar.com/avatar/18f47779fe3a7aaa0c13d18460497a9a?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />		<p><strong><a href='https://elzevir.fr/imj/' rel='external nofollow' class='url'>mpg</a></strong></p>
+	<p><small>3 mai 10 at <a href="index.html#comment-7230">20:27</a> <? edit_comment_link(__('Edit', 'sandbox'), ' ', ''); ?></small></p>
+	</div>
+	<div class="clear"></div>
+</li>
+
+
+</ol>
+
+
+
+
+</div> 
+
+<div id="sidebar">
+<h3>Pages</h3>		<ul>
+			<li class="page_item page-item-4"><a href="../../../qui-suis-je/">À propos</a></li>
+		</ul>
+		<h3>Mots-clés</h3><div class="tagcloud"><a href='../../../par-tag/astuce/' class='tag-link-24' title='2 sujets' style='font-size: 11.111111111111pt;'>astuce</a>
+<a href='../../../par-tag/biblatex/' class='tag-link-41' title='1 sujet' style='font-size: 8pt;'>biblatex</a>
+<a href='../../../par-tag/context/' class='tag-link-28' title='8 sujets' style='font-size: 19.234567901235pt;'>context</a>
+<a href='../../../par-tag/cap/' class='tag-link-49' title='1 sujet' style='font-size: 8pt;'>càp</a>
+<a href='../../../par-tag/debian/' class='tag-link-4' title='6 sujets' style='font-size: 17.506172839506pt;'>debian</a>
+<a href='../../../par-tag/fontes/' class='tag-link-30' title='2 sujets' style='font-size: 11.111111111111pt;'>fontes</a>
+<a href='../../../par-tag/google/' class='tag-link-37' title='1 sujet' style='font-size: 8pt;'>google</a>
+<a href='../../../par-tag/gutenberg/' class='tag-link-44' title='1 sujet' style='font-size: 8pt;'>gutenberg</a>
+<a href='../../../par-tag/howto/' class='tag-link-31' title='9 sujets' style='font-size: 20.098765432099pt;'>howto</a>
+<a href='../../../par-tag/latex/' class='tag-link-3' title='6 sujets' style='font-size: 17.506172839506pt;'>latex</a>
+<a href='../../../par-tag/latex3/' class='tag-link-39' title='1 sujet' style='font-size: 8pt;'>latex3</a>
+<a href='../../../par-tag/lualatex/' class='tag-link-43' title='1 sujet' style='font-size: 8pt;'>lualatex</a>
+<a href='../../../par-tag/luatex/' class='tag-link-21' title='7 sujets' style='font-size: 18.37037037037pt;'>luatex</a>
+<a href='../../../par-tag/miktex/' class='tag-link-47' title='1 sujet' style='font-size: 8pt;'>miktex</a>
+<a href='../../../par-tag/mplib/' class='tag-link-46' title='1 sujet' style='font-size: 8pt;'>mplib</a>
+<a href='../../../par-tag/ssh/' class='tag-link-36' title='2 sujets' style='font-size: 11.111111111111pt;'>ssh</a>
+<a href='../../../par-tag/texdoc/' class='tag-link-42' title='5 sujets' style='font-size: 16.296296296296pt;'>texdoc</a>
+<a href='../../../par-tag/texlive/' class='tag-link-34' title='12 sujets' style='font-size: 22pt;'>texlive</a>
+<a href='../../../par-tag/tlcontrib/' class='tag-link-45' title='1 sujet' style='font-size: 8pt;'>tlcontrib</a>
+<a href='../../../par-tag/unix-admin/' class='tag-link-33' title='3 sujets' style='font-size: 13.185185185185pt;'>unix-admin</a>
+<a href='../../../par-tag/unix-user/' class='tag-link-35' title='2 sujets' style='font-size: 11.111111111111pt;'>unix-user</a>
+<a href='../../../par-tag/vim/' class='tag-link-22' title='1 sujet' style='font-size: 8pt;'>vim</a>
+<a href='../../../par-tag/wordpress/' class='tag-link-40' title='2 sujets' style='font-size: 11.111111111111pt;'>wordpress</a>
+<a href='../../../par-tag/xetex/' class='tag-link-20' title='2 sujets' style='font-size: 11.111111111111pt;'>xetex</a></div>
+<h3>Catégories</h3>		<ul>
+	<li class="cat-item cat-item-14"><a href="../../../par-sujet/comp/" title="Geekeries diverses">Geekeries diverses</a>
+</li>
+	<li class="cat-item cat-item-1"><a href="../../../par-sujet/non-classe/" title="Voir tous les articles classés dans Non classé">Non classé</a>
+</li>
+	<li class="cat-item cat-item-13"><a href="../../../par-sujet/tex-et-cie/" title="Voir tous les articles classés dans TeX et compagnie">TeX et compagnie</a>
+</li>
+		</ul>
+
+
+</div>
+
+</div>
+
+<div id="footer">
+	<p>The Journalist template by <a href="http://lucianmarin.com/" rel="designer">Lucian E. Marin</a> &mdash; Built for <a href="http://wordpress.org/">WordPress</a></p>
+</div>
+
+</body>
+</html>

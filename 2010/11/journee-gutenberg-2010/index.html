@@ -1,0 +1,287 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr-FR">
+<head profile="http://gmpg.org/xfn/11">
+<title>   Journée GUTenberg 2010 at Le mpg-blog</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="description" content="LaTeX et autres geekeries" />
+<link href="/style.css" rel="stylesheet" type="text/css" media="screen" />
+<link rel="shortcut icon" type="image/x-png" href="/favicon.png" />
+<link rel='stylesheet' id='wp-syntax-css-css'  href='/wp-syntax.css' type='text/css' media='all' />
+</head>
+
+<body>
+<div id="container" class="group">
+
+<h1><a href="../../../">Le mpg-blog</a></h1>
+<div id="bubble"><p>LaTeX et autres geekeries</p></div> <!-- erase this line if you want to turn the bubble off -->
+
+<div id="content" class="group">
+
+<h2 id="post-130"><a href="index.html" rel="bookmark">Journée GUTenberg 2010</a></h2>
+<p class="comments"><a href="index.html#comments">with 4 comments</a></p>
+
+<div class="main">
+	<p>L&rsquo;association <a href="http://gutenberg.eu.org/">GUTenberg</a> (le groupe d&rsquo;utilisateurs de TeX francophone)
+organisait lundi dernier sa journée de rencontre annuelle. Cette journée
+permet aux adhérents, qui se connaissent parfois via la <a href="http://gutenberg.eu.org/spip.php?article20">liste
+GUT</a> ou d&rsquo;autres forums d&rsquo;échange sur (La)TeX, de se rencontrer en
+chair et en os, de profiter d&rsquo;exposés sur TeX, et est suivie de l&rsquo;assemblée
+générale de l&rsquo;association, qui laissait cette année une large place aux
+adhérents pour exprimer leurs idées et souhaits concernant les activités
+de GUTenberg.</p>
+
+<p>Voici un aperçu partiel et partial du contenu de la journée. Les diaporamas
+utilisés lors des exposés sont disponibles sur la page de la <a href="http://gutenberg.eu.org/Journee-GUTenberg-2010">journée GUT
+2010</a>.<span id="more-130"></span></p>
+
+<h2>Premiers exposés</h2>
+
+<p>Le premier orateur était <a href="http://www.tug.org/interviews/hoekwater.html">Taco Hoekwater</a> qui nous a parlé de ses
+activités du moment : tlcontrib, luatex et mplib.</p>
+
+<p><a href="http://tlcontrib.metatex.org/">Tlcontrib</a> (<em>TeX Live contributed repository</em>) est un dépôt de paquets
+complémentaire pour TeX Live. Depuis 2007, TeX Live dispose d&rsquo;un gestionnaire
+de paquets, <code>tlmgr</code>, et d&rsquo;un dépôt de paquets distribué sur le réseau CTAN et
+mis à jour en continu (sauf pendant les changements de version majeure).
+Cependant, les mises à jour excluent les binaires (par exemple luatex) et les
+versions de développement/test. De plus, pour être inclus dans TeX Live, un
+paquet doit être sur le CTAN et <a href="http://fr.wikipedia.org/wiki/Logiciel_libre">libre</a>. Tlcontrib est destiné à accueillir
+des paquets qui sont pas inclus dans TeX Live car il ne remplissent pas ces
+critères, ou des mises à jour de paquets existants.</p>
+
+<p>Pour l&rsquo;utilisateur, il suffit de sélectionner ce dépôt lors de l&rsquo;utilisation
+de <code>tlmgr</code> pour pouvoir mettre à jour ou installer les paquets en question.
+Par exemple, en ligne de commande :</p>
+
+<pre><code>tlmgr --repository=http://tlcontrib.metatex.org/2010 update luatex
+tlmgr --repository=http://tlcontrib.metatex.org/2010 install biber
+</code></pre>
+
+<p>Pour le développeur souhaitant distribuer (une version de) ses paquets par ce
+biais, il s&rsquo;agit d&rsquo;ouvrir un compte et de fournir les fichiers dans une
+arborescence adéquate (une page d&rsquo;aide exhaustive est disponible).</p>
+
+<p>Taco nous a ensuite parlé de LuaTeX, et plus précisément des changements
+intervenus entre la version 0.40.6 (incluse dans TeX Live 2009) et la version
+0.60.2 (TeX Live 2010). Il a ensuite évoqué mplib.</p>
+
+<p>Metapost est un système de création de graphiques programmable, exactement
+comme TeX est un système de création de documents (textuels et mathématiques)
+programmable. Il dérive de Metafont, qui a été créé par Knuth en même temps
+que TeX (d&rsquo;où le nom <code>texmf</code> (TeX et Metafont) usuel pour les arborescences
+des distributions). Taco en a repris le développement ; il a modernisé
+l&rsquo;implémentation (allocation dynamique de la mémoire, par exemple) et en a
+fait une bibliothèque, <code>mplib</code>, ce qui rend commode son inclusion dans d&rsquo;autre
+programmes (il ne s&rsquo;est d&rsquo;ailleurs pas privé de l&rsquo;inclure dans LuaTeX).</p>
+
+<p>Un problème récurrent de Metapost est le manque de précision. Actuellement,
+les calculs n&rsquo;utilisent que des entiers 32 bits. Taco pense rajouter, pour la
+version 2 à venir, l&rsquo;option d&rsquo;utiliser des flottants double précision, ou
+une bibliothèque de calcul en précision arbitraire comme <a href="http://gmplib.org/">GMP</a>,
+ainsi que l&rsquo;interface dans le langage pour sélectionner la précision
+souhaitées.</p>
+
+<p>Le deuxième orateur, Jean-Michel Hufflen, est l&rsquo;auteur de MlBibTeX, un
+successeur de bibTeX utilisant XML et implémenté en Scheme. ll nous a présenté
+la stratégie utilisée dans son laboratoire à l&rsquo;INRIA pour relever les
+différents défis bibliographiques posés par la rédaction de rapports
+d&rsquo;évaluation pour l&rsquo;AÉRES et le dépôts des articles sur HAL : division et
+numérotation par équipe, subdivision par type avec numérotation continue,
+étiquettes communes pour les fiches individuelles, citation des auteurs
+extérieurs&#8230;</p>
+
+<p>N&rsquo;étant pas un expert en bibliographies complexes, j&rsquo;en ai surtout retenu
+le fait que pour des tâches spécialisées il est utile de pouvoir personnaliser
+son moteur bibliographique et de disposer d&rsquo;un langage de programmation
+commode pour cela (à opposer à bibtex qui ne sait faire du tri que sur les
+chaînes et utilise un langage à pile pour décrire ses styles). La situation
+m&rsquo;a rappelé fortement le cas de LuaTeX qui a un comportement par défaut codé
+en dur, mais peut être personnalisé en Lua via des callbacks.</p>
+
+<h2>Après la pause</h2>
+
+<p>Le premier exposé de la deuxième partie concernait la gestion de la
+ponctuation française (plus précisément, la gestion automatique des espaces
+devant les ponctuations hautes <code>:;?!</code>), par <a href="http://paulisambert.free.fr/">Paul Isambert</a>. Après avoir
+rappelé les solutions classiques et celle disponibles sous les autre moteurs
+(pdfTeX et XeTeX), Paul a présenté de façon pédagogique et détaillée les
+outils offerts par LuaTeX et une façon de les utiliser pour résoudre ce
+problème avec toute la souplesse voulue, code à l&rsquo;appui.</p>
+
+<p>L&rsquo;exposé était très intéressant, non seulement pour la ponctuation française
+en elle-même, mais surtout parce qu&rsquo;il illustre bien, à mon avis, la
+philosophie de LuaTeX et en quoi ce moteur va bien plus loin que la simple
+addition d&rsquo;un langage de programmation plus sympathique que TeX, en donnant un
+contrôle complet sur tous les point clés du traitement des documents par TeX.
+Il serait trop long d&rsquo;en faire un résumé suffisamment détaillé, mais un
+article reprenant la teneur de l&rsquo;exposé pourrait bien apparaître dans le
+prochain numéro des <a href="http://gutenberg.eu.org/spip.php?rubrique18">cahiers GUTenberg</a>.</p>
+
+<p>Enfin, <a href="http://www.tug.org/interviews/reutenauer.html">Arthur Reutenauer</a>, président actuel de GUTenberg, nous a permis
+de jouer avec TeX sur son Ipad. Le port de TeX pour cette plateforme en est au
+stade expérimental et est l&rsquo;œuvre de Richard Koch, auteur de TeXShop et
+développeur de MacTeX. Techniquement, le port est compliqué par le caractère
+monotâche de la plateforme, qui ne permet pas d&rsquo;utiliser un processus pour
+l&rsquo;éditeur, et un processus pour la compilation, comme c&rsquo;est l&rsquo;usage.
+Conclusion d&rsquo;Arthur : « même sur une platforme fermée et techniquement
+contraignante, il y a toujours moyen d&rsquo;utiliser TeX ».</p>
+
+<h2>L&rsquo;association</h2>
+
+<p>Je ne pense pas que le contenu de l&rsquo;AG aie réellement vocation à être
+retranscrit ici, mais j&rsquo;aimerais juste faire passer un petit message.
+L&rsquo;association a la volonté de développer à nouveau son activité de formation :
+si vous êtes demandeur de formations, ou au contraire capable d&rsquo;en assurer
+vous-même, n&rsquo;hésitez pas à contacter GUTenberg.</p>
+</div>
+
+<div class="meta group">
+<div class="signature">
+    <p>Written by mpg <span class="edit"></span></p>
+    <p>novembre 18th, 2010 at 2:38  </p>
+</div>	
+<div class="tags">
+    <p>Posted in <a href="../../../par-sujet/tex-et-cie/" title="Voir tous les articles dans TeX et compagnie" rel="category tag">TeX et compagnie</a></p>
+    <p>Tagged with <a href="../../../par-tag/gutenberg/" rel="tag">gutenberg</a>, <a href="../../../par-tag/luatex/index.html" rel="tag">luatex</a>, <a href="../../../par-tag/mplib/index.html" rel="tag">mplib</a>, <a href="../../../par-tag/tlcontrib/index.html" rel="tag">tlcontrib</a></p></div>
+</div>
+
+<div class="navigation group">
+    <div class="alignleft">&laquo; <a href="../un-guide-pour-lualatex/" rel="prev">Un guide pour LuaLaTeX</a></div>
+    <div class="alignright"><a href="../../../2011/02/miktex-et-tex-live-en-parallele/" rel="next">MiKTeX et TeX Live en parallèle</a> &raquo;</div>
+</div>
+
+
+<!-- You can start editing here. -->
+
+<a name="comments" id="comments"></a>
+
+<h3 class="reply">4 Responses to 'Journée GUTenberg 2010'</h3> 
+
+<ol class="commentlist">
+
+
+<li id="comment-7271" class="">
+	<div class="comment_mod">
+		</div>
+	
+	<div class="comment_text">
+	<p>Merci de faire passer le message !</p>
+
+<p>Sinon ce n&rsquo;était pas tout à fait ça, la conclusion de mon exposé : je voulais dire que grâce à TeX on peut utiliser toute plateforme, même fermée et techniquement contraignante, mais je n&rsquo;étais probablement pas clair. D&rsquo;ailleurs TeX mène à tout ;-)</p>
+	</div>
+	
+	<div class="comment_author">
+		<img alt='' src='https://secure.gravatar.com/avatar/a0f6b595b0e3b7f3abba19eeb8261fc2?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />		<p><strong>Arthur Reutenauer</strong></p>
+	<p><small>21 nov 10 at <a href="index.html#comment-7271">19:18</a> <? edit_comment_link(__('Edit', 'sandbox'), ' ', ''); ?></small></p>
+	</div>
+	<div class="clear"></div>
+</li>
+
+
+<li id="comment-7275" class=" byuser comment-author-admin bypostauthor">
+	<div class="comment_mod">
+		</div>
+	
+	<div class="comment_text">
+	<p>Désolé d&rsquo;avoir trahi ta pensée, Arthur, et merci d&rsquo;avoir rectifié !</p>
+	</div>
+	
+	<div class="comment_author">
+		<img alt='' src='https://secure.gravatar.com/avatar/18f47779fe3a7aaa0c13d18460497a9a?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />		<p><strong><a href='https://elzevir.fr/imj/' rel='external nofollow' class='url'>mpg</a></strong></p>
+	<p><small>21 nov 10 at <a href="index.html#comment-7275">22:57</a> <? edit_comment_link(__('Edit', 'sandbox'), ' ', ''); ?></small></p>
+	</div>
+	<div class="clear"></div>
+</li>
+
+
+<li id="comment-7280" class="">
+	<div class="comment_mod">
+		</div>
+	
+	<div class="comment_text">
+	<p>Je voudrais résoudre un petit problème avec LaTeX. A qui pourrais-je m&rsquo;adresser pour poser la question? C&rsquo;est purement technique.</p>
+
+<p>Merci de me répondre.</p>
+
+<p>Daniel Navia (adhérent Gutenberg)</p>
+	</div>
+	
+	<div class="comment_author">
+		<img alt='' src='https://secure.gravatar.com/avatar/4d43eaba2f234ec36d47a76ea2af10a9?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />		<p><strong>Navia Daniel</strong></p>
+	<p><small>27 nov 10 at <a href="index.html#comment-7280">17:07</a> <? edit_comment_link(__('Edit', 'sandbox'), ' ', ''); ?></small></p>
+	</div>
+	<div class="clear"></div>
+</li>
+
+
+<li id="comment-7281" class=" byuser comment-author-admin bypostauthor">
+	<div class="comment_mod">
+		</div>
+	
+	<div class="comment_text">
+	<p>L&rsquo;association fait vivre une <a href="http://www.gutenberg.eu.org/?-Listes-de-diffusion-" rel="nofollow">mailing-list d&rsquo;entraide</a>. D&rsquo;autres options sont le groupe usenet <code>fr.comp.text.tex</code> et la <a href="http://forum.mathematex.net/latex-f6/" rel="nofollow">section latex du forum web Mathematex</a>. Ce sont à ma connaissance les meilleures sources d&rsquo;aide TeXnique francophones.</p>
+	</div>
+	
+	<div class="comment_author">
+		<img alt='' src='https://secure.gravatar.com/avatar/18f47779fe3a7aaa0c13d18460497a9a?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />		<p><strong><a href='https://elzevir.fr/imj/' rel='external nofollow' class='url'>mpg</a></strong></p>
+	<p><small>27 nov 10 at <a href="index.html#comment-7281">19:01</a> <? edit_comment_link(__('Edit', 'sandbox'), ' ', ''); ?></small></p>
+	</div>
+	<div class="clear"></div>
+</li>
+
+
+</ol>
+
+
+
+
+</div> 
+
+<div id="sidebar">
+<h3>Pages</h3>		<ul>
+			<li class="page_item page-item-4"><a href="../../../qui-suis-je/">À propos</a></li>
+		</ul>
+		<h3>Mots-clés</h3><div class="tagcloud"><a href='../../../par-tag/astuce/' class='tag-link-24' title='2 sujets' style='font-size: 11.111111111111pt;'>astuce</a>
+<a href='../../../par-tag/biblatex/' class='tag-link-41' title='1 sujet' style='font-size: 8pt;'>biblatex</a>
+<a href='../../../par-tag/context/' class='tag-link-28' title='8 sujets' style='font-size: 19.234567901235pt;'>context</a>
+<a href='../../../par-tag/cap/' class='tag-link-49' title='1 sujet' style='font-size: 8pt;'>càp</a>
+<a href='../../../par-tag/debian/' class='tag-link-4' title='6 sujets' style='font-size: 17.506172839506pt;'>debian</a>
+<a href='../../../par-tag/fontes/' class='tag-link-30' title='2 sujets' style='font-size: 11.111111111111pt;'>fontes</a>
+<a href='../../../par-tag/google/' class='tag-link-37' title='1 sujet' style='font-size: 8pt;'>google</a>
+<a href='../../../par-tag/gutenberg/' class='tag-link-44' title='1 sujet' style='font-size: 8pt;'>gutenberg</a>
+<a href='../../../par-tag/howto/' class='tag-link-31' title='9 sujets' style='font-size: 20.098765432099pt;'>howto</a>
+<a href='../../../par-tag/latex/' class='tag-link-3' title='6 sujets' style='font-size: 17.506172839506pt;'>latex</a>
+<a href='../../../par-tag/latex3/' class='tag-link-39' title='1 sujet' style='font-size: 8pt;'>latex3</a>
+<a href='../../../par-tag/lualatex/' class='tag-link-43' title='1 sujet' style='font-size: 8pt;'>lualatex</a>
+<a href='../../../par-tag/luatex/' class='tag-link-21' title='7 sujets' style='font-size: 18.37037037037pt;'>luatex</a>
+<a href='../../../par-tag/miktex/' class='tag-link-47' title='1 sujet' style='font-size: 8pt;'>miktex</a>
+<a href='../../../par-tag/mplib/' class='tag-link-46' title='1 sujet' style='font-size: 8pt;'>mplib</a>
+<a href='../../../par-tag/ssh/' class='tag-link-36' title='2 sujets' style='font-size: 11.111111111111pt;'>ssh</a>
+<a href='../../../par-tag/texdoc/' class='tag-link-42' title='5 sujets' style='font-size: 16.296296296296pt;'>texdoc</a>
+<a href='../../../par-tag/texlive/' class='tag-link-34' title='12 sujets' style='font-size: 22pt;'>texlive</a>
+<a href='../../../par-tag/tlcontrib/' class='tag-link-45' title='1 sujet' style='font-size: 8pt;'>tlcontrib</a>
+<a href='../../../par-tag/unix-admin/' class='tag-link-33' title='3 sujets' style='font-size: 13.185185185185pt;'>unix-admin</a>
+<a href='../../../par-tag/unix-user/' class='tag-link-35' title='2 sujets' style='font-size: 11.111111111111pt;'>unix-user</a>
+<a href='../../../par-tag/vim/' class='tag-link-22' title='1 sujet' style='font-size: 8pt;'>vim</a>
+<a href='../../../par-tag/wordpress/' class='tag-link-40' title='2 sujets' style='font-size: 11.111111111111pt;'>wordpress</a>
+<a href='../../../par-tag/xetex/' class='tag-link-20' title='2 sujets' style='font-size: 11.111111111111pt;'>xetex</a></div>
+<h3>Catégories</h3>		<ul>
+	<li class="cat-item cat-item-14"><a href="../../../par-sujet/comp/" title="Geekeries diverses">Geekeries diverses</a>
+</li>
+	<li class="cat-item cat-item-1"><a href="../../../par-sujet/non-classe/" title="Voir tous les articles classés dans Non classé">Non classé</a>
+</li>
+	<li class="cat-item cat-item-13"><a href="../../../par-sujet/tex-et-cie/" title="Voir tous les articles classés dans TeX et compagnie">TeX et compagnie</a>
+</li>
+		</ul>
+
+
+</div>
+
+</div>
+
+<div id="footer">
+	<p>The Journalist template by <a href="http://lucianmarin.com/" rel="designer">Lucian E. Marin</a> &mdash; Built for <a href="http://wordpress.org/">WordPress</a></p>
+</div>
+
+</body>
+</html>

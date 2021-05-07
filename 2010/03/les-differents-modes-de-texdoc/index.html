@@ -1,0 +1,218 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr-FR">
+<head profile="http://gmpg.org/xfn/11">
+<title>   Les différents modes de texdoc at Le mpg-blog</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="description" content="LaTeX et autres geekeries" />
+<link href="/style.css" rel="stylesheet" type="text/css" media="screen" />
+<link rel="shortcut icon" type="image/x-png" href="/favicon.png" />
+<link rel='stylesheet' id='wp-syntax-css-css'  href='/wp-syntax.css' type='text/css' media='all' />
+</head>
+
+<body>
+<div id="container" class="group">
+
+<h1><a href="../../../">Le mpg-blog</a></h1>
+<div id="bubble"><p>LaTeX et autres geekeries</p></div> <!-- erase this line if you want to turn the bubble off -->
+
+<div id="content" class="group">
+
+<h2 id="post-110"><a href="index.html" rel="bookmark">Les différents modes de texdoc</a></h2>
+<p class="comments"><a href="index.html#comments">with 2 comments</a></p>
+
+<div class="main">
+	<p>Comme promis à la fin du <a href="../trouver-les-documentations-latex/">billet d&rsquo;hier</a>, je raconte aujourd&rsquo;hui
+quelques options de texdoc ; plus précisément ses différents modes de
+présentation des résultats.<span id="more-110"></span>## Les modes</p>
+
+<p>Par défaut, quand vous tapez <code>texdoc live</code>, texdoc ouvre dans un lecteur qu&rsquo;il
+juge approprié le résultat qu&rsquo;il juge le plus pertinent ; c&rsquo;est le mode <em>view</em>,
+le plus adapté pour consulter rapidement un document quand vous savez bien ce
+que vous voulez.</p>
+
+<p>Il est possible néanmoins que plusieurs documents soient intéressants pour un
+mot-clé donné et que vous vouliez tous les examiner ; ou bien, texdoc peut
+s&rsquo;être trompé dans son estimation de pertinence et ne pas vous présenter le
+meilleur résultat en mode <em>view</em>. Dans ce cas, vous pouvez utiliser le mode
+<em>list</em> pour que texdoc vous présente la liste des documents trouvés et vous
+permette de choisir lequel afficher.</p>
+
+<pre><code>mpg@roth:~% texdoc -l xargs
+ 1 /home/mpg/tl/trunk/Master/texmf-dist/doc/latex/xargs/xargs.pdf
+   = [en] Package documentation (English)
+ 2 /home/mpg/tl/trunk/Master/texmf-dist/doc/latex/xargs/xargs-fr.pdf
+   = [fr] Package documentation (French)
+Please enter the number of the file to view, anything else to skip: 2
+</code></pre>
+
+<p>Par ailleurs, vous pouvez avoir le meilleur de ces deux modes : s&rsquo;il n&rsquo;y qu&rsquo;un
+seul résultat, l&rsquo;ouvrir directement pour gagner du temps, sinon, afficher la
+liste et vous laisser choisir ; c&rsquo;est le mode <em>mixed</em>.</p>
+
+<p>Un dernier mode, <em>showall</em>, force texdoc à afficher aussi des résultats qu&rsquo;il
+juge probablement mauvais (ce qu&rsquo;il fait automatiquement s&rsquo;il ne trouve aucun
+« bon » résultat). À l&rsquo;heure actuelle, je ne connais pas de cas où il est utile.</p>
+
+<p>Par défaut, quand texdoc vous présente une liste, il vous demande de choisir un
+résultat à afficher ; de plus, si les résultats sont trop nombreux, il vous
+demande une confirmation avant d&rsquo;en afficher la liste. Si vous n&rsquo;aimez pas qu&rsquo;on
+vous pose des questions, il est possible de désactiver toute interaction.</p>
+
+<h2>Sélection en ligne de commande</h2>
+
+<p>Il est possible de sélectionner le mode à l&rsquo;aide d&rsquo;options au nom explicite :
+<code>--view</code> (<code>-w</code>), <code>--list</code>, (<code>-l</code>), <code>--mixed</code>, (<code>-m</code>), <code>--showall</code> (<code>-s</code>). De
+plus, vous pouvez désactiver toute interaction avec <code>--nointeract</code> (<code>-I</code>) ou au
+contraire l&rsquo;activer avec <code>--interact</code> (<code>-i</code>).</p>
+
+<h2>Sélection par le fichier de configuration</h2>
+
+<p>Si le mode par défaut n&rsquo;est pas votre mode préféré, il est fastidieux d&rsquo;avoir à
+saisir l&rsquo;option correspondante à chaque fois. Il est plus pratique de configurer
+celui-ci une fois pour toute dans un fichier de configuration. Pour connaître le
+nom et l&rsquo;emplacement du fichier à utiliser, exécutez <code>texdoc --files</code> et
+regardez la ligne indiquée par une étoile. Il faudra probablement créer ce
+fichier et le répertoire.</p>
+
+<p>Vous pouvez alors indiquer votre mode préféré en insérant une ligne <code>mode =</code>
+<em>nom-du-mode</em>, activer ou non les interaction avec <code>interact_switch
+=</code> <em>true-ou-false</em>. Par exemple,</p>
+
+<pre><code>mode = list
+interact_switch = false
+</code></pre>
+
+<p>pour que texdoc vous présente par défaut la liste des résultats en mode non
+interactif.</p>
+
+<h2>Historique</h2>
+
+<p>Le mode <em>mixed</em> est apparu dans texdoc 0.4 (TeX Live 2008). C&rsquo;est aussi à ce
+moment que le mode <em>list</em> est devenu un menu permettant de choisir le document à
+afficher, et que sont apparues les possibilités de désactiver cette
+fonctionnalité et de configurer le mode par défaut via un fichier de
+configuration.</p>
+
+<p>Depuis, la signification des modes a légèrement changé au fur et à mesure que
+les mécanismes de recherche de texdoc ont évolué. Avant la version 0.6, le mode
+<em>showall</em> s&rsquo;appelait <em>search</em> ; avant 0.4 il signifiait que la recherche
+s&rsquo;effectuait directement sur le disque (sans utiliser d&rsquo;index) et que l&rsquo;argument
+était interprété comme une expression régulière. Ce sens a subsisté un moment
+sous la forme du mode <em>regex</em>, aujourd&rsquo;hui déprécié et qui devrait disparaître
+dans une prochaine version de texdoc.</p>
+</div>
+
+<div class="meta group">
+<div class="signature">
+    <p>Written by mpg <span class="edit"></span></p>
+    <p>mars 12th, 2010 at 4:55  </p>
+</div>	
+<div class="tags">
+    <p>Posted in <a href="../../../par-sujet/tex-et-cie/" title="Voir tous les articles dans TeX et compagnie" rel="category tag">TeX et compagnie</a></p>
+    <p>Tagged with <a href="../../../par-tag/texdoc/" rel="tag">texdoc</a></p></div>
+</div>
+
+<div class="navigation group">
+    <div class="alignleft">&laquo; <a href="../trouver-les-documentations-latex/" rel="prev">Trouver les documentations (La)TeX</a></div>
+    <div class="alignright"><a href="../../04/luatex-0-60-0/" rel="next">LuaTeX 0.60.0</a> &raquo;</div>
+</div>
+
+
+<!-- You can start editing here. -->
+
+<a name="comments" id="comments"></a>
+
+<h3 class="reply">2 Responses to 'Les différents modes de texdoc'</h3> 
+
+<ol class="commentlist">
+
+
+<li id="comment-7190" class="">
+	<div class="comment_mod">
+		</div>
+	
+	<div class="comment_text">
+	<p>Bon boulot, texdoc devient un outil vraiment indispensable.</p>
+
+<p>Je n&rsquo;ai pas creusé beaucoup la question, mais existe-t-il un support multilingue ?</p>
+	</div>
+	
+	<div class="comment_author">
+		<img alt='' src='https://secure.gravatar.com/avatar/2553a4e57589e8d210aaf7c1e29906c9?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />		<p><strong>Sébastien Le Callonnec</strong></p>
+	<p><small>14 mar 10 at <a href="index.html#comment-7190">12:51</a> <? edit_comment_link(__('Edit', 'sandbox'), ' ', ''); ?></small></p>
+	</div>
+	<div class="clear"></div>
+</li>
+
+
+<li id="comment-7199" class=" byuser comment-author-admin bypostauthor">
+	<div class="comment_mod">
+		</div>
+	
+	<div class="comment_text">
+	<p>Merci ! Concernant le support multilingue, je réfléchis en effet à la possibilité de faire en sorte que, pour un utilisateur francophone, la documentation en français soit préférée lorsqu&rsquo;une version française et une version anglaise (par exemple) existent. J&rsquo;en parlerai plus en détail dans un prochain billet.</p>
+	</div>
+	
+	<div class="comment_author">
+		<img alt='' src='https://secure.gravatar.com/avatar/18f47779fe3a7aaa0c13d18460497a9a?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />		<p><strong><a href='https://elzevir.fr/imj/' rel='external nofollow' class='url'>mpg</a></strong></p>
+	<p><small>17 mar 10 at <a href="index.html#comment-7199">17:16</a> <? edit_comment_link(__('Edit', 'sandbox'), ' ', ''); ?></small></p>
+	</div>
+	<div class="clear"></div>
+</li>
+
+
+</ol>
+
+
+
+
+</div> 
+
+<div id="sidebar">
+<h3>Pages</h3>		<ul>
+			<li class="page_item page-item-4"><a href="../../../qui-suis-je/">À propos</a></li>
+		</ul>
+		<h3>Mots-clés</h3><div class="tagcloud"><a href='../../../par-tag/astuce/' class='tag-link-24' title='2 sujets' style='font-size: 11.111111111111pt;'>astuce</a>
+<a href='../../../par-tag/biblatex/' class='tag-link-41' title='1 sujet' style='font-size: 8pt;'>biblatex</a>
+<a href='../../../par-tag/context/' class='tag-link-28' title='8 sujets' style='font-size: 19.234567901235pt;'>context</a>
+<a href='../../../par-tag/cap/' class='tag-link-49' title='1 sujet' style='font-size: 8pt;'>càp</a>
+<a href='../../../par-tag/debian/' class='tag-link-4' title='6 sujets' style='font-size: 17.506172839506pt;'>debian</a>
+<a href='../../../par-tag/fontes/' class='tag-link-30' title='2 sujets' style='font-size: 11.111111111111pt;'>fontes</a>
+<a href='../../../par-tag/google/' class='tag-link-37' title='1 sujet' style='font-size: 8pt;'>google</a>
+<a href='../../../par-tag/gutenberg/' class='tag-link-44' title='1 sujet' style='font-size: 8pt;'>gutenberg</a>
+<a href='../../../par-tag/howto/' class='tag-link-31' title='9 sujets' style='font-size: 20.098765432099pt;'>howto</a>
+<a href='../../../par-tag/latex/' class='tag-link-3' title='6 sujets' style='font-size: 17.506172839506pt;'>latex</a>
+<a href='../../../par-tag/latex3/' class='tag-link-39' title='1 sujet' style='font-size: 8pt;'>latex3</a>
+<a href='../../../par-tag/lualatex/' class='tag-link-43' title='1 sujet' style='font-size: 8pt;'>lualatex</a>
+<a href='../../../par-tag/luatex/' class='tag-link-21' title='7 sujets' style='font-size: 18.37037037037pt;'>luatex</a>
+<a href='../../../par-tag/miktex/' class='tag-link-47' title='1 sujet' style='font-size: 8pt;'>miktex</a>
+<a href='../../../par-tag/mplib/' class='tag-link-46' title='1 sujet' style='font-size: 8pt;'>mplib</a>
+<a href='../../../par-tag/ssh/' class='tag-link-36' title='2 sujets' style='font-size: 11.111111111111pt;'>ssh</a>
+<a href='../../../par-tag/texdoc/' class='tag-link-42' title='5 sujets' style='font-size: 16.296296296296pt;'>texdoc</a>
+<a href='../../../par-tag/texlive/' class='tag-link-34' title='12 sujets' style='font-size: 22pt;'>texlive</a>
+<a href='../../../par-tag/tlcontrib/' class='tag-link-45' title='1 sujet' style='font-size: 8pt;'>tlcontrib</a>
+<a href='../../../par-tag/unix-admin/' class='tag-link-33' title='3 sujets' style='font-size: 13.185185185185pt;'>unix-admin</a>
+<a href='../../../par-tag/unix-user/' class='tag-link-35' title='2 sujets' style='font-size: 11.111111111111pt;'>unix-user</a>
+<a href='../../../par-tag/vim/' class='tag-link-22' title='1 sujet' style='font-size: 8pt;'>vim</a>
+<a href='../../../par-tag/wordpress/' class='tag-link-40' title='2 sujets' style='font-size: 11.111111111111pt;'>wordpress</a>
+<a href='../../../par-tag/xetex/' class='tag-link-20' title='2 sujets' style='font-size: 11.111111111111pt;'>xetex</a></div>
+<h3>Catégories</h3>		<ul>
+	<li class="cat-item cat-item-14"><a href="../../../par-sujet/comp/" title="Geekeries diverses">Geekeries diverses</a>
+</li>
+	<li class="cat-item cat-item-1"><a href="../../../par-sujet/non-classe/" title="Voir tous les articles classés dans Non classé">Non classé</a>
+</li>
+	<li class="cat-item cat-item-13"><a href="../../../par-sujet/tex-et-cie/" title="Voir tous les articles classés dans TeX et compagnie">TeX et compagnie</a>
+</li>
+		</ul>
+
+
+</div>
+
+</div>
+
+<div id="footer">
+	<p>The Journalist template by <a href="http://lucianmarin.com/" rel="designer">Lucian E. Marin</a> &mdash; Built for <a href="http://wordpress.org/">WordPress</a></p>
+</div>
+
+</body>
+</html>

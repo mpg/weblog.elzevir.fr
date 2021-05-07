@@ -1,0 +1,172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr-FR">
+<head profile="http://gmpg.org/xfn/11">
+<title>   Noyau à la vanille façon Debian at Le mpg-blog</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="description" content="LaTeX et autres geekeries" />
+<link href="/style.css" rel="stylesheet" type="text/css" media="screen" />
+<link rel="shortcut icon" type="image/x-png" href="/favicon.png" />
+<link rel='stylesheet' id='wp-syntax-css-css'  href='/wp-syntax.css' type='text/css' media='all' />
+</head>
+
+<body>
+<div id="container" class="group">
+
+<h1><a href="../../../">Le mpg-blog</a></h1>
+<div id="bubble"><p>LaTeX et autres geekeries</p></div> <!-- erase this line if you want to turn the bubble off -->
+
+<div id="content" class="group">
+
+<h2 id="post-31"><a href="index.html" rel="bookmark">Noyau à la vanille façon Debian</a></h2>
+<p class="comments"><a href="index.html#comments">without comments</a></p>
+
+<div class="main">
+	<p>Aide-mémoire perso qui peut éventuellement servir à d&rsquo;autres : compilation d&rsquo;un
+noyau Linux <em>upstream</em> en utilisant les outils fournis par Debian (Lenny) pour
+construire un paquet <code>.deb</code> du noyau et l&rsquo;installer sans douleur. <span id="more-31"></span></p>
+
+<p>Télécharger les sources du noyau sur <a href="http://kernel.org/">kernel.org</a>. Pour une version
+stable (ex. aujourd&rsquo;hui : 2.6.27.7), utiliser le lien <strong>F</strong> (full source) sur la
+ligne.  Dans tous les autres cas, il faut télécharger le patch (lien du numéro
+de version, ex.  2.6.28-rc6) <em>et</em> la base à laquelle l&rsquo;appliquer, donnée par le
+lien <strong>B</strong> sur la même ligne. Dans les exemples qui suivent, je suppose que les
+trucs sont enregistrés sous <code>~/tmp</code>.</p>
+
+<p>Ajouter son utilisateur au groupe <code>src</code> si ce n&rsquo;est pas déjà fait. Par
+exemple :</p>
+
+<pre><code># adduser mpg src
+</code></pre>
+
+<p>Puis se relogguer avec cet utilisateur pour que la modification soit effective.
+Le vérifier en tapant <code>id</code> ou <code>groups</code>.</p>
+
+<p>En utilisateur, aller dans <code>/usr/src</code>, y détruire le lien symbolique <code>linux</code>.
+Décompresser l&rsquo;archive des sources. S&rsquo;il s&rsquo;agit d&rsquo;une version à patcher,
+procéder comme dans l&rsquo;exemple suivant.</p>
+
+<pre><code>% tar xjf ~/tmp/linux-2.6.27.tar.bz
+% bunzip2 ~/tmp/patch-2.6.28-rc6.bz2
+% cp -r linux-2.6.27 linux-2.6.28-rc6
+% cd linux-2.6.28-rc6
+% patch -p1 &lt;~/tmp/patch-2.6.28-rc6
+</code></pre>
+
+<p>Une fois obtenue une belle arborescence des sources dûment patchée au besoin,
+rétablir le lien symbolique <code>linux</code> vers sa racine.</p>
+
+<p>Il faut maintenant configurer le nouveau noyau. Pour partir de la
+configuration de l&rsquo;ancien, faire par exemple</p>
+
+<pre><code>% cp /boot/config-2.6.27.5 /usr/src/linux/.config
+</code></pre>
+
+<p>Aller alors dans <code>/usr/src/linux</code> et y lancer alors <code>make menuconfig</code>. (Il faut
+sans doute installer un ou deux paquets pour ça, dont <code>libncurses-dev</code>et
+peut-être d&rsquo;autres.) Selon les besoins, sélectionner les drivers voulus (chez
+moi, c&rsquo;est <code>ath9k</code> qui m&rsquo;a motivé à installer une version récente du noyau, et
+que je vais activer la première fois dans Device driver -> Networks device
+support -> Wireless Lan -> Atheros 802.11n wireless cards support).</p>
+
+<p>Il est alors temps de construire le noyau. Pour cela, il faut avoir installé
+les paquets nécessaires : <code>kernel-package</code>, <code>fakeroot</code>, <code>build-essential</code> et
+<code>initramfs-tools</code> en font partie, et je crois qu&rsquo;ils suffisent. Exécuter alors</p>
+
+<pre><code>% fakeroot make-kpkg clean
+% fakeroot make-kpkg --initrd kernel_image
+</code></pre>
+
+<p>(Si on envisage de faire plusieurs noyaux personnalisés successifs à partir
+d&rsquo;une même version <em>upstream</em>, on a intérêt à utiliser l&rsquo;option
+<code>--append-to-version=.20081107</code> (ou tout autre numéro) pour les distinguer et ne
+pas mélanger leurs modules.) C&rsquo;est en tout cas le moment de s&rsquo;en jeter une
+petite de son breuvage favori, ou de faire autre chose d&rsquo;intéressant sur sa
+machine si on elle a un double cœur.</p>
+
+<p>Maintenant, la seule étape nécessitant les droits de <code>root</code> : l&rsquo;installation
+du paquet créé.</p>
+
+<pre><code># dpkg -i /usr/src/linux-image-2.6.27.5_2.6.27.5-10.00.Custom_amd64.deb
+</code></pre>
+
+<p>Voilà, il ne reste plus qu&rsquo;à rebooter sur le nouveau noyau, et éventuellement
+recompiler les modules externes.</p>
+</div>
+
+<div class="meta group">
+<div class="signature">
+    <p>Written by mpg <span class="edit"></span></p>
+    <p>décembre 6th, 2008 at 10:21  </p>
+</div>	
+<div class="tags">
+    <p>Posted in <a href="../../../par-sujet/comp/" title="Voir tous les articles dans Geekeries diverses" rel="category tag">Geekeries diverses</a></p>
+    <p>Tagged with <a href="../../../par-tag/debian/" rel="tag">debian</a>, <a href="../../../par-tag/howto/index.html" rel="tag">howto</a>, <a href="../../../par-tag/unix-admin/index.html" rel="tag">unix-admin</a></p></div>
+</div>
+
+<div class="navigation group">
+    <div class="alignleft">&laquo; <a href="../../11/minion-pro-sous-xelatex/" rel="prev">Minion Pro sous XeLaTeX</a></div>
+    <div class="alignright"><a href="../../../2009/01/ma-vie-sans-libc/" rel="next">Ma vie sans libc</a> &raquo;</div>
+</div>
+
+
+<!-- You can start editing here. -->
+
+<a name="comments" id="comments"></a>
+
+
+ 
+<!-- If comments are open, but there are no comments. -->
+
+
+
+
+</div> 
+
+<div id="sidebar">
+<h3>Pages</h3>		<ul>
+			<li class="page_item page-item-4"><a href="../../../qui-suis-je/">À propos</a></li>
+		</ul>
+		<h3>Mots-clés</h3><div class="tagcloud"><a href='../../../par-tag/astuce/' class='tag-link-24' title='2 sujets' style='font-size: 11.111111111111pt;'>astuce</a>
+<a href='../../../par-tag/biblatex/' class='tag-link-41' title='1 sujet' style='font-size: 8pt;'>biblatex</a>
+<a href='../../../par-tag/context/' class='tag-link-28' title='8 sujets' style='font-size: 19.234567901235pt;'>context</a>
+<a href='../../../par-tag/cap/' class='tag-link-49' title='1 sujet' style='font-size: 8pt;'>càp</a>
+<a href='../../../par-tag/debian/' class='tag-link-4' title='6 sujets' style='font-size: 17.506172839506pt;'>debian</a>
+<a href='../../../par-tag/fontes/' class='tag-link-30' title='2 sujets' style='font-size: 11.111111111111pt;'>fontes</a>
+<a href='../../../par-tag/google/' class='tag-link-37' title='1 sujet' style='font-size: 8pt;'>google</a>
+<a href='../../../par-tag/gutenberg/' class='tag-link-44' title='1 sujet' style='font-size: 8pt;'>gutenberg</a>
+<a href='../../../par-tag/howto/' class='tag-link-31' title='9 sujets' style='font-size: 20.098765432099pt;'>howto</a>
+<a href='../../../par-tag/latex/' class='tag-link-3' title='6 sujets' style='font-size: 17.506172839506pt;'>latex</a>
+<a href='../../../par-tag/latex3/' class='tag-link-39' title='1 sujet' style='font-size: 8pt;'>latex3</a>
+<a href='../../../par-tag/lualatex/' class='tag-link-43' title='1 sujet' style='font-size: 8pt;'>lualatex</a>
+<a href='../../../par-tag/luatex/' class='tag-link-21' title='7 sujets' style='font-size: 18.37037037037pt;'>luatex</a>
+<a href='../../../par-tag/miktex/' class='tag-link-47' title='1 sujet' style='font-size: 8pt;'>miktex</a>
+<a href='../../../par-tag/mplib/' class='tag-link-46' title='1 sujet' style='font-size: 8pt;'>mplib</a>
+<a href='../../../par-tag/ssh/' class='tag-link-36' title='2 sujets' style='font-size: 11.111111111111pt;'>ssh</a>
+<a href='../../../par-tag/texdoc/' class='tag-link-42' title='5 sujets' style='font-size: 16.296296296296pt;'>texdoc</a>
+<a href='../../../par-tag/texlive/' class='tag-link-34' title='12 sujets' style='font-size: 22pt;'>texlive</a>
+<a href='../../../par-tag/tlcontrib/' class='tag-link-45' title='1 sujet' style='font-size: 8pt;'>tlcontrib</a>
+<a href='../../../par-tag/unix-admin/' class='tag-link-33' title='3 sujets' style='font-size: 13.185185185185pt;'>unix-admin</a>
+<a href='../../../par-tag/unix-user/' class='tag-link-35' title='2 sujets' style='font-size: 11.111111111111pt;'>unix-user</a>
+<a href='../../../par-tag/vim/' class='tag-link-22' title='1 sujet' style='font-size: 8pt;'>vim</a>
+<a href='../../../par-tag/wordpress/' class='tag-link-40' title='2 sujets' style='font-size: 11.111111111111pt;'>wordpress</a>
+<a href='../../../par-tag/xetex/' class='tag-link-20' title='2 sujets' style='font-size: 11.111111111111pt;'>xetex</a></div>
+<h3>Catégories</h3>		<ul>
+	<li class="cat-item cat-item-14"><a href="../../../par-sujet/comp/" title="Geekeries diverses">Geekeries diverses</a>
+</li>
+	<li class="cat-item cat-item-1"><a href="../../../par-sujet/non-classe/" title="Voir tous les articles classés dans Non classé">Non classé</a>
+</li>
+	<li class="cat-item cat-item-13"><a href="../../../par-sujet/tex-et-cie/" title="Voir tous les articles classés dans TeX et compagnie">TeX et compagnie</a>
+</li>
+		</ul>
+
+
+</div>
+
+</div>
+
+<div id="footer">
+	<p>The Journalist template by <a href="http://lucianmarin.com/" rel="designer">Lucian E. Marin</a> &mdash; Built for <a href="http://wordpress.org/">WordPress</a></p>
+</div>
+
+</body>
+</html>

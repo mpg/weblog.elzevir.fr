@@ -1,0 +1,294 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr-FR">
+<head profile="http://gmpg.org/xfn/11">
+<title>   Biblatex 0.9 est sorti at Le mpg-blog</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="description" content="LaTeX et autres geekeries" />
+<link href="/style.css" rel="stylesheet" type="text/css" media="screen" />
+<link rel="shortcut icon" type="image/x-png" href="/favicon.png" />
+<link rel='stylesheet' id='wp-syntax-css-css'  href='/wp-syntax.css' type='text/css' media='all' />
+</head>
+
+<body>
+<div id="container" class="group">
+
+<h1><a href="../../../">Le mpg-blog</a></h1>
+<div id="bubble"><p>LaTeX et autres geekeries</p></div> <!-- erase this line if you want to turn the bubble off -->
+
+<div id="content" class="group">
+
+<h2 id="post-96"><a href="index.html" rel="bookmark">Biblatex 0.9 est sorti</a></h2>
+<p class="comments"><a href="index.html#comments">with 4 comments</a></p>
+
+<div class="main">
+	<p>La version 0.9 de <a href="http://ctan.org/pkg/biblatex">biblatex</a>, <em>la</em> nouvelle façon de gérer ses bibliographies
+sous LaTeX, est sortie le 14 février, et a été intégrée à TeX Live le lendemain.
+Ceux qui connaissent déjà biblatex et la raison pour laquelle il n&rsquo;était pas
+inclus dans TeX Live s&rsquo;en réjouiront ; pour les autres, voici quelques
+explications.</p>
+
+<p><span id="more-96"></span></p>
+
+<h2>C&rsquo;est quoi ce biblatex, d&rsquo;abord ?</h2>
+
+<p>C&rsquo;est, en principe, la solution à tous les problèmes de bibliographie qui se
+posent en utilisant bibtex avec LaTeX et les paquets LaTeX existants. Par
+exemple, il n&rsquo;est pas possible seulement avec LaTeX d&rsquo;obtenir une bibliographie
+par chapitre, ou bien des bibliographies par sujet, de faire apparaître le
+bibliographie dans la table des matières et/ou les marques-pages PDF,
+l&rsquo;internationalisation laisse à désirer. Différentes extensions existent qui
+fournissent chacune une de ces fonctionnalités, mais elles ne coopèrent pas
+forcément bien entre elle, il faut choisir laquelle utiliser, s&rsquo;adapter à une
+demi-douzaine d&rsquo;interfaces différentes&#8230;</p>
+
+<p>Par ailleurs, il n&rsquo;est pas commode de personnaliser le style de la bibliographie
+elle-même (cela se fait en éditant des fichiers de styles bibtex, ceux avec
+l&rsquo;extension <code>bst</code>, qui sont écrit dans un langage de pile propre à bibtex,
+qu&rsquo;il faut se donner la peine d&rsquo;apprendre alors que notre document est bien sûr
+à rendre pour hier), ni celui de citation (en particulier si on a des souhaits
+« exotiques » comme de placer les références en notes de bas de page).</p>
+
+<p>Le but de biblatex est de proposer des solutions à tous ces problèmes par le
+biais d&rsquo;une unique extension (ce qui élimine les problèmes de compatibilité et
+ne fait qu&rsquo;une documentation à lire, même s&rsquo;il faut bien reconnaître que
+celle-ci fait presque 200 pages). Surtout, bibtex n&rsquo;est plus utilisé que pour
+l&rsquo;extraction des entrée à partir de la base de données et leur classement, tous
+les styles sont ensuite construits en LaTeX, ce qui fait un langage de moins à
+apprendre pour ceux qui souhaitent personnaliser les styles de citation et de
+bibliographie.</p>
+
+<p>De nombreux styles couvrant les besoins les plus courants sont fournis, et
+d&rsquo;autres styles plus spécialisés ont déjà été produits par d&rsquo;autres auteurs,
+voir le répertoire <a href="http://mirror.ctan.org/macros/latex/exptl/biblatex-contrib/">biblatex-contrib</a> du CTAN.</p>
+
+<h2>Super, mais en pratique je fais comment ?</h2>
+
+<p>En pratique, je n&rsquo;entends pas expliquer en quelques lignes toutes les
+fonctionnalités de biblatex, mais voici un exemple tiré d&rsquo;un de mes documents
+personnels, qui doit pouvoir servir de base pour démarrer.</p>
+
+
+<div class="wp_syntax"><table><tr><td class="code"><pre class="latex" style="font-family:monospace;"><span style="color: #E02020; ">\</span><span style="color: #800000;">usepackage</span><span style="color: #E02020; ">{</span><span style="color: #2020C0; font-weight: normal;">csquotes</span><span style="color: #E02020; ">}</span>           <span style="color: #2C922C; font-style: italic;">% utilisé par biblatex</span>
+<span style="color: #E02020; ">\</span><span style="color: #800000;">usepackage</span><span style="color: #E02020; ">[</span>style=alphabetic,   <span style="color: #2C922C; font-style: italic;">% citations comme [Fa91] pour Faltings, 91</span>
+  sorting=nyt,                  <span style="color: #2C922C; font-style: italic;">% classement par nom, année, titre</span>
+  sortcites=true,               <span style="color: #2C922C; font-style: italic;">% classer les citations multiples</span>
+  autopunct=true,               <span style="color: #2C922C; font-style: italic;">% gérer automatiquement les ponctuations</span>
+  babel=hyphen,                 <span style="color: #2C922C; font-style: italic;">% ajuster les césure pour chaque entrée</span>
+  hyperref=true,                <span style="color: #2C922C; font-style: italic;">% les liens hypertexte, c'est le Bien</span>
+  backref=false<span style="color: #E02020; ">]{</span><span style="color: #2020C0; font-weight: normal;">biblatex</span><span style="color: #E02020; ">}</span>      <span style="color: #2C922C; font-style: italic;">% pas de réfs. aux pages où l'entrée est citée</span>
+<span style="color: #800000; font-weight: normal;">\bibliography</span><span style="color: #E02020; ">{</span><span style="color: #2020C0; font-weight: normal;">these</span><span style="color: #E02020; ">}</span>            <span style="color: #2C922C; font-style: italic;">% utiliser these.bib (format bibtex normal)</span>
+<span style="color: #800000; font-weight: normal;">\defbibheading</span><span style="color: #E02020; ">{</span><span style="color: #2020C0; font-weight: normal;">bibempty}{</span><span style="color: #E02020; ">}</span>      <span style="color: #2C922C; font-style: italic;">% voir ci-dessous</span></pre></td></tr></table></div>
+
+
+<p>Ça, c&rsquo;était dans le préambule, à la place de la commande <code>\bibliographystyle</code>
+qui n&rsquo;est désormais plus utilisée (c&rsquo;est l&rsquo;option <code>style</code> qui la remplace ici.
+Maintenant, dans le document, imaginons que je souhaite que la bibliographie
+soit une section à part entière (numérotée et tout le tintouin) et que de plus
+je veuille insérer des commentaires entre le titre « références » et la
+bibliographie elle-même. Rien de plus simple : je demande à biblatex de ne pas
+insérer de titre, et je fais tout moi-même. Pour ça, j&rsquo;ai préalablement défini
+un style d&rsquo;entête de bibliographie, avec <code>\defbibheading</code>, qu&rsquo;on pourrait
+appeler le style trivial : il ne fait rien (voir ci-dessus).</p>
+
+
+<div class="wp_syntax"><table><tr><td class="code"><pre class="latex" style="font-family:monospace;"><span style="color: #E02020; ">\</span><span style="color: #800000;">section</span><span style="color: #E02020; ">{</span><span style="color: #2020C0; font-weight: normal;">Références</span><span style="color: #E02020; ">}</span>
+&nbsp;
+Du blabla ici parce que je suis bavard. Si j'étais un utilitaire Unix<span style="color: #800000; font-weight: normal;">\dots</span> en
+fait je serais pas un utilitaire Unix, parce que vraiment je suis trop verbeux.
+&nbsp;
+<span style="color: #800000; font-weight: normal;">\printbibliography</span><span style="color: #E02020; ">[</span><span style="color: #C08020; font-weight: normal;">heading=bibempty</span><span style="color: #E02020; ">]</span> <span style="color: #2C922C; font-style: italic;">% utilisons le style d'entête vide</span></pre></td></tr></table></div>
+
+
+<p>Remarquez qu&rsquo;on utilise <code>\printbibliography</code>, et qu&rsquo;on a pas besoin de préciser
+le fichier <code>bib</code> utilisé, puisqu&rsquo;on l&rsquo;a déjà fait dans le préambule. Si vous
+voulez voir le résultat (document complet), <a href="https://elzevir.fr/imj/files/sujet-these-mpg.pdf">il est ici</a>.</p>
+
+<p>Pour aller plus loin, je renvoie à la documentation de biblatex (<code>texdoc
+biblatex</code> pour la trouver). Elle est longue, mais le premier paragraphe de
+l&rsquo;introduction indique les sections à lire en priorité. Par ailleurs, de
+nombreux exemples sont fournis (vous les trouverez sous
+<code>TEXMFDIST/doc/latex/biblatex/examples</code>).</p>
+
+<h2>Sympa, mais alors pourquoi c&rsquo;était pas encore dans TeX Live ?</h2>
+
+<p>On s&rsquo;en doute, le développement d&rsquo;un projet aussi ambitieux prend du temps. Au
+cours de ce processus, l&rsquo;auteur est susceptible de vouloir opérer des
+changements qui briseront la compatibilité avec les versions préliminaires
+précédentes, et doit pouvoir le faire sans pression de la part des utilisateurs
+s&rsquo;il souhaite arriver à une version 1.0 de qualité. C&rsquo;est pourquoi l&rsquo;auteur de
+biblatex avait expressément demandé aux distributions TeX de ne pas inclure
+biblatex, dans l&rsquo;espoir d&rsquo;éviter une croissance prématurée de sa base
+d&rsquo;utilisateurs.</p>
+
+<p>Cependant, de nombreux utilisateurs plus avancés ou téméraires avaient commencé
+à utiliser biblatex en production et en étaient très satisfaits. Tout le monde
+était donc impatient de voir une première version distribuable de biblatex :
+c&rsquo;est maintenant fait.</p>
+
+<p>Notons toutefois que cette version 0.9 n&rsquo;est pas encore considérée comme
+stable : pas dans le sens où elle serait pleine de bugs, mais plutôt dans le
+sens que la rétro-compatibilité des versions ultérieures ne sera garantie qu&rsquo;à
+partir de la version 1.0.</p>
+</div>
+
+<div class="meta group">
+<div class="signature">
+    <p>Written by mpg <span class="edit"></span></p>
+    <p>février 20th, 2010 at 1:08  </p>
+</div>	
+<div class="tags">
+    <p>Posted in <a href="../../../par-sujet/tex-et-cie/" title="Voir tous les articles dans TeX et compagnie" rel="category tag">TeX et compagnie</a></p>
+    <p>Tagged with <a href="../../../par-tag/biblatex/" rel="tag">biblatex</a>, <a href="../../../par-tag/latex/index.html" rel="tag">latex</a></p></div>
+</div>
+
+<div class="navigation group">
+    <div class="alignleft">&laquo; <a href="../../01/encore-des-paquets-debian-et-ubuntu/" rel="prev">Encore des paquets Debian et Ubuntu</a></div>
+    <div class="alignright"><a href="../la-courte-intro-a-latex-est-de-retour/" rel="next">La courte intro à LaTeX est de retour</a> &raquo;</div>
+</div>
+
+
+<!-- You can start editing here. -->
+
+<a name="comments" id="comments"></a>
+
+<h3 class="reply">4 Responses to 'Biblatex 0.9 est sorti'</h3> 
+
+<ol class="commentlist">
+
+
+<li id="comment-7177" class="">
+	<div class="comment_mod">
+		</div>
+	
+	<div class="comment_text">
+	<p>J&rsquo;ai adopté BibLaTeX depuis quelques mois déjà et je me réjouis qu&rsquo;il soit désormais incorporé à TeX Live.</p>
+
+<p>Le seul problème que j&rsquo;ai eu avec lui est qu&rsquo;il ne dispose pas (apparemment) d&rsquo;un style équivalent au style standard « abbrv » de BibTeX. J&rsquo;ai parcouru le manuel, mais je n&rsquo;y ai rien remarqué d&rsquo;approchant. Ai-je mal lu ?</p>
+	</div>
+	
+	<div class="comment_author">
+		<img alt='' src='https://secure.gravatar.com/avatar/9a104a3b4f111e857d2eb521b681f48e?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />		<p><strong>Franck Pastor</strong></p>
+	<p><small>23 fév 10 at <a href="index.html#comment-7177">19:46</a> <? edit_comment_link(__('Edit', 'sandbox'), ' ', ''); ?></small></p>
+	</div>
+	<div class="clear"></div>
+</li>
+
+
+<li id="comment-7183" class=" byuser comment-author-admin bypostauthor">
+	<div class="comment_mod">
+		</div>
+	
+	<div class="comment_text">
+	<p>Hum&#8230; l&rsquo;option firstinits peut-être ?</p>
+	</div>
+	
+	<div class="comment_author">
+		<img alt='' src='https://secure.gravatar.com/avatar/18f47779fe3a7aaa0c13d18460497a9a?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />		<p><strong><a href='https://elzevir.fr/imj/' rel='external nofollow' class='url'>mpg</a></strong></p>
+	<p><small>24 fév 10 at <a href="index.html#comment-7183">18:46</a> <? edit_comment_link(__('Edit', 'sandbox'), ' ', ''); ?></small></p>
+	</div>
+	<div class="clear"></div>
+</li>
+
+
+<li id="comment-7221" class="">
+	<div class="comment_mod">
+		</div>
+	
+	<div class="comment_text">
+	<p>Bonjour,
+J&rsquo;ai adopté biblatex pour écrire une thèse de science humaine. Il gère très bien les citations en bas de page (avec &laquo;&nbsp;style=verbose-trad2&Prime;), mais il y a un bug. Dans les citations d&rsquo;article où j&rsquo;indique le numéro de page, ça le no de page est ajouté à à l&rsquo;intervalle des pages.
+ex:
+Thomas Carothers. “The End of the Transition Paradigm”. Dans Journal of Democracy (jan. 2002), p. 5–21, p. 43.</p>
+
+<p>AU lieu de
+Thomas Carothers. “The End of the Transition Paradigm”. Dans Journal of Democracy (jan. 2002), p. 43.</p>
+
+<p>C&rsquo;est très inélégant. J&rsquo;ai le même problème avec les livres. Lorsque j&rsquo;inscris le nombre de pages &laquo;&nbsp;Pagetotal&nbsp;&raquo;, je ne peux plus citer le numéro de page parce que ça donne des résultats bizarres du genre.</p>
+
+<p>Joel Beinin. Workers and peasants in the modern Midd le East. Cambridge : Cambridge University Press, 2001, 207p., p. 34.</p>
+
+<p>Savez-vous comment je pourrais régler mon problème?</p>
+
+<p>Merci! 
+PS J&rsquo;aimerais aussi me débarraser du mot &laquo;&nbsp;Dans&nbsp;&raquo;, mais ça c&rsquo;est moins grave.</p>
+	</div>
+	
+	<div class="comment_author">
+		<img alt='' src='https://secure.gravatar.com/avatar/613c5fe9dab90930c597aefc2678a137?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />		<p><strong>Jean Lachapelle</strong></p>
+	<p><small>8 avr 10 at <a href="index.html#comment-7221">23:21</a> <? edit_comment_link(__('Edit', 'sandbox'), ' ', ''); ?></small></p>
+	</div>
+	<div class="clear"></div>
+</li>
+
+
+<li id="comment-7223" class=" byuser comment-author-admin bypostauthor">
+	<div class="comment_mod">
+		</div>
+	
+	<div class="comment_text">
+	<p>Bon, je vois qu&rsquo;entre-temps vous avez posé <a href="https://groups.google.com/d/topic/fr.comp.text.tex/a-1Pv8UUzF4" rel="nofollow">cette question sur fctt</a>, et vous avez bien fait, puisque Denis a pu vous apporter des éléments de réponse plus rapidement que moi !</p>
+	</div>
+	
+	<div class="comment_author">
+		<img alt='' src='https://secure.gravatar.com/avatar/18f47779fe3a7aaa0c13d18460497a9a?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />		<p><strong><a href='https://elzevir.fr/imj/' rel='external nofollow' class='url'>mpg</a></strong></p>
+	<p><small>10 avr 10 at <a href="index.html#comment-7223">11:05</a> <? edit_comment_link(__('Edit', 'sandbox'), ' ', ''); ?></small></p>
+	</div>
+	<div class="clear"></div>
+</li>
+
+
+</ol>
+
+
+
+
+</div> 
+
+<div id="sidebar">
+<h3>Pages</h3>		<ul>
+			<li class="page_item page-item-4"><a href="../../../qui-suis-je/">À propos</a></li>
+		</ul>
+		<h3>Mots-clés</h3><div class="tagcloud"><a href='../../../par-tag/astuce/' class='tag-link-24' title='2 sujets' style='font-size: 11.111111111111pt;'>astuce</a>
+<a href='../../../par-tag/biblatex/' class='tag-link-41' title='1 sujet' style='font-size: 8pt;'>biblatex</a>
+<a href='../../../par-tag/context/' class='tag-link-28' title='8 sujets' style='font-size: 19.234567901235pt;'>context</a>
+<a href='../../../par-tag/cap/' class='tag-link-49' title='1 sujet' style='font-size: 8pt;'>càp</a>
+<a href='../../../par-tag/debian/' class='tag-link-4' title='6 sujets' style='font-size: 17.506172839506pt;'>debian</a>
+<a href='../../../par-tag/fontes/' class='tag-link-30' title='2 sujets' style='font-size: 11.111111111111pt;'>fontes</a>
+<a href='../../../par-tag/google/' class='tag-link-37' title='1 sujet' style='font-size: 8pt;'>google</a>
+<a href='../../../par-tag/gutenberg/' class='tag-link-44' title='1 sujet' style='font-size: 8pt;'>gutenberg</a>
+<a href='../../../par-tag/howto/' class='tag-link-31' title='9 sujets' style='font-size: 20.098765432099pt;'>howto</a>
+<a href='../../../par-tag/latex/' class='tag-link-3' title='6 sujets' style='font-size: 17.506172839506pt;'>latex</a>
+<a href='../../../par-tag/latex3/' class='tag-link-39' title='1 sujet' style='font-size: 8pt;'>latex3</a>
+<a href='../../../par-tag/lualatex/' class='tag-link-43' title='1 sujet' style='font-size: 8pt;'>lualatex</a>
+<a href='../../../par-tag/luatex/' class='tag-link-21' title='7 sujets' style='font-size: 18.37037037037pt;'>luatex</a>
+<a href='../../../par-tag/miktex/' class='tag-link-47' title='1 sujet' style='font-size: 8pt;'>miktex</a>
+<a href='../../../par-tag/mplib/' class='tag-link-46' title='1 sujet' style='font-size: 8pt;'>mplib</a>
+<a href='../../../par-tag/ssh/' class='tag-link-36' title='2 sujets' style='font-size: 11.111111111111pt;'>ssh</a>
+<a href='../../../par-tag/texdoc/' class='tag-link-42' title='5 sujets' style='font-size: 16.296296296296pt;'>texdoc</a>
+<a href='../../../par-tag/texlive/' class='tag-link-34' title='12 sujets' style='font-size: 22pt;'>texlive</a>
+<a href='../../../par-tag/tlcontrib/' class='tag-link-45' title='1 sujet' style='font-size: 8pt;'>tlcontrib</a>
+<a href='../../../par-tag/unix-admin/' class='tag-link-33' title='3 sujets' style='font-size: 13.185185185185pt;'>unix-admin</a>
+<a href='../../../par-tag/unix-user/' class='tag-link-35' title='2 sujets' style='font-size: 11.111111111111pt;'>unix-user</a>
+<a href='../../../par-tag/vim/' class='tag-link-22' title='1 sujet' style='font-size: 8pt;'>vim</a>
+<a href='../../../par-tag/wordpress/' class='tag-link-40' title='2 sujets' style='font-size: 11.111111111111pt;'>wordpress</a>
+<a href='../../../par-tag/xetex/' class='tag-link-20' title='2 sujets' style='font-size: 11.111111111111pt;'>xetex</a></div>
+<h3>Catégories</h3>		<ul>
+	<li class="cat-item cat-item-14"><a href="../../../par-sujet/comp/" title="Geekeries diverses">Geekeries diverses</a>
+</li>
+	<li class="cat-item cat-item-1"><a href="../../../par-sujet/non-classe/" title="Voir tous les articles classés dans Non classé">Non classé</a>
+</li>
+	<li class="cat-item cat-item-13"><a href="../../../par-sujet/tex-et-cie/" title="Voir tous les articles classés dans TeX et compagnie">TeX et compagnie</a>
+</li>
+		</ul>
+
+
+</div>
+
+</div>
+
+<div id="footer">
+	<p>The Journalist template by <a href="http://lucianmarin.com/" rel="designer">Lucian E. Marin</a> &mdash; Built for <a href="http://wordpress.org/">WordPress</a></p>
+</div>
+
+</body>
+</html>

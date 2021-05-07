@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr-FR">
+<head profile="http://gmpg.org/xfn/11">
+<title>   texdoc et texdoctk at Le mpg-blog</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="description" content="LaTeX et autres geekeries" />
+<link href="/style.css" rel="stylesheet" type="text/css" media="screen" />
+<link rel="shortcut icon" type="image/x-png" href="/favicon.png" />
+<link rel='stylesheet' id='wp-syntax-css-css'  href='/wp-syntax.css' type='text/css' media='all' />
+</head>
+
+<body>
+<div id="container" class="group">
+
+<h1><a href="../../../">Le mpg-blog</a></h1>
+<div id="bubble"><p>LaTeX et autres geekeries</p></div> <!-- erase this line if you want to turn the bubble off -->
+
+<div id="content" class="group">
+
+<h2 id="post-114"><a href="index.html" rel="bookmark">texdoc et texdoctk</a></h2>
+<p class="comments"><a href="index.html#comments">without comments</a></p>
+
+<div class="main">
+	<p>Comme je le mentionnais dans <a href="../../03/trouver-les-documentations-latex/">un billet précédent</a>, TeX Live propose deux
+utilitaires pour accéder à la documentation : texdoc, en ligne de commande, qui
+effectue une recherche parmi tous les fichiers existants, basée sur le nom du
+fichier, son emplacement et quelques méta-données ; texdoctk, graphique, qui
+offre une classification par catégories, mais utilise une base de données qui
+n&rsquo;est ni complète ni à jour. Ces deux logiciels pour l&rsquo;instant bien distincts,
+malgré la similarité de noms et d&rsquo;objectifs, se sont récemment rapprochés.<span id="more-114"></span>## Recherche via texdoc depuis texdoctk</p>
+
+<p>J&rsquo;ai dernièrement rajouté à texdoctk un deuxième bouton de recherche, qui
+utilise texdoc. Désormais, il y a donc deux modes de recherches sous texdoctk :
+<em>database search</em>, la méthode traditionnelle de texdoctk, et <em>file search</em>, qui
+utilise texdoc (les noms ne sont sans doute pas très explicites, je suis ouvert
+à toute suggestion). J&rsquo;espère qu&rsquo;ainsi :</p>
+
+<ul>
+<li>les utilisateurs qui ne connaissent pas texdoc mais qui ont remarqué l&rsquo;icône
+<em>TeXdoc GUI</em> sur leur bureau (sous windows) pourront ainsi découvrir cet outil
+plus facilement. Même sans comprendre la différence exacte entre les deux
+boutons de recherche, j&rsquo;espère qu&rsquo;ils auront réflexe d&rsquo;essayer les deux, et
+verront rapidement lequel leur convient mieux.</li>
+<li>les quelques utilisateurs allergiques à la ligne de commande disposeront d&rsquo;un
+moyen d&rsquo;accès à la documentation moins effrayant.</li>
+</ul>
+
+<h2>Choix du visualisateur</h2>
+
+<p>Par ailleurs, les configurations de texdoc et de texdoctk étaient pour l&rsquo;instant
+totalement indépendantes, notamment en matière de choix du visualisateur selon
+le type de document. Ceci n&rsquo;était pas très satisfaisant dans le sens où, si l&rsquo;on
+utilise les deux régulièrement, il fallait indiquer son lecteur de de PDF favori
+dans deux fichiers de configurations totalement indépendants.</p>
+
+<p>Comme par ailleurs la façon dont texdoc choisit le visualisateur en l&rsquo;absence de
+choix explicite de l&rsquo;utilisateur me paraît meilleure que celle que texdoctk,
+j&rsquo;ai donc modifié le réglage par défaut de texdoctk pour utiliser la commande
+<code>texdoc --just-view</code> qui a pour effet d&rsquo;ouvrir le fichier avec le lecteur que
+texdoc aurait choisi (via sa configuration ou ses heuristiques). Ainsi, par
+défaut, la configuration s&rsquo;effectue en un lieu unique, même s&rsquo;il reste possible
+de choisir des visualisateurs différents pour texdoctk.</p>
+
+<h2>L&rsquo;avenir</h2>
+
+<p>À mes yeux, texdoctk présente plusieurs points intéressants : navigation par
+catégories, recherche par mot-clé, interface graphique. Néanmoins, il souffre
+aussi de plusieurs inconvénients : il utilise une base de donnés qui lui est
+propre et son interface n&rsquo;est à mon goût pas très jolie (je ne suis pas un grand
+fan de Tk), ce qui fait perdre un peu le côté rassurant d&rsquo;une interface
+graphique pour certain utilisateurs.</p>
+
+<p>Le gros problème de la base de données spécifique est qu&rsquo;elle n&rsquo;a jamais été
+exhaustive et n&rsquo;est plus maintenue depuis longtemps, ce qui n&rsquo;est pas surprenant
+car c&rsquo;est une tâche qui demanderait un gros travail. Or ce travail est déjà
+effectué, avec brio, par l&rsquo;équipe du CTAN qui fournit un <a href="http://mirror.ctan.org/help/Catalogue/catalogue.html">catalogue
+exhaustif</a> et à jour, ainsi qu&rsquo;une <a href="http://mirror.ctan.org/help/Catalogue/bytopic.html">classification par sujets</a>,
+peut-être pas encore exhaustive mais en tout cas bien plus à jour que la base de
+texdoctk. Il serait souhaitable que texdoctk ou son successeur puisse utiliser
+directement ces informations plutôt que de dupliquer le travail.</p>
+
+<p>Dans une prochaine vie (c&rsquo;est-à-dire une fois ma thèse terminée, car j&rsquo;espère
+bien qu&rsquo;il y a une vie après), je prévois de travailler sur un nouvel outil
+regroupant les avantages de texdoc, ceux de texdoctk (modifiés pour utiliser
+directement le catalogue), et peut-être d&rsquo;autres (recherche dans la FAQ, etc.)
+avec une interface graphique un peu plus sexy j&rsquo;espère. En attendant, vos
+suggestions sont les bienvenues pour étoffer ma liste pour ce projet.</p>
+</div>
+
+<div class="meta group">
+<div class="signature">
+    <p>Written by mpg <span class="edit"></span></p>
+    <p>avril 19th, 2010 at 3:08  </p>
+</div>	
+<div class="tags">
+    <p>Posted in <a href="../../../par-sujet/tex-et-cie/" title="Voir tous les articles dans TeX et compagnie" rel="category tag">TeX et compagnie</a></p>
+    <p>Tagged with <a href="../../../par-tag/texdoc/" rel="tag">texdoc</a></p></div>
+</div>
+
+<div class="navigation group">
+    <div class="alignleft">&laquo; <a href="../luatex-0-60-0/" rel="prev">LuaTeX 0.60.0</a></div>
+    <div class="alignright"><a href="../choix-du-visualisateur-sous-texdoc/" rel="next">Choix du visualisateur sous texdoc</a> &raquo;</div>
+</div>
+
+
+<!-- You can start editing here. -->
+
+<a name="comments" id="comments"></a>
+
+
+ 
+<!-- If comments are open, but there are no comments. -->
+
+
+
+
+</div> 
+
+<div id="sidebar">
+<h3>Pages</h3>		<ul>
+			<li class="page_item page-item-4"><a href="../../../qui-suis-je/">À propos</a></li>
+		</ul>
+		<h3>Mots-clés</h3><div class="tagcloud"><a href='../../../par-tag/astuce/' class='tag-link-24' title='2 sujets' style='font-size: 11.111111111111pt;'>astuce</a>
+<a href='../../../par-tag/biblatex/' class='tag-link-41' title='1 sujet' style='font-size: 8pt;'>biblatex</a>
+<a href='../../../par-tag/context/' class='tag-link-28' title='8 sujets' style='font-size: 19.234567901235pt;'>context</a>
+<a href='../../../par-tag/cap/' class='tag-link-49' title='1 sujet' style='font-size: 8pt;'>càp</a>
+<a href='../../../par-tag/debian/' class='tag-link-4' title='6 sujets' style='font-size: 17.506172839506pt;'>debian</a>
+<a href='../../../par-tag/fontes/' class='tag-link-30' title='2 sujets' style='font-size: 11.111111111111pt;'>fontes</a>
+<a href='../../../par-tag/google/' class='tag-link-37' title='1 sujet' style='font-size: 8pt;'>google</a>
+<a href='../../../par-tag/gutenberg/' class='tag-link-44' title='1 sujet' style='font-size: 8pt;'>gutenberg</a>
+<a href='../../../par-tag/howto/' class='tag-link-31' title='9 sujets' style='font-size: 20.098765432099pt;'>howto</a>
+<a href='../../../par-tag/latex/' class='tag-link-3' title='6 sujets' style='font-size: 17.506172839506pt;'>latex</a>
+<a href='../../../par-tag/latex3/' class='tag-link-39' title='1 sujet' style='font-size: 8pt;'>latex3</a>
+<a href='../../../par-tag/lualatex/' class='tag-link-43' title='1 sujet' style='font-size: 8pt;'>lualatex</a>
+<a href='../../../par-tag/luatex/' class='tag-link-21' title='7 sujets' style='font-size: 18.37037037037pt;'>luatex</a>
+<a href='../../../par-tag/miktex/' class='tag-link-47' title='1 sujet' style='font-size: 8pt;'>miktex</a>
+<a href='../../../par-tag/mplib/' class='tag-link-46' title='1 sujet' style='font-size: 8pt;'>mplib</a>
+<a href='../../../par-tag/ssh/' class='tag-link-36' title='2 sujets' style='font-size: 11.111111111111pt;'>ssh</a>
+<a href='../../../par-tag/texdoc/' class='tag-link-42' title='5 sujets' style='font-size: 16.296296296296pt;'>texdoc</a>
+<a href='../../../par-tag/texlive/' class='tag-link-34' title='12 sujets' style='font-size: 22pt;'>texlive</a>
+<a href='../../../par-tag/tlcontrib/' class='tag-link-45' title='1 sujet' style='font-size: 8pt;'>tlcontrib</a>
+<a href='../../../par-tag/unix-admin/' class='tag-link-33' title='3 sujets' style='font-size: 13.185185185185pt;'>unix-admin</a>
+<a href='../../../par-tag/unix-user/' class='tag-link-35' title='2 sujets' style='font-size: 11.111111111111pt;'>unix-user</a>
+<a href='../../../par-tag/vim/' class='tag-link-22' title='1 sujet' style='font-size: 8pt;'>vim</a>
+<a href='../../../par-tag/wordpress/' class='tag-link-40' title='2 sujets' style='font-size: 11.111111111111pt;'>wordpress</a>
+<a href='../../../par-tag/xetex/' class='tag-link-20' title='2 sujets' style='font-size: 11.111111111111pt;'>xetex</a></div>
+<h3>Catégories</h3>		<ul>
+	<li class="cat-item cat-item-14"><a href="../../../par-sujet/comp/" title="Geekeries diverses">Geekeries diverses</a>
+</li>
+	<li class="cat-item cat-item-1"><a href="../../../par-sujet/non-classe/" title="Voir tous les articles classés dans Non classé">Non classé</a>
+</li>
+	<li class="cat-item cat-item-13"><a href="../../../par-sujet/tex-et-cie/" title="Voir tous les articles classés dans TeX et compagnie">TeX et compagnie</a>
+</li>
+		</ul>
+
+
+</div>
+
+</div>
+
+<div id="footer">
+	<p>The Journalist template by <a href="http://lucianmarin.com/" rel="designer">Lucian E. Marin</a> &mdash; Built for <a href="http://wordpress.org/">WordPress</a></p>
+</div>
+
+</body>
+</html>

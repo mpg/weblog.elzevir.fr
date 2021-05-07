@@ -1,0 +1,245 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr-FR">
+<head profile="http://gmpg.org/xfn/11">
+<title>   Rencontre ConTeXt 2008, partie 3 at Le mpg-blog</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="description" content="LaTeX et autres geekeries" />
+<link href="/style.css" rel="stylesheet" type="text/css" media="screen" />
+<link rel="shortcut icon" type="image/x-png" href="/favicon.png" />
+<link rel='stylesheet' id='wp-syntax-css-css'  href='/wp-syntax.css' type='text/css' media='all' />
+</head>
+
+<body>
+<div id="container" class="group">
+
+<h1><a href="../../../">Le mpg-blog</a></h1>
+<div id="bubble"><p>LaTeX et autres geekeries</p></div> <!-- erase this line if you want to turn the bubble off -->
+
+<div id="content" class="group">
+
+<h2 id="post-13"><a href="index.html" rel="bookmark">Rencontre ConTeXt 2008, partie 3</a></h2>
+<p class="comments"><a href="index.html#comments">without comments</a></p>
+
+<div class="main">
+	<h2>5 minutes de gloire</h2>
+
+<p>Non utilisateur (encore) de ConTeXt. Espère régler avec ConTeXt des problèmes
+rencontrés en LaTeX (utilisé depuis 10 ans). Trouve TeX bizarre en tant que
+langage de programmation, espère en Lua.<span id="more-13"></span>## Norbert Preining : l&rsquo;installateur TeX Live 2008</p>
+
+<p>Non utilisateur, quoique que mainteneur sur Debian&#8230;</p>
+
+<p>Pas de présentation structurée, mais une jolie présentation interactive. Tout
+se passe bien, ce qui est rassurant à quelques jours de la sortie de TeX Live.
+Pas trop de notes, car je mets au propre mes notes d&rsquo;hier et ce matin, et que je
+ferai de toutes façon vraisemblablement un billet séparé sur TeX Live 2008
+prochainement.</p>
+
+<h2>Tutoriel ConTeXt</h2>
+
+<h3>Sources d&rsquo;info</h3>
+
+<dl>
+<dt>Générales</dt>
+<dd>- <a href="http://www.pragma-ade.com/show-man-1.htm">http://www.pragma-ade.com/show-man-1.htm</a> (attention, plusieurs
+pages)
+- <a href="http://wiki.contextgarden.net/Main_Page">http://wiki.contextgarden.net/Main_Page</a>
+- <a href="http://texshow.contextgarden.net">http://texshow.contextgarden.net</a></dd>
+
+<dt>Modules</dt>
+<dd>http://groups.foundry.supelec.fr/modules</dd>
+</dl>
+
+<h3>Installation</h3>
+
+<p>Cf les séances de ce matin : COnTeXt minimals, TeXLive (mais MkIV à finir de
+configurer manuellement, <a href="http://wiki.contextgarden.net/Running_Mark_IV">une page</a> y est consacrée sur le wiki ConTeXt).
+Conseils divers sur comment régler son environnement pour les minimals, que je
+ne reproduis pas (je trouve que les minimals mériteraient une meilleure
+installation et cohabotation, cf la conf de ce matin sur l&rsquo;installateur Mac.)</p>
+
+<p>Pour tester son installation, le fichier minimal est :</p>
+
+
+<div class="wp_syntax"><table><tr><td class="code"><pre class="tex" style="font-family:monospace;">\starttext
+Hello, World!
+\stoptext</pre></td></tr></table></div>
+
+
+<p>On le lance avec au choix <code>context hello</code> (MkIV, LuaTeX), ou <code>texexex -xtx
+hello</code> (XeTeX), etc. Ça doit produire un pdf. Pour les vrais documents, des
+éditeurs recommandes sont les classiques, plus Scite, (Windows/Linux) pour
+lequel un mode ConTeXt très bien fait semble exister.</p>
+
+<h3>Les bases</h3>
+
+
+<div class="wp_syntax"><table><tr><td class="code"><pre class="tex" style="font-family:monospace;">\enableregime[utf8] % encodage (inutile pour MkIV, qui utilise utf8 par défaut)
+%\enableregime[windows}
+\mainlanguage[de] % prend soin des césures mais pas de la miseen page
+\starttext
+...
+\stoptext</pre></td></tr></table></div>
+
+
+<p>Valeurs par défaut :
+- papier A4 (réglable dans tlmgr sous TeX LIve 2008, ndlr) ;
+- marges latérales 30mm, verticales 25mm, en-tête et pied de page 20mm ;
+- utiliser <code>\showlayout</code> pour le voir.</p>
+
+<p>ConTeXt cherche les fichiers dans le répertoire courant, et dans le répertoire
+parent. On peut régler l&rsquo;emplacement des figures avec
+<code>\setupexternalfigures[directory=~/path/to/figures]</code>. On inclut des fichiers
+avec <code>input fichier</code> (sans accolades).</p>
+
+<p>La commande <code>\frame</code> et l&rsquo;environnement <code>framedtext</code> est un bon exemple des
+possibilités de configuration de ConTeXt. (Ndlr : l&rsquo;environnement est très
+pratique pour encadrer du texte verbatim sans effort, alors que c&rsquo;est douloureux
+et manuel en LaTeX.)</p>
+
+
+<div class="wp_syntax"><table><tr><td class="code"><pre class="tex" style="font-family:monospace;">\framed[width=.5\textwidth, offset=15pt, frame=on]{Welcome to Bohinj!}</pre></td></tr></table></div>
+
+
+<p>Les volontaires se voient remettre un livret d&rsquo;exercices imprimé pour
+poursuivre&#8230; Pause café d&rsquo;abord pour que tout le monde finisse de configurer
+une installation potable.</p>
+
+<h3>Aller un peu plus loin</h3>
+
+<p>Les thèmes abordés incluent : modèle de page (<code>\showlayout</code> ou <code>\ShowLayout</code> du
+module <em>layout</em> (plus visuel)) et réglage des dimensions (<code>\setuplayout</code>),
+taille du papier (<code>\setuppapersize</code> et éventuellement <code>\definepapersize</code>), page
+spéciale (de titre, colophon, etc.) avec <code>\startstandardmakeup</code>et
+<code>\setupmakeup</code>.</p>
+
+<dl>
+<dt>La commande/environnement <code>\frame</code> : c&rsquo;est un ingrédient de base pour beaucoup</dt>
+<dt>de chose et pas seulement pour encadrer. Repris par beaucoup d&rsquo;environnement,</dt>
+<dt>donc ses options sont souvent disponibles pour d&rsquo;autres environnements. Conseil</dt>
+<dd>regarder les exemples la plupart des noms d&rsquo;options parlent d&rsquo;eux-même. Voire
+aussi <code>\setupframedtexts</code>, <code>\defineframed</code>, avec une notion d&rsquo;héritage. Comme
+<code>frame</code> n&rsquo;autorise pas les coupures de pages, voire aussi <code>textbackgrounds</code> qui
+y ressemble mais les autorise (sous certaines conditions)</dd>
+</dl>
+
+<p>Suggestion d&rsquo;exercice : prendre les exemples de pages de titre sur la
+<a href="http://zoonek.free.fr/LaTeX/">page LaTeX</a> de Vincent Zoonekynd et essayer de les reproduire.</p>
+
+<h3>Structure du document</h3>
+
+<p>Commandes de structure prédéfinies :
+- <code>\chapter</code> = <code>\title</code>
+- <code>\section</code> = <code>\subject</code>
+- <code>\subsection</code> = <code>\subsubject</code>
+- <code>\susubbsection</code> = <code>\susubbsubject</code>
+Configurées avec <code>\setupheads</code> (numérotation, espace autour, matériel autour,
+alignement, coupures, mise en forme avec une commande perso) pour tous d&rsquo;un
+coup, ou <code>\setuphead[niveau]</code> individuellement. Possibilité de définir ses
+niveaux de titre avec <code>\definehead</code>.</p>
+
+<p>Pour les gros documents :
+- <code>\startfrontmatter</code> &#8230; <code>\stopfrontmatter</code> 
+- <code>\startbodymatter</code> &#8230; <code>\stopbodymatter</code> 
+- <code>\startbackmatter</code> &#8230; <code>\stopbackmatter</code> 
+- <code>\startappendices</code> &#8230; <code>\stopappendices</code>
+Personnalisés avec <code>\setupsectionblocks</code> globalement, ou <code>\setupsectionblosk</code>
+individuellement. On peut aussi en définir avec&#8230; (faux suspense&#8230;.)
+<code>\definesectionblock</code> (sans rire).</p>
+
+<p>&#91;Ici il y a des trucs avec des <code>\v!</code>et <code>\c!</code>que je ne comprends pas trop.&#93;</p>
+
+<p>Je ne note pas la suite, pourtant tout aussi intéressante, car je suis trop
+fatigué pour noter et écouter en même temps&#8230; Le tout donne l&rsquo;impression d&rsquo;une
+interface très cohérente, à la syntaxe naturelle, et suffisamment puissante pour
+tout configurer avec autant de souplesse sinon plus que n&rsquo;en fournissent les
+extensions LaTeX classiques <em>titlesec</em>, <em>fancyhdr</em>, <em>geometry</em>, <em>enumitem</em>,
+etc. (À la pause café, quelqu&rsquo;un faisait remarquer que le classe <em>memoir</em> se
+rapproche pas mal de ConTeXt en ce qu&rsquo;elle inclut les extensions nécessaires
+pour configurer un minimum).</p>
+
+<p>Bref, un tuto qui donne envie (et il y avait du matériel pour bien plus que 3h,
+on est inondés d&rsquo;informations). La partie 2 a lieu dimanche.</p>
+
+<p>Je suis un peu perdu sur le programme, j&rsquo;arrête donc ce billet ici en attendant
+de voir, on part donc sur un rythme de trois billets par jours : chers lecteurs,
+accrochez-vous !</p>
+</div>
+
+<div class="meta group">
+<div class="signature">
+    <p>Written by mpg <span class="edit"></span></p>
+    <p>août 21st, 2008 at 6:00  </p>
+</div>	
+<div class="tags">
+    <p>Posted in <a href="../../../par-sujet/tex-et-cie/" title="Voir tous les articles dans TeX et compagnie" rel="category tag">TeX et compagnie</a></p>
+    <p>Tagged with <a href="../../../par-tag/context/" rel="tag">context</a></p></div>
+</div>
+
+<div class="navigation group">
+    <div class="alignleft">&laquo; <a href="../rencontre-context-2008-partie-2/" rel="prev">Rencontre ConTeXt 2008, partie 2</a></div>
+    <div class="alignright"><a href="../rencontre-context-2008-partie-4-2/" rel="next">Rencontre ConTeXt 2008, partie 4</a> &raquo;</div>
+</div>
+
+
+<!-- You can start editing here. -->
+
+<a name="comments" id="comments"></a>
+
+
+ 
+<!-- If comments are open, but there are no comments. -->
+
+
+
+
+</div> 
+
+<div id="sidebar">
+<h3>Pages</h3>		<ul>
+			<li class="page_item page-item-4"><a href="../../../qui-suis-je/">À propos</a></li>
+		</ul>
+		<h3>Mots-clés</h3><div class="tagcloud"><a href='../../../par-tag/astuce/' class='tag-link-24' title='2 sujets' style='font-size: 11.111111111111pt;'>astuce</a>
+<a href='../../../par-tag/biblatex/' class='tag-link-41' title='1 sujet' style='font-size: 8pt;'>biblatex</a>
+<a href='../../../par-tag/context/' class='tag-link-28' title='8 sujets' style='font-size: 19.234567901235pt;'>context</a>
+<a href='../../../par-tag/cap/' class='tag-link-49' title='1 sujet' style='font-size: 8pt;'>càp</a>
+<a href='../../../par-tag/debian/' class='tag-link-4' title='6 sujets' style='font-size: 17.506172839506pt;'>debian</a>
+<a href='../../../par-tag/fontes/' class='tag-link-30' title='2 sujets' style='font-size: 11.111111111111pt;'>fontes</a>
+<a href='../../../par-tag/google/' class='tag-link-37' title='1 sujet' style='font-size: 8pt;'>google</a>
+<a href='../../../par-tag/gutenberg/' class='tag-link-44' title='1 sujet' style='font-size: 8pt;'>gutenberg</a>
+<a href='../../../par-tag/howto/' class='tag-link-31' title='9 sujets' style='font-size: 20.098765432099pt;'>howto</a>
+<a href='../../../par-tag/latex/' class='tag-link-3' title='6 sujets' style='font-size: 17.506172839506pt;'>latex</a>
+<a href='../../../par-tag/latex3/' class='tag-link-39' title='1 sujet' style='font-size: 8pt;'>latex3</a>
+<a href='../../../par-tag/lualatex/' class='tag-link-43' title='1 sujet' style='font-size: 8pt;'>lualatex</a>
+<a href='../../../par-tag/luatex/' class='tag-link-21' title='7 sujets' style='font-size: 18.37037037037pt;'>luatex</a>
+<a href='../../../par-tag/miktex/' class='tag-link-47' title='1 sujet' style='font-size: 8pt;'>miktex</a>
+<a href='../../../par-tag/mplib/' class='tag-link-46' title='1 sujet' style='font-size: 8pt;'>mplib</a>
+<a href='../../../par-tag/ssh/' class='tag-link-36' title='2 sujets' style='font-size: 11.111111111111pt;'>ssh</a>
+<a href='../../../par-tag/texdoc/' class='tag-link-42' title='5 sujets' style='font-size: 16.296296296296pt;'>texdoc</a>
+<a href='../../../par-tag/texlive/' class='tag-link-34' title='12 sujets' style='font-size: 22pt;'>texlive</a>
+<a href='../../../par-tag/tlcontrib/' class='tag-link-45' title='1 sujet' style='font-size: 8pt;'>tlcontrib</a>
+<a href='../../../par-tag/unix-admin/' class='tag-link-33' title='3 sujets' style='font-size: 13.185185185185pt;'>unix-admin</a>
+<a href='../../../par-tag/unix-user/' class='tag-link-35' title='2 sujets' style='font-size: 11.111111111111pt;'>unix-user</a>
+<a href='../../../par-tag/vim/' class='tag-link-22' title='1 sujet' style='font-size: 8pt;'>vim</a>
+<a href='../../../par-tag/wordpress/' class='tag-link-40' title='2 sujets' style='font-size: 11.111111111111pt;'>wordpress</a>
+<a href='../../../par-tag/xetex/' class='tag-link-20' title='2 sujets' style='font-size: 11.111111111111pt;'>xetex</a></div>
+<h3>Catégories</h3>		<ul>
+	<li class="cat-item cat-item-14"><a href="../../../par-sujet/comp/" title="Geekeries diverses">Geekeries diverses</a>
+</li>
+	<li class="cat-item cat-item-1"><a href="../../../par-sujet/non-classe/" title="Voir tous les articles classés dans Non classé">Non classé</a>
+</li>
+	<li class="cat-item cat-item-13"><a href="../../../par-sujet/tex-et-cie/" title="Voir tous les articles classés dans TeX et compagnie">TeX et compagnie</a>
+</li>
+		</ul>
+
+
+</div>
+
+</div>
+
+<div id="footer">
+	<p>The Journalist template by <a href="http://lucianmarin.com/" rel="designer">Lucian E. Marin</a> &mdash; Built for <a href="http://wordpress.org/">WordPress</a></p>
+</div>
+
+</body>
+</html>

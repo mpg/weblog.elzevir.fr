@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr-FR">
+<head profile="http://gmpg.org/xfn/11">
+<title>   Choix du visualisateur sous texdoc at Le mpg-blog</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="description" content="LaTeX et autres geekeries" />
+<link href="/style.css" rel="stylesheet" type="text/css" media="screen" />
+<link rel="shortcut icon" type="image/x-png" href="/favicon.png" />
+<link rel='stylesheet' id='wp-syntax-css-css'  href='/wp-syntax.css' type='text/css' media='all' />
+</head>
+
+<body>
+<div id="container" class="group">
+
+<h1><a href="../../../">Le mpg-blog</a></h1>
+<div id="bubble"><p>LaTeX et autres geekeries</p></div> <!-- erase this line if you want to turn the bubble off -->
+
+<div id="content" class="group">
+
+<h2 id="post-119"><a href="index.html" rel="bookmark">Choix du visualisateur sous texdoc</a></h2>
+<p class="comments"><a href="index.html#comments">without comments</a></p>
+
+<div class="main">
+	<p>La principale fonction de texdoc est de localiser rapidement la documentation
+d&rsquo;un module donné et de l&rsquo;afficher. Je parlerai plus tard des fonctions de
+recherches et me concentre aujourd&rsquo;hui sur l&rsquo;affichage du document. Voyons donc
+comment indiquer à texdoc quel est votre visualisateur préféré pour chaque type
+de document, et comment texdoc essaye de trouver le bon en l&rsquo;absence de
+configuration de votre part.<span id="more-119"></span>## Fichiers de configuration</p>
+
+<p>Pour indiquer à texdoc vos visualisateur favoris, il suffit d&rsquo;insérer quelques
+lignes dans votre fichier de configuration texdoc personnel. Pour trouver
+celui-ci, lancez <code>texdoc -f</code> et repérez le fichier indiqué par une étoile. Il
+est probable que ce fichier et le répertoire qui doit le contenir n&rsquo;existent pas
+encore, il vous faudra alors les créer.</p>
+
+<p>Texdoc utilise simultanément plusieurs fichiers de configuration : en général,
+l&rsquo;un est livré avec TeX Live, un autre est destiné à l&rsquo;administrateur de la
+machine, et un dernier est réservé à votre usage personnel. (Quelques autres
+fichiers peuvent être utilisés dans des cas particuliers, comme une installation
+partagée entre plusieurs machines, ou pour utiliser la version de développement
+de texdoc.) De plus, la liste exacte peut dépendre de la version de texdoc
+utilisée (par exemple, dans des paquets Debian, les emplacements des fichiers
+voire leur nombre peut être modifiée). L&rsquo;option <code>-f</code> a pour but de vous aider à
+vous retrouver parmi cette jungle de fichiers.</p>
+
+<h2>Directives de configuration</h2>
+
+<p>À chaque type de fichier correspond une variable de configuration : par exemple,
+pour les pdf, c&rsquo;est <code>viewer_pdf</code>. Les valeurs de ces variables se règlent
+ainsi, une par ligne :</p>
+
+<pre><code>viewer_pdf = xpdf %s &amp;
+viewer_txt = view
+</code></pre>
+
+<p>Les espaces autour du signe égal ne comptent pas. Le signe <code>%s</code> représente le
+nom du fichier à visualiser ; on peut l&rsquo;omettre lorsque c&rsquo;est le dernier
+élément de la ligne. Dans le premier cas, observez l&rsquo;usage de <code>&amp;</code> pour lancer le
+visualisateur en arrière-plan (syntaxe shell standard).</p>
+
+<h2>Pour les curieux : méthode de choix par défaut</h2>
+
+<p>Sous Windows et Mac OS X, pour ce genre de choses, la vie est plus facile. En
+effet, il existe des associations entre types de fichiers et visualisateurs,
+définies au niveau global, et il est facile d&rsquo;ouvrir un fichier en utilisant ces
+associations (commande <code>open</code> sous OS X et <code>start</code> sous Windows). C&rsquo;est donc ce
+que fait texdoc, sauf pour les fichiers de type texte. En effet, ceux-ci sont
+parfois dépourvus d&rsquo;extension, donc texdoc force l&rsquo;utilisation d&rsquo;un <em>pager</em> par
+souci d&rsquo;uniformité (<code>more</code> sous Windows, <code>less</code> sous OS X).</p>
+
+<p>Sous un Unix général, les choses se corsent. Des environnements de bureau comme
+KDE, Gnome, ou encore XFCE, définissent aussi des associations et des commandes
+pour ouvrir les fichiers en utilisant ces associations. Cependant, il serait
+faut de croire que parce que <code>gnome-open</code> existe, l&rsquo;utilisateur est
+effectivement sous Gnome. Il faut donc détecter la présence d&rsquo;un environnement
+de bureau de façon adaptée : pour cela, texdoc utilise désormais une technique
+largement inspirée de <code>xdg-open</code>, du projet <a href="http://portland.freedesktop.org/wiki/">XdgUtils</a>.</p>
+
+<p>Si aucun environnement de bureau n&rsquo;est détecté, texdoc explore le <code>PATH</code> à la
+recherche de visualisateurs connus parmi une liste embarquée dans le code.
+L&rsquo;ordre de cette liste n&rsquo;a alors plus aucune raison de refléter les goûts d&rsquo;un
+utilisateur particulier, mais il faut bien choisir&#8230;</p>
+
+<p>Par ailleurs, certaines distributions, dans leur paquet texdoc, modifient le
+lecteur par défaut pour utiliser un outil spécifique à la distribution, comme la
+commande <code>see</code> sous Debian et dérivés.</p>
+
+<h2>Historique</h2>
+
+<p>Jusqu&rsquo;à TeX Live 2007, la seule façon de configurer les visualisateurs était
+d&rsquo;utiliser des variables d&rsquo;environnements comme <code>TEXDOCVIEW_pdf</code>. Cette méthode
+est toujours acceptée même si les fichiers de configuration sont désormais la
+méthode recommandée. Par ailleurs, en l&rsquo;absence de configuration explicite, le
+nom du lecteur était codé en dur, sans alternative. Depuis TeX Live 2008,
+plusieurs lecteurs sont essayé dans ce cas ; leur liste a évolué depuis, et le
+mécanisme de détection des environnements de bureau n&rsquo;est apparu qu&rsquo;après TeX
+Live 2009.</p>
+</div>
+
+<div class="meta group">
+<div class="signature">
+    <p>Written by mpg <span class="edit"></span></p>
+    <p>avril 26th, 2010 at 5:42  </p>
+</div>	
+<div class="tags">
+    <p>Posted in <a href="../../../par-sujet/tex-et-cie/" title="Voir tous les articles dans TeX et compagnie" rel="category tag">TeX et compagnie</a></p>
+    <p>Tagged with <a href="../../../par-tag/texdoc/" rel="tag">texdoc</a></p></div>
+</div>
+
+<div class="navigation group">
+    <div class="alignleft">&laquo; <a href="../texdoc-et-texdoctk/" rel="prev">texdoc et texdoctk</a></div>
+    <div class="alignright"><a href="../../05/tex-live-2009-gelee/" rel="next">TeX Live 2009 gelée</a> &raquo;</div>
+</div>
+
+
+<!-- You can start editing here. -->
+
+<a name="comments" id="comments"></a>
+
+
+ 
+<!-- If comments are open, but there are no comments. -->
+
+
+
+
+</div> 
+
+<div id="sidebar">
+<h3>Pages</h3>		<ul>
+			<li class="page_item page-item-4"><a href="../../../qui-suis-je/">À propos</a></li>
+		</ul>
+		<h3>Mots-clés</h3><div class="tagcloud"><a href='../../../par-tag/astuce/' class='tag-link-24' title='2 sujets' style='font-size: 11.111111111111pt;'>astuce</a>
+<a href='../../../par-tag/biblatex/' class='tag-link-41' title='1 sujet' style='font-size: 8pt;'>biblatex</a>
+<a href='../../../par-tag/context/' class='tag-link-28' title='8 sujets' style='font-size: 19.234567901235pt;'>context</a>
+<a href='../../../par-tag/cap/' class='tag-link-49' title='1 sujet' style='font-size: 8pt;'>càp</a>
+<a href='../../../par-tag/debian/' class='tag-link-4' title='6 sujets' style='font-size: 17.506172839506pt;'>debian</a>
+<a href='../../../par-tag/fontes/' class='tag-link-30' title='2 sujets' style='font-size: 11.111111111111pt;'>fontes</a>
+<a href='../../../par-tag/google/' class='tag-link-37' title='1 sujet' style='font-size: 8pt;'>google</a>
+<a href='../../../par-tag/gutenberg/' class='tag-link-44' title='1 sujet' style='font-size: 8pt;'>gutenberg</a>
+<a href='../../../par-tag/howto/' class='tag-link-31' title='9 sujets' style='font-size: 20.098765432099pt;'>howto</a>
+<a href='../../../par-tag/latex/' class='tag-link-3' title='6 sujets' style='font-size: 17.506172839506pt;'>latex</a>
+<a href='../../../par-tag/latex3/' class='tag-link-39' title='1 sujet' style='font-size: 8pt;'>latex3</a>
+<a href='../../../par-tag/lualatex/' class='tag-link-43' title='1 sujet' style='font-size: 8pt;'>lualatex</a>
+<a href='../../../par-tag/luatex/' class='tag-link-21' title='7 sujets' style='font-size: 18.37037037037pt;'>luatex</a>
+<a href='../../../par-tag/miktex/' class='tag-link-47' title='1 sujet' style='font-size: 8pt;'>miktex</a>
+<a href='../../../par-tag/mplib/' class='tag-link-46' title='1 sujet' style='font-size: 8pt;'>mplib</a>
+<a href='../../../par-tag/ssh/' class='tag-link-36' title='2 sujets' style='font-size: 11.111111111111pt;'>ssh</a>
+<a href='../../../par-tag/texdoc/' class='tag-link-42' title='5 sujets' style='font-size: 16.296296296296pt;'>texdoc</a>
+<a href='../../../par-tag/texlive/' class='tag-link-34' title='12 sujets' style='font-size: 22pt;'>texlive</a>
+<a href='../../../par-tag/tlcontrib/' class='tag-link-45' title='1 sujet' style='font-size: 8pt;'>tlcontrib</a>
+<a href='../../../par-tag/unix-admin/' class='tag-link-33' title='3 sujets' style='font-size: 13.185185185185pt;'>unix-admin</a>
+<a href='../../../par-tag/unix-user/' class='tag-link-35' title='2 sujets' style='font-size: 11.111111111111pt;'>unix-user</a>
+<a href='../../../par-tag/vim/' class='tag-link-22' title='1 sujet' style='font-size: 8pt;'>vim</a>
+<a href='../../../par-tag/wordpress/' class='tag-link-40' title='2 sujets' style='font-size: 11.111111111111pt;'>wordpress</a>
+<a href='../../../par-tag/xetex/' class='tag-link-20' title='2 sujets' style='font-size: 11.111111111111pt;'>xetex</a></div>
+<h3>Catégories</h3>		<ul>
+	<li class="cat-item cat-item-14"><a href="../../../par-sujet/comp/" title="Geekeries diverses">Geekeries diverses</a>
+</li>
+	<li class="cat-item cat-item-1"><a href="../../../par-sujet/non-classe/" title="Voir tous les articles classés dans Non classé">Non classé</a>
+</li>
+	<li class="cat-item cat-item-13"><a href="../../../par-sujet/tex-et-cie/" title="Voir tous les articles classés dans TeX et compagnie">TeX et compagnie</a>
+</li>
+		</ul>
+
+
+</div>
+
+</div>
+
+<div id="footer">
+	<p>The Journalist template by <a href="http://lucianmarin.com/" rel="designer">Lucian E. Marin</a> &mdash; Built for <a href="http://wordpress.org/">WordPress</a></p>
+</div>
+
+</body>
+</html>

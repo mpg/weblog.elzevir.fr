@@ -1,0 +1,317 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr-FR">
+<head profile="http://gmpg.org/xfn/11">
+<title>   Rencontre ConTeXt 2008, partie 2 at Le mpg-blog</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="description" content="LaTeX et autres geekeries" />
+<link href="/style.css" rel="stylesheet" type="text/css" media="screen" />
+<link rel="shortcut icon" type="image/x-png" href="/favicon.png" />
+<link rel='stylesheet' id='wp-syntax-css-css'  href='/wp-syntax.css' type='text/css' media='all' />
+</head>
+
+<body>
+<div id="container" class="group">
+
+<h1><a href="../../../">Le mpg-blog</a></h1>
+<div id="bubble"><p>LaTeX et autres geekeries</p></div> <!-- erase this line if you want to turn the bubble off -->
+
+<div id="content" class="group">
+
+<h2 id="post-12"><a href="index.html" rel="bookmark">Rencontre ConTeXt 2008, partie 2</a></h2>
+<p class="comments"><a href="index.html#comments">with one comment</a></p>
+
+<div class="main">
+	<p>Première vraie journée de travail&#8230;</p>
+
+<p>Un concept sympa inventé par Mojca : tous les participants au meeting qui ne
+font pas déjà une présentation on droit à « 5 minutes de gloire » où ils se
+présentent et expliquent pourquoi et pour quoi ils utilisent (ou pas ConTeXt),
+éventuellement ce qu&rsquo;ils font dans la vie, etc. Le but est évident d&rsquo;aider les
+participants à faire connaissance.<span id="more-12"></span>## Début 9h : 2 x 5 minutes de gloire</p>
+
+<ul>
+<li>maths (LaTeX), conTeXt pas possible avec les journaux. Guide en polonais </li>
+<li>débutants, curieux (étudiants en info (?))</li>
+</ul>
+
+<h2>M. Schröder : 5 ans de pdfTeX : les leçons</h2>
+
+<p>N&rsquo;utilise pas ConTeXt.</p>
+
+<h3>Intro</h3>
+
+<p>Était mainteneur de pdfTeX de 2003 à 2005. Conseils aux dév. Open Source :
+soyez pros, amusez-vous, publiez des versions tôt et souvents.</p>
+
+<h3>Admin</h3>
+
+<p>Choisissez une bonne licence, même si ça vous paraît ennuyeux (GPL, BSD, LPPL).
+Ayez un bon site web, tenez-le à jour. Ayez un dépôt VCS (public si possible)
+(existence de services publics : TUG, sf, etc.). Ayez un système de &laquo;&nbsp;tracking&nbsp;&raquo;
+des bugs, mais faites attention à ne pas être bloqué sur un programme
+particulier. Ayez une mailing list, avec les messages de comit publiés dessus
+(plus tard, liste de dev + liste utilisateurs).</p>
+
+<p>Hygiène du code : licence, compil nickel, style de codage (cf GNU, OpenBSD)
+(programme indent) portabilité, identification des binaires. Documentation : la tenir à jour, inc. installation etc. Annonces correctes.</p>
+
+<h3>Aspect sociaux</h3>
+
+<p>Motivations des membres ? Modèle : gentil dictateur, méritocratie, démocratie ?
+Ayez un but clair et maintenez une feuille de route.  Décidez de règles de
+résultion des conflits (même si vous les croyez inutiles).  Construisez un
+esprit d&rsquo;équipe. Essayez de vous rencontrer en vrai.</p>
+
+<h3>Relations publiques</h3>
+
+<p>Le <em>site web</em> ! Blog ? Fréquenter les listes, blogs et forums liés. Utiliser
+freshmeat et wikipedia.</p>
+
+<h3>Questions</h3>
+
+<p>Comment adapter aux petits projet ? Ex des rencontres : on peut se rencontrer à
+un meeting plus gros et en profiter pour boire une bière tous ensemble.</p>
+
+<h2>Taco : LuaTeX</h2>
+
+<p>Pas utilisateur&#8230;</p>
+
+<p>Ingrédients : Lua 5.1, biblio lua, morceux de fontforge, xdvipdfmx, TeX,
+pdfTeX, Aleph (Omega), code C ; des bugs.</p>
+
+<h3>L&rsquo;année dernière.</h3>
+
+<p>Première bêta (0.10). Extensions de TeX (attributs),
+Unicode, système de fontes (OTF), blblios lua, <code>\directlua</code>, interpréteur
+texlua, &laquo;&nbsp;callbacks&nbsp;&raquo;.</p>
+
+<p>Les &laquo;&nbsp;callbacks&nbsp;&raquo; : des &laquo;&nbsp;hooks&nbsp;&raquo; dans le fonctionnement interne de TeX, exécutant
+la fonction Lua de votre choix. Étendent ou remplace des fonctions internes de
+TeX.</p>
+
+<h3>Cette année : 0.29</h3>
+
+<p>Extensions de fontesi (formats AAT et ttc, &laquo;&nbsp;subsetting&nbsp;&raquo;, type1 + unicode,
+recherche PDF, images dans lesfontes virtuelles), refait la césure
+(<code>\discretionary</code> autorisé dans <code>\hyphenation</code>, chargement dynamique (plus
+besoin de initex), etc.), extensions lua (MPlib, os étendu, img, luasocket
+(réseau), texluac), version dans TeX Live (0.25.4).</p>
+
+<h3>Futur</h3>
+
+<p>Moteur de maths, interface Lua à toutes les fonctions typo, allocation mémoire
+dynamique, lua->pdf direct, luatexlib (?).</p>
+
+<h3>Liens</h3>
+
+<p>Site : www.luatex.org
+Tracker : tracker.luatex.org</p>
+
+<h3>Questions</h3>
+
+<ul>
+<li>possibilité de générer autre chose que du pdf ? À terme, peut-être, mais pas dans l&rsquo;immédiat (meilleure séparation du &laquo;&nbsp;back-end&nbsp;&raquo;).</li>
+<li>utilisateur ? Actuellement, juste ConTeXt MkIV.</li>
+</ul>
+
+<h2>Arthur : TeX et Unicode</h2>
+
+<p>Utilisateur de ConTeXt. (Même conf qu&rsquo;au TUG.)</p>
+
+<p>Lire de l&rsquo;utf-8 et supporter Unicode, c&rsquo;est pas pareil ! Déjà en interne il y
+que 16 bits (=BMP), et surtout il y a les propriétés des caractères et leurs
+relations, qui manquent encore.</p>
+
+<p>Caractères combinants. Comme les accents de TeX : <code>\'e</code> = <code>é</code> mais dans l&rsquo;autre
+sens (caractère+accent) et sans commandes TeX. Il ya donc plusieurs façons
+d&rsquo;écrire un même caractère (parfois). Notion d&rsquo;équivalence canonique, mais
+problème de normalisation. Deux formes normales : totalement décomposée,
+totalement composée. (Pas mal d&rsquo;exemples et de démos, pas notés&#8230;)</p>
+
+<p>Pour en revenir à TeX, pour qu&rsquo;il soit réellement compatible Unicode, il faut
+qu&rsquo;il traite de façon équivalente les représentations équivalentes d&rsquo;un même
+caractère : actuellement, ce n&rsquo;est pas la cas. Ça compte pour le rendu, mais
+aussi pour les motifs de césures. LuaTeX a une nouveau moteur de césure qui gère
+ça d&rsquo;une façon. Une solution adoptée dans XeTeX consiste à tout normaliser
+avant, mais ça pose des problèmes (bugs (?) dans Unicode, problèmes de fontes).</p>
+
+<h2>Pause café (10h45-11h15)</h2>
+
+<p>Après la pose, c&rsquo;est la demie-matinée des installateurs.</p>
+
+<h2>Mojca : ConTeXt minimals</h2>
+
+<p>Utilisatrice de ConTeXt, prétend ne pas savoir utiliser LaTeX. Une des
+personnalités les plus enthousiastes et entraînantes du monde ConTeXt
+(organisatrice de la conf ici, responsable de ma présence à BachoTeX, etc.)
+(Même conf qu&rsquo;à BachoTeX.)</p>
+
+<p>Spécificités de ConTeXt : mises à jour très fréquentes, besoin de retour
+utilisateur rapide (et le contraire  fonctionnalités demandées et intégrées très
+rapidement). Dépend des toutes dernières version des fontes (lm, TeX Gyre) et
+binaires (LuaTeX).</p>
+
+<p>Distro existantes : MikTeX, TeX Live, W32TeX : très orientées LaTeX et rythme
+de màj inadapté. Distro ConTeXt existante : que des zip, installation et mise à
+jour pénible (compatibilité, génération des formats, etc.), essentiellement
+ré-installer à chaque mise à jour.</p>
+
+<p>Maintenant les minimals : basés sur rsync, peu de trafic. Modulaire. Pas
+d&rsquo;installation nécessaire : tout placer dans un coin et lancer le script qui
+gère les variables d&rsquo;environnement et ça marche (dans le shell courant, ndlr).
+Contenu : pdfTeX, XeTeX et LuaTeX toute dernière version. Fichiers de base mais
+rien en rapport avec LaTeX. Fontes de base, dernières version (et pas de cm et
+autres). ConTeXt, dernière version stable, versions beta et alpha (facile à
+sélectionner sur la ligne de commande ou par défaut). Modules du <em>garden</em>
+ConTeXt, TikZ version svn. Support technique (rsync, etc).  Supporte toutes les
+plateformes courantes (Win, Linux, BSD, 64bits, Unix variés).</p>
+
+<p>Installation : une démo (qui marche !)&#8230; (Assortie de commentaire blessants sur
+l&rsquo;obsolescence des fontes type 1, des tfm et de pdfTeX, au moment où elle évoque
+la possibilité de n&rsquo;installer que LuaTeX + XeTeX, sans toutes les
+&laquo;&nbsp;vieilleries&nbsp;&raquo;&#8230; (ndlr)) Après install, sourcer (pas éxécuter) setuptex pour
+régler les variables d&rsquo;environnement (de façon non permanente, je le répète).
+Utilisation : commande <code>context</code> pour MkIV, <code>texexec</code> pour MkII.</p>
+
+<h3>Questions</h3>
+
+<p>Tournent surtout autour des problèmes de conf, avec le fichier à sourcer et
+toutes les variables d&rsquo;environnement. Aussi, structure un peu particulière, pas
+totalement TDS-compatible. Scripts shells pas très portables (?).</p>
+
+<h2>ConTeXt minimals pour windows</h2>
+
+<p>Problèmes précedemment évoqués des minimals : variables d&rsquo;environnement à régler
+shell par shell, lancer conTeXt depuis un programme externe : la galère.</p>
+
+<p>Solution choisie : régler l&rsquo;environnement dans la base de registre, tout
+dépendant du PATH. Un premier &laquo;&nbsp;installateur&nbsp;&raquo; écrit en pascal : pas suffisant
+pour convaincre les utilisateurs normaux. Actuellement &laquo;&nbsp;vrai&nbsp;&raquo; installateur
+windows basé sur Inno Setup. Inclus juste la base (rsync) pour télécharger le
+reste. Démo : ça a une bonne tête.</p>
+
+<h2>ConTeXt minimals pour Mac OS X</h2>
+
+<p>Même remarque de départ : besoin d&rsquo;être un <em>power-user</em> pour installer, pas
+normal. Autre besoin : basculer facilement entre différences installations
+(TeX Live variées, ConTeXt minimals, etc) au niveau de tout le système. But :
+fournir une distro ConTeXt de référence pour le Mac.</p>
+
+<p>Demande : Mac OS X 10.4 ou plus, pour le moment juste basé sur Intel. Démo
+installateur : ça marche et ça a une bonne tête. (Remarque en passant : c&rsquo;est
+encore au stade de bêta non publique, mais ça pourrait être publier
+prochainement sur le site des minimals.)</p>
+
+<p>Démo du sélecteur de TeX : c&rsquo;est aussi <em>user-friendly</em> qu&rsquo;on peut le souhaiter,
+et ça marche. Ça autorise en particulier à avoir plein de bêta différentes de
+ConTeXt.</p>
+
+<p>Problèmes rencontrés : bugs dans les outils développeur Apple, ancien mécanisme
+de conf de LuaTeX, manque de système de contrôle de version pour les source
+de ConTeXt.</p>
+
+<p>Buts futurs : publication, binaires universels, options d&rsquo;install (avec ou sans
+tel module, fonte, etc.)</p>
+
+<h2>13h : repas</h2>
+
+<p>Il y aurait du avoir un mini truc sur TeX Live 2008, par Norbert, mais c&rsquo;est
+annulé ou reporté pour cause de retard : le repas n&rsquo;attend pas.</p>
+</div>
+
+<div class="meta group">
+<div class="signature">
+    <p>Written by mpg <span class="edit"></span></p>
+    <p>août 21st, 2008 at 2:34  </p>
+</div>	
+<div class="tags">
+    <p>Posted in <a href="../../../par-sujet/tex-et-cie/" title="Voir tous les articles dans TeX et compagnie" rel="category tag">TeX et compagnie</a></p>
+    <p>Tagged with <a href="../../../par-tag/context/" rel="tag">context</a></p></div>
+</div>
+
+<div class="navigation group">
+    <div class="alignleft">&laquo; <a href="../deuxieme-rencontre-context-partie-1/" rel="prev">Deuxième rencontre ConTeXt, partie 1</a></div>
+    <div class="alignright"><a href="../rencontre-context-2008-partie-3/" rel="next">Rencontre ConTeXt 2008, partie 3</a> &raquo;</div>
+</div>
+
+
+<!-- You can start editing here. -->
+
+<a name="comments" id="comments"></a>
+
+<h3 class="reply">One Response to 'Rencontre ConTeXt 2008, partie 2'</h3> 
+
+<ol class="commentlist">
+
+
+<li id="comment-66" class="pingback">
+	<div class="comment_mod">
+		</div>
+	
+	<div class="comment_text">
+	<p>[...] public links &gt;&gt; w32tex   Rencontre ConTeXt 2008, partie 2 Saved by cahlers on Fri 07-11-2008   Visual Windows for TeX Saved by minibronco on Fri 24-10-2008   [...]</p>
+	</div>
+	
+	<div class="comment_author">
+		<img alt='' src='https://secure.gravatar.com/avatar/?d=identicon&amp;s=32' class='avatar avatar-32 photo avatar-default' height='32' width='32' />		<p><strong><a href='http://www.jabbertags.com/popular/w32tex' rel='external nofollow' class='url'>Recent Links Tagged With "w32tex" - JabberTags</a></strong></p>
+	<p><small>8 nov 08 at <a href="index.html#comment-66">7:35</a> <? edit_comment_link(__('Edit', 'sandbox'), ' ', ''); ?></small></p>
+	</div>
+	<div class="clear"></div>
+</li>
+
+
+</ol>
+
+
+
+
+</div> 
+
+<div id="sidebar">
+<h3>Pages</h3>		<ul>
+			<li class="page_item page-item-4"><a href="../../../qui-suis-je/">À propos</a></li>
+		</ul>
+		<h3>Mots-clés</h3><div class="tagcloud"><a href='../../../par-tag/astuce/' class='tag-link-24' title='2 sujets' style='font-size: 11.111111111111pt;'>astuce</a>
+<a href='../../../par-tag/biblatex/' class='tag-link-41' title='1 sujet' style='font-size: 8pt;'>biblatex</a>
+<a href='../../../par-tag/context/' class='tag-link-28' title='8 sujets' style='font-size: 19.234567901235pt;'>context</a>
+<a href='../../../par-tag/cap/' class='tag-link-49' title='1 sujet' style='font-size: 8pt;'>càp</a>
+<a href='../../../par-tag/debian/' class='tag-link-4' title='6 sujets' style='font-size: 17.506172839506pt;'>debian</a>
+<a href='../../../par-tag/fontes/' class='tag-link-30' title='2 sujets' style='font-size: 11.111111111111pt;'>fontes</a>
+<a href='../../../par-tag/google/' class='tag-link-37' title='1 sujet' style='font-size: 8pt;'>google</a>
+<a href='../../../par-tag/gutenberg/' class='tag-link-44' title='1 sujet' style='font-size: 8pt;'>gutenberg</a>
+<a href='../../../par-tag/howto/' class='tag-link-31' title='9 sujets' style='font-size: 20.098765432099pt;'>howto</a>
+<a href='../../../par-tag/latex/' class='tag-link-3' title='6 sujets' style='font-size: 17.506172839506pt;'>latex</a>
+<a href='../../../par-tag/latex3/' class='tag-link-39' title='1 sujet' style='font-size: 8pt;'>latex3</a>
+<a href='../../../par-tag/lualatex/' class='tag-link-43' title='1 sujet' style='font-size: 8pt;'>lualatex</a>
+<a href='../../../par-tag/luatex/' class='tag-link-21' title='7 sujets' style='font-size: 18.37037037037pt;'>luatex</a>
+<a href='../../../par-tag/miktex/' class='tag-link-47' title='1 sujet' style='font-size: 8pt;'>miktex</a>
+<a href='../../../par-tag/mplib/' class='tag-link-46' title='1 sujet' style='font-size: 8pt;'>mplib</a>
+<a href='../../../par-tag/ssh/' class='tag-link-36' title='2 sujets' style='font-size: 11.111111111111pt;'>ssh</a>
+<a href='../../../par-tag/texdoc/' class='tag-link-42' title='5 sujets' style='font-size: 16.296296296296pt;'>texdoc</a>
+<a href='../../../par-tag/texlive/' class='tag-link-34' title='12 sujets' style='font-size: 22pt;'>texlive</a>
+<a href='../../../par-tag/tlcontrib/' class='tag-link-45' title='1 sujet' style='font-size: 8pt;'>tlcontrib</a>
+<a href='../../../par-tag/unix-admin/' class='tag-link-33' title='3 sujets' style='font-size: 13.185185185185pt;'>unix-admin</a>
+<a href='../../../par-tag/unix-user/' class='tag-link-35' title='2 sujets' style='font-size: 11.111111111111pt;'>unix-user</a>
+<a href='../../../par-tag/vim/' class='tag-link-22' title='1 sujet' style='font-size: 8pt;'>vim</a>
+<a href='../../../par-tag/wordpress/' class='tag-link-40' title='2 sujets' style='font-size: 11.111111111111pt;'>wordpress</a>
+<a href='../../../par-tag/xetex/' class='tag-link-20' title='2 sujets' style='font-size: 11.111111111111pt;'>xetex</a></div>
+<h3>Catégories</h3>		<ul>
+	<li class="cat-item cat-item-14"><a href="../../../par-sujet/comp/" title="Geekeries diverses">Geekeries diverses</a>
+</li>
+	<li class="cat-item cat-item-1"><a href="../../../par-sujet/non-classe/" title="Voir tous les articles classés dans Non classé">Non classé</a>
+</li>
+	<li class="cat-item cat-item-13"><a href="../../../par-sujet/tex-et-cie/" title="Voir tous les articles classés dans TeX et compagnie">TeX et compagnie</a>
+</li>
+		</ul>
+
+
+</div>
+
+</div>
+
+<div id="footer">
+	<p>The Journalist template by <a href="http://lucianmarin.com/" rel="designer">Lucian E. Marin</a> &mdash; Built for <a href="http://wordpress.org/">WordPress</a></p>
+</div>
+
+</body>
+</html>

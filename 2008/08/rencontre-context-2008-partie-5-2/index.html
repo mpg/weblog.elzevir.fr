@@ -1,0 +1,301 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr-FR">
+<head profile="http://gmpg.org/xfn/11">
+<title>   Rencontre ConTeXt 2008, partie 5 at Le mpg-blog</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="description" content="LaTeX et autres geekeries" />
+<link href="/style.css" rel="stylesheet" type="text/css" media="screen" />
+<link rel="shortcut icon" type="image/x-png" href="/favicon.png" />
+<link rel='stylesheet' id='wp-syntax-css-css'  href='/wp-syntax.css' type='text/css' media='all' />
+</head>
+
+<body>
+<div id="container" class="group">
+
+<h1><a href="../../../">Le mpg-blog</a></h1>
+<div id="bubble"><p>LaTeX et autres geekeries</p></div> <!-- erase this line if you want to turn the bubble off -->
+
+<div id="content" class="group">
+
+<h2 id="post-16"><a href="index.html" rel="bookmark">Rencontre ConTeXt 2008, partie 5</a></h2>
+<p class="comments"><a href="index.html#comments">with 2 comments</a></p>
+
+<div class="main">
+	<p>Deuxième jour de la conférence : le réveil est aussi difficile qu&rsquo;hier, et on
+commence par les 5 minutes de gloire réglementaires&#8230;</p>
+
+<h2>5 minutes de gloire</h2>
+
+<ul>
+<li>N&rsquo;utilise pas encore ConTeXt, faute de manuel pour l&rsquo;apprendre (sous forme de
+livre, pas de pdf). C&rsquo;est la raison de sa présence ici : apprendre de façon
+vivante.</li>
+<li>Mathématicien à la base. Utilisateur de ConTeXt, et réalisateur de fontes
+(Minion Math). Son principal intérêt pour ConTeXt vient de &lsquo;intégration de
+LuaTeX, plus précisément ses apports au niveau fontes et typo.<span id="more-16"></span>## Martin Schröder : bibliothèques pdf et TeX</li>
+</ul>
+
+<p>(Apparemment la même présentation qu&rsquo;à Cork.)</p>
+
+<p>(L&rsquo;orateur fait une expérience et demande qui dans l&rsquo;audience a déjà ouvert un
+pdf dans son éditeur de texte (dézippé) pour voire : une forêt de mains se lève.
+Deuxième question : qui a regardé la standard pdf &#8212; déjà moins de mains&#8230;)</p>
+
+<p>(Nldr : actuellement, pdfTeX utilise xpdf pour la plupart de ses
+manipulations sur les pdf (inclusion, etc.).) D&rsquo;autres biblio sont apparues
+récemment, et leurs fans respectifs demandent à l&rsquo;équipe pdfTeX pourquoi elle ne
+les utilisent pas plutôt.  Exigences pour une bonne biblio pdf : être libre,
+activement maintenue, proposer un haut niveau d&rsquo;abstraction, permettre
+l&rsquo;écriture, supporte pdf1.5, les couleurs&#8230;</p>
+
+<p>Actuellement il y a trois moteurs TeX produisant du pdf, sans réelle base de
+code commune. pdfTeX mélange xpdf (C++), TeX (WEB-Pascal), et du code en C, avec
+XPDF lié statiquement. LuaTeX fait à peu près pareil, sans couche d&rsquo;abstraction
+claire entre LuaTeX et pdf. XeTeX au contraire sépare deux programme (xdvipdfmx
+a réécrit son propre analyseur de pdf).</p>
+
+<p>Xpdf a ses défauts : conçus pour lire au départ (pas écrire), pas conçus comme
+une biblio, problème de sécurité&#8230; D&rsquo;autres biblio sont :
+- poppler : <em>fork</em> de xpdf, actif, mais pas d&rsquo;écriture ;
+- podofo : très intéressante, C++, ecriture, mais surtout exploration ;
+- GNU PDF : belles promesse, rien de publié ou de prêt à sortir ;
+- iText : en Java, écriture ;
+- MuPDF : dérive de GhostScript, pas très actif ;
+- multivalent : lecteur universel en Java, écriture, dernière activité en 2006 ;
+- d&rsquo;autres&#8230;</p>
+
+<p>En conclusion, il n&rsquo;y a pas de solution parfaite maintenant : xpdf vieillit,
+poppler semle prêt, podofo, Mupdf et GNU PDF sont le futur.</p>
+
+<h2>Hartmur Henkel : MetaPost pour débutants</h2>
+
+<p>Outil de programmation de graphiques vectoriels, de haute qualité typo (avec un
+peu d&rsquo;effort) bien copain avec (La)TeX, langage de macros, <em>fun</em> et même Metafun
+(avec ConTeXt). Exemple de truc bitmap moche et comparaison avec la version
+MetaPost.</p>
+
+<p>Histoire : descendant de MetaFont (version 0 en 1984 par Knuth), MetaPost nait
+en 1990, assez peu développé depuis 95, récemment repris avec brio par Taco H.
+(bugs corrigés, fonctionnalités, MPlib en LuaTeX, etc.). Le différence entre les
+deux est essentiellement le format de sortie : PS (vectoriel) contre GF
+(bitmap).</p>
+
+<p>Sources d&rsquo;info : manuel de l&rsquo;utilisateur, <em>Metafont book</em> (Knuth), le format
+plain.mp, le paquet MetaFun et sa doc.</p>
+
+<p>Pour travailler avec, il faut : le programme mpost (toute bonne distro TeX), un
+éditeur de texte, lecteur PS ou PDF, papier et crayon pour concevoir et calculer
+le dessin. Exemple de document :</p>
+
+<pre><code>prologues := 3;     % sortie EPS
+beginfig(1)     % figure numéro 1
+draw (0,0)--(3,4);  % commande de dessin
+endfig;         % fin de la figure
+end         % fin du fichier
+</code></pre>
+
+<p>Les commandes ne commencent pas par <code>\</code> et l&rsquo;unité par défaut est le point
+PostScript.  En ConTeXt, on peut inclure les eps produits par MP directement en
+compilant par PDFLatex, grâce à quelques macros magiques qui s&rsquo;occupent de tout.</p>
+
+<p>On voir ensuite quelques commande de base, et le concept de développement (et
+pas exécution) des boucles for par exemple. Concept pratiques, comme le solveur
+d&rsquo;équations linéaires. Introduction à la syntaxe bizarre (pour moi) des
+variables avec suffixes et de la variable spéciale (!) <code>z</code>. Exemple de chemins,
+cycles, etc. (Remarque perso : la syntaxe de TikZ ressemble en effet beaucoup à
+celle de MP, concernant les chemins.)</p>
+
+<p>Trucs qui m&rsquo;impressionnent : accès un « temps » dans la représentation
+paramétrique d&rsquo;un chemin (ça a l&rsquo;air super, ça), extraction de sous-chemins,
+« temps » et points d&rsquo;intersection de chemins (ça c&rsquo;est encore mieux). Les
+définitions <code>vardef</code> de macros et leur utilisation pour automatiser plein de
+calculs.</p>
+
+<p>Intégration avec TeX pour le texte des étiquettes, légendes etc. avec <code>etex</code> et
+<code>btex</code>. Lent, un peu lourd (fichiers intermédiaires) pour certains trucs. On
+comprend l&rsquo;intérêt d&rsquo;un truc comme MPlib liant étroitement LuaTeX et MP.</p>
+
+<p>Ce qui fournit une transition toute trouvée vers</p>
+
+<h2>Taco : MPlib</h2>
+
+<p>Buts : un composant MetaPost ré-utilisable « <em>reentrant</em> » (?), sans les vieux
+bugs, rapide. Problèmes avec la MetaPost actuel : le WEB-Pascal a mal vieillit,
+les morceaux de code C restant sont assez indissociable du reste de TeX Live
+niveau compilation&#8230; Solution : tout passer en CWEB, ne dépendant que de
+<code>ctangle</code> pour compiler, et livrer le résultat sous forme d&rsquo;une bibliothèque. Le
+programme <code>mpost</code> devient un léger enrobage autour de cette bibliothèque.
+Suivent quelques détails techniques sur le style de programmation utilisé.</p>
+
+<p>Taco présente ensuite un exemple de programme C minimal appelant MPlib, ainsi
+qu&rsquo;un programme Lua minimal l&rsquo;utilisant. La structure de données retournée est
+intéressante : <code>postscript</code> en est une partie mais pas tout, ça ouvre la voie à
+d&rsquo;autres types de sortie (théoriquement). Le système horriblement compliqué qui
+fait fonctionner <code>btex...etex</code> et <code>TEX()</code> en MP est ré-implémenté sous forme
+d&rsquo;une sous-bibliothèque : plus simple, plus propre, plus rapide.</p>
+
+<p>Le planning : première bêta 1.100 présentée au TUG&rsquo;08, avec tout les outils de
+base évoqués ci-dessus. La suite : plus d&rsquo;allocation dynamique, étendre les
+capacités (limites et précision) (= MegaPost), améliorer les messages d&rsquo;erreur
+et étendre les API.</p>
+
+<p>Taco finit en remerciant les différents TUG de par le monde qui ont financé le
+projet, lui permettant d&rsquo;y consacrer un temps suffisant, et en montrant
+différents trucs de MP utilisés dans sa présentation, avec les temps de
+compilation via pdfTeX+MP ou LuaTeX+MPlib : la différence est impressionnante.</p>
+
+<p>Autre jolie transition&#8230;.</p>
+
+<h2>Hans : intégration de MetaPost dans ConTeXt</h2>
+
+<p>Avec beaucoup d&rsquo;exemple et de mesures de performance. Où j&rsquo;apprends au passage
+que metafun est un format metapost (il y a des formats MP comme il y a des
+formats TeX), actuellement le seul utilisable via l&rsquo;interface utilisateur (aussi
+nommée) metafun de ConTeXt pour MetaPost.</p>
+
+<p>Il y a pas mal d&rsquo;explications techniques sur beaucoup d&rsquo;aspects qui étaient
+problématiques auparavant, et les solutions apportées. Ce qu&rsquo;un débutant comme
+moi en retient, c&rsquo;est que maintenant, ça marche exactement de la façon dont on
+veut que ça marche : ça a enfin l&rsquo;air raisonnable, il n&rsquo;y a plus de <em>hacks</em>
+insensés. Le truc est bien intégré et l&rsquo;interface utilisateur semble claire
+(autant que je puisse en juger).</p>
+
+<h2>Faire un bouquin de 1200 pages sur les langues du monde entier</h2>
+
+<p>Rapport d&rsquo;expérience sur la réalisation (en ConTeXt) de ce bouquin (référence ?)
+décrivant les quelque 7000 langages référencé, avec des cartes, un index
+monstrueux (400 pages), etc. et la création à cet effet du module <em>ethnologue</em>
+pour ConTeXt.</p>
+
+<p>On parle de beaucoup de problèmes d&rsquo;organisation, comme les répertoires où
+mettre les fichiers, le définition du mode « relecture » (très propre en
+ConTeXt, il faut le dire), comment lire des fichiers de données aux formats
+variés (ça a aussi l&rsquo;air facile), l&rsquo;index, etc. Le question de l&rsquo;encodage et des
+fontes n&rsquo;est pas abordée : ce n&rsquo;était visiblement pas un problème. XeTeX a été
+utilisé avec MarkII.</p>
+
+<p>Remarque hors sujet : au milieu de la présentation, des trolls sur langues vs
+idiome sont lancés. En général, on apprend pas mal de choses sur les langues,
+les systèmes d&rsquo;écriture et leurs histoires ici (surtout le soir autour d&rsquo;un
+verre de whisky breton (on aura tout vu))&#8230;</p>
+
+<p>Une des conclusions est que TeX a une place à prendre par rapport à la
+concurrence (sérieuse, genre InDesign ou XPress, pas Word) pour les projets
+traitant des gros paquets de données structurées presque en base de données, car
+il autorise un traitement automatique programmé très efficace dans ce contexte.</p>
+</div>
+
+<div class="meta group">
+<div class="signature">
+    <p>Written by mpg <span class="edit"></span></p>
+    <p>août 22nd, 2008 at 1:03  </p>
+</div>	
+<div class="tags">
+    <p>Posted in <a href="../../../par-sujet/tex-et-cie/" title="Voir tous les articles dans TeX et compagnie" rel="category tag">TeX et compagnie</a></p>
+    <p>Tagged with <a href="../../../par-tag/context/" rel="tag">context</a></p></div>
+</div>
+
+<div class="navigation group">
+    <div class="alignleft">&laquo; <a href="../rencontre-context-2008-partie-4-2/" rel="prev">Rencontre ConTeXt 2008, partie 4</a></div>
+    <div class="alignright"><a href="../rencontre-context-2008-partie-6/" rel="next">Rencontre ConTeXt 2008, partie 6</a> &raquo;</div>
+</div>
+
+
+<!-- You can start editing here. -->
+
+<a name="comments" id="comments"></a>
+
+<h3 class="reply">2 Responses to 'Rencontre ConTeXt 2008, partie 5'</h3> 
+
+<ol class="commentlist">
+
+
+<li id="comment-5" class="">
+	<div class="comment_mod">
+		</div>
+	
+	<div class="comment_text">
+	<p>&laquo;&nbsp;Faute de manuel pour l&rsquo;apprendre&nbsp;&raquo;. Je confirme, Manuel aide beaucoup !</p>
+	</div>
+	
+	<div class="comment_author">
+		<img alt='' src='https://secure.gravatar.com/avatar/454c52ea72deada9394665e5e3e9d087?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />		<p><strong>Julien</strong></p>
+	<p><small>22 août 08 at <a href="index.html#comment-5">15:45</a> <? edit_comment_link(__('Edit', 'sandbox'), ' ', ''); ?></small></p>
+	</div>
+	<div class="clear"></div>
+</li>
+
+
+<li id="comment-6" class="">
+	<div class="comment_mod">
+		</div>
+	
+	<div class="comment_text">
+	<p>Attention message hors ConTeXt</p>
+
+<p>Le whisky breton, bon&#8230; mais surtout pas la bière, garçon, pas la bière ! Ils en font à l&rsquo;eau de mer et je te dis que je préfère presque boire vraiment la tasse.</p>
+	</div>
+	
+	<div class="comment_author">
+		<img alt='' src='https://secure.gravatar.com/avatar/31e6c631579c37a01952c3f4dc885d5f?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />		<p><strong>Le TeXnicien de surface</strong></p>
+	<p><small>22 août 08 at <a href="index.html#comment-6">19:42</a> <? edit_comment_link(__('Edit', 'sandbox'), ' ', ''); ?></small></p>
+	</div>
+	<div class="clear"></div>
+</li>
+
+
+</ol>
+
+
+
+
+</div> 
+
+<div id="sidebar">
+<h3>Pages</h3>		<ul>
+			<li class="page_item page-item-4"><a href="../../../qui-suis-je/">À propos</a></li>
+		</ul>
+		<h3>Mots-clés</h3><div class="tagcloud"><a href='../../../par-tag/astuce/' class='tag-link-24' title='2 sujets' style='font-size: 11.111111111111pt;'>astuce</a>
+<a href='../../../par-tag/biblatex/' class='tag-link-41' title='1 sujet' style='font-size: 8pt;'>biblatex</a>
+<a href='../../../par-tag/context/' class='tag-link-28' title='8 sujets' style='font-size: 19.234567901235pt;'>context</a>
+<a href='../../../par-tag/cap/' class='tag-link-49' title='1 sujet' style='font-size: 8pt;'>càp</a>
+<a href='../../../par-tag/debian/' class='tag-link-4' title='6 sujets' style='font-size: 17.506172839506pt;'>debian</a>
+<a href='../../../par-tag/fontes/' class='tag-link-30' title='2 sujets' style='font-size: 11.111111111111pt;'>fontes</a>
+<a href='../../../par-tag/google/' class='tag-link-37' title='1 sujet' style='font-size: 8pt;'>google</a>
+<a href='../../../par-tag/gutenberg/' class='tag-link-44' title='1 sujet' style='font-size: 8pt;'>gutenberg</a>
+<a href='../../../par-tag/howto/' class='tag-link-31' title='9 sujets' style='font-size: 20.098765432099pt;'>howto</a>
+<a href='../../../par-tag/latex/' class='tag-link-3' title='6 sujets' style='font-size: 17.506172839506pt;'>latex</a>
+<a href='../../../par-tag/latex3/' class='tag-link-39' title='1 sujet' style='font-size: 8pt;'>latex3</a>
+<a href='../../../par-tag/lualatex/' class='tag-link-43' title='1 sujet' style='font-size: 8pt;'>lualatex</a>
+<a href='../../../par-tag/luatex/' class='tag-link-21' title='7 sujets' style='font-size: 18.37037037037pt;'>luatex</a>
+<a href='../../../par-tag/miktex/' class='tag-link-47' title='1 sujet' style='font-size: 8pt;'>miktex</a>
+<a href='../../../par-tag/mplib/' class='tag-link-46' title='1 sujet' style='font-size: 8pt;'>mplib</a>
+<a href='../../../par-tag/ssh/' class='tag-link-36' title='2 sujets' style='font-size: 11.111111111111pt;'>ssh</a>
+<a href='../../../par-tag/texdoc/' class='tag-link-42' title='5 sujets' style='font-size: 16.296296296296pt;'>texdoc</a>
+<a href='../../../par-tag/texlive/' class='tag-link-34' title='12 sujets' style='font-size: 22pt;'>texlive</a>
+<a href='../../../par-tag/tlcontrib/' class='tag-link-45' title='1 sujet' style='font-size: 8pt;'>tlcontrib</a>
+<a href='../../../par-tag/unix-admin/' class='tag-link-33' title='3 sujets' style='font-size: 13.185185185185pt;'>unix-admin</a>
+<a href='../../../par-tag/unix-user/' class='tag-link-35' title='2 sujets' style='font-size: 11.111111111111pt;'>unix-user</a>
+<a href='../../../par-tag/vim/' class='tag-link-22' title='1 sujet' style='font-size: 8pt;'>vim</a>
+<a href='../../../par-tag/wordpress/' class='tag-link-40' title='2 sujets' style='font-size: 11.111111111111pt;'>wordpress</a>
+<a href='../../../par-tag/xetex/' class='tag-link-20' title='2 sujets' style='font-size: 11.111111111111pt;'>xetex</a></div>
+<h3>Catégories</h3>		<ul>
+	<li class="cat-item cat-item-14"><a href="../../../par-sujet/comp/" title="Geekeries diverses">Geekeries diverses</a>
+</li>
+	<li class="cat-item cat-item-1"><a href="../../../par-sujet/non-classe/" title="Voir tous les articles classés dans Non classé">Non classé</a>
+</li>
+	<li class="cat-item cat-item-13"><a href="../../../par-sujet/tex-et-cie/" title="Voir tous les articles classés dans TeX et compagnie">TeX et compagnie</a>
+</li>
+		</ul>
+
+
+</div>
+
+</div>
+
+<div id="footer">
+	<p>The Journalist template by <a href="http://lucianmarin.com/" rel="designer">Lucian E. Marin</a> &mdash; Built for <a href="http://wordpress.org/">WordPress</a></p>
+</div>
+
+</body>
+</html>

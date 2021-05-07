@@ -1,0 +1,209 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr-FR">
+<head profile="http://gmpg.org/xfn/11">
+<title>   TeX Live 2009 est sortie at Le mpg-blog</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="description" content="LaTeX et autres geekeries" />
+<link href="/style.css" rel="stylesheet" type="text/css" media="screen" />
+<link rel="shortcut icon" type="image/x-png" href="/favicon.png" />
+<link rel='stylesheet' id='wp-syntax-css-css'  href='/wp-syntax.css' type='text/css' media='all' />
+</head>
+
+<body>
+<div id="container" class="group">
+
+<h1><a href="../../../">Le mpg-blog</a></h1>
+<div id="bubble"><p>LaTeX et autres geekeries</p></div> <!-- erase this line if you want to turn the bubble off -->
+
+<div id="content" class="group">
+
+<h2 id="post-57"><a href="index.html" rel="bookmark">TeX Live 2009 est sortie</a></h2>
+<p class="comments"><a href="index.html#comments">without comments</a></p>
+
+<div class="main">
+	<p>Après de longs mois de préparation, ça y est, la version 2009 de <a href="http://tug.org/texlive/">TeX Live</a>,
+la distribution TeX de référence du monde Unix (également disponible sous
+Windows, et présente sous Mac OS X comme composant de <a href="http://tug.org/mactex/">MacTeX</a>) est enfin
+sortie ! Faisons le point sur les nouveautés, l&rsquo;installation et la mise à jour,
+ainsi que les quelques problèmes.<span id="more-57"></span></p>
+
+<h3>Nouveautés</h3>
+
+<p>Une des nouveautés les plus visibles est l&rsquo;intégration de l&rsquo;environnement de
+développement <a href="http://tug.org/texworks/">TeXworks</a> : ce logiciel, fortement inspiré par <a href="http://pages.uoregon.edu/koch/texshop/">TeXshop</a>,
+réunit un éditeur de texte orienté TeX et un lecteur de PDF, avec les
+fonctionnalités de synchronisation offertes par <a href="http://itexmac.sourceforge.net/SyncTeX.html">syncTeX</a>. Il a pour but
+d&rsquo;offrir un environnement rassurant pour le débutant tout en restant efficace
+et personnalisable pour l&rsquo;utilisateur plus avancé.</p>
+
+<p>TeXworks n&rsquo;est inclus que pour Windows (et OS X par l&rsquo;intermédiaire de MacTeX) ;
+pour des raisons techniques (bibliothèques dynamiques) il sera plus commode de
+se reposer sur les distributions Linux et BSD pour le fournir sous les autres
+plate-formes.</p>
+
+<p>Si l&rsquo;on ajoute à ceci le fait que l&rsquo;interface par défaut de l&rsquo;installateur sous
+Windows a été considérablement simplifiée, on constate que TeX Live devient un
+moyen assez commode d&rsquo;obtenir un environnement de travail TeX complet sous
+Windows. (Étant entendu que c&rsquo;était déjà commode sous les autres plate-formes.)</p>
+
+<p>Une autre nouveau venu est le langage de programmation graphique <a href="http://asymptote.sourceforge.net/">Asymptote</a>.
+Là encore, pour des raisons techniques, la version complète n&rsquo;est fournie que
+pour Windows et OS X (via MacTeX) ; les autres versions Linux sont légèrement
+réduites (pas de support OpenGL notamment) et il faut sans doute mieux installer
+la version de sa distribution Linux ou BSD.</p>
+
+<p>De nombreuses autres mises à jour (par exemple, LuaTeX 0.40.6) et changements
+moins notables ont été faits. Je renvoie à <a href="http://tug.org/texlive/doc/texlive-fr/texlive-fr.html#x1-7700010.2">la documentation</a> pour
+plus de détails.</p>
+
+<p>D&rsquo;une façon plus générale, la version 2008, qui avait vu l&rsquo;apparition du
+gestionnaire de paquets <code>tlmgr</code> et des mises à jour continues par le réseau,
+ainsi que de gros changements d&rsquo;architecture interne, était très « jeune » par
+certains aspects. Avec le temps, de nombreux bugs ont été corrigés, plusieurs
+fonctionnalités utiles ajoutés, quelques aspects mieux finis. On peut donc
+penser que TeX Live 2009 sera une version plus mature.</p>
+
+<h3>Installation ou mise à jour</h3>
+
+<p>Il n&rsquo;est pas possible, cette année, de mettre à jour sa TeX Live 2008 vers la
+version 2009. Il faut donc installer TeX Live 2009 entièrement, qu&rsquo;on ait
+précédemment installé la version 2008 ou pas. Je conseille d&rsquo;ailleurs, si
+l&rsquo;espace disque le permet, de ne pas désinstaller l&rsquo;ancienne version tout de
+suite (il est facile de faire cohabiter deux versions et d&rsquo;en changer en réglant
+son PATH) : ainsi, si des problèmes de compatibilités surviennent sur des
+documents importants, il reste possible d&rsquo;utiliser TeX Live 2008 pour les
+compiler, le temps de résoudre ces problèmes.</p>
+
+<p>Il est probable, mais seul l&rsquo;avenir nous le dira, qu&rsquo;il soit possible de
+procéder à une mise à jour directe entre les versions majeures par la suite, à
+partir de TeX Live 2010 inclus. Remarquons quand même que l&rsquo;autre distribution
+TeX libre, <a href="http://miktex.org/">MikTeX</a>, n&rsquo;autorise pas non plus de mise à jour directe entre deux
+versions majeures, à ma connaissance.</p>
+
+<p>Pour des instructions d&rsquo;installation, en attendant de peut-être faire bientôt un
+billet sur le sujet, quelques liens (en anglais) :</p>
+
+<ul>
+<li>plusieurs moyens d&rsquo;<a href="http://tug.org/texlive/acquire.html">obtenir TeX Live</a>. En général, je recommande
+d&rsquo;utiliser l&rsquo;installateur réseau pour installer sur une seule machine
+disposant d&rsquo;une bonne connexion réseau, et de créer d&rsquo;abord une copie
+locale du dépôt dans les autres cas ;</li>
+<li>notes d&rsquo;<a href="http://tug.org/texlive/quickinstall.html">installation rapide</a>. </li>
+</ul>
+
+<p>Pour installer sous <a href="http://www.debian.org/">Debian</a> ou une distribution dérivée tout en satisfaisant
+le gestionnaire de paquet, je renvoie à un <a href="../../../2008/11/tex-live-2008-a-la-vanille-sur-debian-like/">précédent billet</a>.
+Notez que des paquets <code>deb</code> pour TeX Live 2009 seront prochainement disponibles
+pour Debian (puis ses dérivés) ; ils sont déjà en version de test <a href="#">ici</a> <small>(plus maintenant)</small>.</p>
+
+<h3>Problèmes connus</h3>
+
+<p>ConTeXt est notablement difficile à empaqueter (aux dernières nouvelles, MikTeX
+a abandonné). Cette année dans TeX Live, comme l&rsquo;année dernière, seul ConTeXt
+Mark II est utilisable, la version de LuaTeX incluse ne permettant pas de faire
+tourner Mark IV. On peut bien sûr mettre à jour LuaTeX comme <a href="../../02/integrer-un-luatex-recent-a-tex-live/">je l&rsquo;expliquais
+précédemment</a> (noter que l&rsquo;étape supplémentaire <a href="../../04/luatex-recent-sur-tex-live-complements/">décrite
+ici</a> n&rsquo;est plus nécessaire), pour tester Mark IV. Mais si l&rsquo;on
+envisage d&rsquo;utiliser sérieusement ConTeXt Mark IV, il faudra mieux se tourner
+vers <a href="http://wiki.contextgarden.net/ConTeXt_Minimals">ConTeXt minimals</a>, une distribution dédié à ConTeXt.</p>
+
+<p>Par ailleurs, il était initialement prévu que les programmes de la famille de
+TeX (pdfTeX, XeTeX, LuaTeX) aient la possibilité d&rsquo;exécuter des programmes
+externes appartenant à une liste fixée de programmes considérés comme sûrs
+(possibilité qui aurait été activée par défaut, mais faisait l&rsquo;objet d&rsquo;une
+option dans l&rsquo;installateur). Ceci pouvait être utiliser notamment pour convertir
+des graphiques à la volée, permettant par exemple d&rsquo;inclure de fichiers
+PostScript de façon automatique en mode PDF.</p>
+
+<p>Malheureusement, cette fonctionnalité a du être désactivée suite à de nombreux
+problèmes, permettant sous certaines circonstances à un document malicieux
+d&rsquo;exécuter des commandes arbitraires. La situation quant à l&rsquo;exécution de
+programmes externes (connue sous le nom de <code>\write18</code>) reste donc la même que
+l&rsquo;année dernière : elle est interdite par défaut, mais peut être autorisée au
+coup par coup via une option de ligne de commande pour les documents estimés
+« sûrs » par l&rsquo;utilisateur.</p>
+
+<p>Par ailleurs, notons que ceci a été l&rsquo;occasion de ré-examiner de nombreuses
+questions liés à la sécurité, et de corriger quelques problèmes. J&rsquo;en profite
+pour rappeler que les documents d&rsquo;origine non « sûre » doivent être compilés
+dans un répertoire ne contenant rien d&rsquo;autre, en particulier sous windows, mais
+aussi sous Linux.</p>
+</div>
+
+<div class="meta group">
+<div class="signature">
+    <p>Written by mpg <span class="edit"></span></p>
+    <p>novembre 9th, 2009 at 2:57  </p>
+</div>	
+<div class="tags">
+    <p>Posted in <a href="../../../par-sujet/tex-et-cie/" title="Voir tous les articles dans TeX et compagnie" rel="category tag">TeX et compagnie</a></p>
+    <p>Tagged with <a href="../../../par-tag/texlive/" rel="tag">texlive</a></p></div>
+</div>
+
+<div class="navigation group">
+    <div class="alignleft">&laquo; <a href="../../10/detexify/" rel="prev">Detexify</a></div>
+    <div class="alignright"><a href="../../12/tex-live-2009-dans-debian-sid/" rel="next">TeX Live 2009 dans Debian Sid</a> &raquo;</div>
+</div>
+
+
+<!-- You can start editing here. -->
+
+<a name="comments" id="comments"></a>
+
+
+ 
+<!-- If comments are open, but there are no comments. -->
+
+
+
+
+</div> 
+
+<div id="sidebar">
+<h3>Pages</h3>		<ul>
+			<li class="page_item page-item-4"><a href="../../../qui-suis-je/">À propos</a></li>
+		</ul>
+		<h3>Mots-clés</h3><div class="tagcloud"><a href='../../../par-tag/astuce/' class='tag-link-24' title='2 sujets' style='font-size: 11.111111111111pt;'>astuce</a>
+<a href='../../../par-tag/biblatex/' class='tag-link-41' title='1 sujet' style='font-size: 8pt;'>biblatex</a>
+<a href='../../../par-tag/context/' class='tag-link-28' title='8 sujets' style='font-size: 19.234567901235pt;'>context</a>
+<a href='../../../par-tag/cap/' class='tag-link-49' title='1 sujet' style='font-size: 8pt;'>càp</a>
+<a href='../../../par-tag/debian/' class='tag-link-4' title='6 sujets' style='font-size: 17.506172839506pt;'>debian</a>
+<a href='../../../par-tag/fontes/' class='tag-link-30' title='2 sujets' style='font-size: 11.111111111111pt;'>fontes</a>
+<a href='../../../par-tag/google/' class='tag-link-37' title='1 sujet' style='font-size: 8pt;'>google</a>
+<a href='../../../par-tag/gutenberg/' class='tag-link-44' title='1 sujet' style='font-size: 8pt;'>gutenberg</a>
+<a href='../../../par-tag/howto/' class='tag-link-31' title='9 sujets' style='font-size: 20.098765432099pt;'>howto</a>
+<a href='../../../par-tag/latex/' class='tag-link-3' title='6 sujets' style='font-size: 17.506172839506pt;'>latex</a>
+<a href='../../../par-tag/latex3/' class='tag-link-39' title='1 sujet' style='font-size: 8pt;'>latex3</a>
+<a href='../../../par-tag/lualatex/' class='tag-link-43' title='1 sujet' style='font-size: 8pt;'>lualatex</a>
+<a href='../../../par-tag/luatex/' class='tag-link-21' title='7 sujets' style='font-size: 18.37037037037pt;'>luatex</a>
+<a href='../../../par-tag/miktex/' class='tag-link-47' title='1 sujet' style='font-size: 8pt;'>miktex</a>
+<a href='../../../par-tag/mplib/' class='tag-link-46' title='1 sujet' style='font-size: 8pt;'>mplib</a>
+<a href='../../../par-tag/ssh/' class='tag-link-36' title='2 sujets' style='font-size: 11.111111111111pt;'>ssh</a>
+<a href='../../../par-tag/texdoc/' class='tag-link-42' title='5 sujets' style='font-size: 16.296296296296pt;'>texdoc</a>
+<a href='../../../par-tag/texlive/' class='tag-link-34' title='12 sujets' style='font-size: 22pt;'>texlive</a>
+<a href='../../../par-tag/tlcontrib/' class='tag-link-45' title='1 sujet' style='font-size: 8pt;'>tlcontrib</a>
+<a href='../../../par-tag/unix-admin/' class='tag-link-33' title='3 sujets' style='font-size: 13.185185185185pt;'>unix-admin</a>
+<a href='../../../par-tag/unix-user/' class='tag-link-35' title='2 sujets' style='font-size: 11.111111111111pt;'>unix-user</a>
+<a href='../../../par-tag/vim/' class='tag-link-22' title='1 sujet' style='font-size: 8pt;'>vim</a>
+<a href='../../../par-tag/wordpress/' class='tag-link-40' title='2 sujets' style='font-size: 11.111111111111pt;'>wordpress</a>
+<a href='../../../par-tag/xetex/' class='tag-link-20' title='2 sujets' style='font-size: 11.111111111111pt;'>xetex</a></div>
+<h3>Catégories</h3>		<ul>
+	<li class="cat-item cat-item-14"><a href="../../../par-sujet/comp/" title="Geekeries diverses">Geekeries diverses</a>
+</li>
+	<li class="cat-item cat-item-1"><a href="../../../par-sujet/non-classe/" title="Voir tous les articles classés dans Non classé">Non classé</a>
+</li>
+	<li class="cat-item cat-item-13"><a href="../../../par-sujet/tex-et-cie/" title="Voir tous les articles classés dans TeX et compagnie">TeX et compagnie</a>
+</li>
+		</ul>
+
+
+</div>
+
+</div>
+
+<div id="footer">
+	<p>The Journalist template by <a href="http://lucianmarin.com/" rel="designer">Lucian E. Marin</a> &mdash; Built for <a href="http://wordpress.org/">WordPress</a></p>
+</div>
+
+</body>
+</html>

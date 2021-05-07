@@ -1,0 +1,209 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr-FR">
+<head profile="http://gmpg.org/xfn/11">
+<title>   Rencontre ConTeXt 2008, partie 6 at Le mpg-blog</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="description" content="LaTeX et autres geekeries" />
+<link href="/style.css" rel="stylesheet" type="text/css" media="screen" />
+<link rel="shortcut icon" type="image/x-png" href="/favicon.png" />
+<link rel='stylesheet' id='wp-syntax-css-css'  href='/wp-syntax.css' type='text/css' media='all' />
+</head>
+
+<body>
+<div id="container" class="group">
+
+<h1><a href="../../../">Le mpg-blog</a></h1>
+<div id="bubble"><p>LaTeX et autres geekeries</p></div> <!-- erase this line if you want to turn the bubble off -->
+
+<div id="content" class="group">
+
+<h2 id="post-17"><a href="index.html" rel="bookmark">Rencontre ConTeXt 2008, partie 6</a></h2>
+<p class="comments"><a href="index.html#comments">without comments</a></p>
+
+<div class="main">
+	<h2>5 minutes de gloire</h2>
+
+<ul>
+<li>Professionnel de l&rsquo;édition, travaillant au départ sous FrameMaker, bouquins
+d&rsquo;histoire de l&rsquo;art. Progressivement plus de matériel compliqué, surtout des
+appareils de notes complexes et volumineux. Il entend alors parler de TeX,
+essaye LaTeX, et a des problèmes d&rsquo;interférence de paquets. Essaie alors
+ConTeXt, dont le développement centralisé évite ces problèmes. Il reste encore
+des choses à ajuster à la main, au niveau des la table des matières et l&rsquo;index
+(interlignes, etc) quand même.</li>
+<li>Sort un slide super marrant avec des bonhommes qui tiennent des drapeaux et
+nous demande de deviner ce que ça veut dire. Visiblement c&rsquo;est du langage de
+sémaphore. L&rsquo;auteur fait aussi des bouquins bilingues (grec + thèque) (une
+page de chaque langue face à face) avec des maths et beaucoup de notes de bas
+de pages. Joue aussi avec de l&rsquo;XML pour composer son carnet d&rsquo;adresses en
+ConTeXt.<span id="more-17"></span>## Taco : finalement pas de tutoriel Lua</li>
+</ul>
+
+<p>Comme il ne peut de toute façon pas nous apprendre Lua en 45 minutes, il va
+plutôt nous montrer comment c&rsquo;est utilisé dans LuaTeX. Il recommande chaudement
+(et j&rsquo;approuve) le livre <em>Programming in Lua</em> pour apprendre (pas très cher en
+papier, et la première édition lisible en ligne). (La référence Lua, à jour, est
+aussi disponible en ligne, mais peut aussi s&rsquo;acheter en papier si l&rsquo;on veut,
+ndlr.)</p>
+
+<p>Commence par montrer la différente entre <code>print()</code> et <code>tex.print()</code> : l&rsquo;un écrit
+dans le log, l&rsquo;autre dans le document (dans le flux d&rsquo;entrée de TeX pour être
+précis). Pour apprendre ce genre de choses, voir la section « the {texio}
+library » dans le manuel de LuaTeX (nommé luatexref-t.pdf, et composé avec
+ConTeXt et MPlib pour l&rsquo;anecdote : observer les lunes en bas des pages : elles
+font un tour complet sur la longueur du document ; pourtant ça compile très vite
+et Hans en est très fier).</p>
+
+<p>Présente ensuite <code>\startluacode</code> (c&rsquo;est du ConTeXt) qui a l&rsquo;avantage de lire le
+code Lua en verbatim (pratique pour les % et autres). Le démo met du temps à
+marcher parce qu&rsquo;il faut quand même échapper le signe <code>%</code> pour TeX, puis le <code>\</code>
+pour Lua, et qu&rsquo;il faut bien 5 minutes pour retrouver la bonne combinaison. (Je
+ne sais pas si c&rsquo;est si anecdotique que ça, à la réflexion.)</p>
+
+<p>Montre ensuite un exemple impressionnant mais un rien trop technique pour moi de
+génération à la volée d&rsquo;une fonte virtuelle à utiliser dans le document (en
+modifiant une fonte existante).</p>
+
+<p>L&rsquo;orateur suivant va plus loin en montrant comment on peut générer des fontes
+virtuelles dont les glyphes sont des images externes auxquelles on peut même
+appliquer des traitements basiques (rotation, étirement, symétrie). C&rsquo;est
+marrant pour montrer ce qu&rsquo;on peut faire, mais quand à l&rsquo;intérêt réel&#8230; Ensuite
+on enchaîne il enchaîne sur sa vraie présentation :</p>
+
+<h2>Hartmut Henkel : Aperçu de LPeg pour les habitués de AWK</h2>
+
+<p>Bon, soyons honnêtes avant que ça commence : je ne sas pas me servi de AWK même
+si je vois vaguement ce que c&rsquo;est, et j&rsquo;ai entendu dire que Lpeg est une
+bibliothèque Lua récemment intégrée à LuaTeX, mais rien de plus. Voyons si ça
+s&rsquo;éclaire.</p>
+
+<p>La présentation commence par une blague (réussie) sur ce que wikipedia renvoie
+pour Lpeg : <em>low pressure electric gun</em>. En vrai, PEG signifie <em>parsing
+expression grammar</em> et le <em>L</em> est là pour Lua. Il s&rsquo;agit de décrire un langage
+formel et de récupérer des chaînes dedans correspondant aux différents éléments
+de la « phrase ».</p>
+
+<p>Différences entre des regex et Lpeg :
+0. Il y a des ancres (<code>^</code>) implicites.
+0. On peut construire les motifs LPeg plus facilement.
+0. Pas de problèmes de fin de ligne.
+0. Pas de problème non plus pour traiter des flux binaires.
+0. Grammaire plus puissante.</p>
+
+<p>(Je décroche assez rapidement : la présentation est vraiment adressée aux
+habitués de awk. J&rsquo;aurais quand même appris quelques truc choses si un jour je
+dois utiliser lpeg.)</p>
+
+<h2>Taco : les fichiers sources de ConTeXt MarkIV</h2>
+
+<p>Visite guidée des divers fichiers sources de ConTeXt, à la manière des bus à
+impériale qui font le tour de la ville. Le bus avance assez vite, il y a plein
+de bâtiments, pas le temps de prendre de photos. Ça semble quand même bien
+structuré par quartier : caractères, boîtes, fontes, langues, modules, etc. Les
+bâtiments abritent généralement des macros TeX ou des fonctions Lua, plus
+rarement les deux peuvent cohabiter. On peut retrouver le plan de la ville dans
+le manuel de ConTeXt (ndlr : comme dirait Wikipedia, <em>référence nécessaire</em>, il
+y a sans doute plus d&rsquo;un manuel&#8230; j&rsquo;imagine qu&rsquo;on trouvera aussi prochainement
+la présentation de Taco sur le <a href="http://meeting.contextgarden.net/2008/">site de la conférence</a>).</p>
+
+<p>Ah, en fait Hans reprend la visite, on va maintenant s&rsquo;attarder sur certains
+quartiers. On regarde par exemple <code>char-def.lua</code> qui est une grosse table en
+Lua associant à chaque caractère certaines propriétés telles que définies par le
+standard Unicode (catégorie, direction, nom, version majuscule ou minuscule
+(équivalent de <code>\uccode</code> et <code>\lccode</code>)&#8230;).</p>
+
+<p>On change de quartier et on flâne un peu dans <code>core-*</code>, qui gère des choses
+comme les inclusions de fichiers, etc. Puis on va voire les <code>font-*</code> : là aussi
+il y a des tables gigantesques recensant toutes les propriétés OpenType
+connues, ce genre de chose. Il y a une famille nommée <code>l-*</code> qui reprend en gros
+les diverses bibliothèques Lua intégrées à LuaTeX et les enveloppe dans des
+fonctions qui font par exemple un peu plus de contrôle d&rsquo;erreur que les versions
+« brutes » fournies par LuaTeX. D&rsquo;autres familles ont le contrôle de « régimes »
+(les encodages d&rsquo;entrée). Il y a aussi un gratte-ciel nommé <code>sort-lan.lua</code>qui
+définit comment trier des mots dans différents langages.</p>
+
+<p>(Au passage, j&rsquo;observe une ou deux astuces de codage en Lua pour intercepter
+proprement certaines erreurs communes et avoir l&rsquo;occasion d&rsquo;engueuler
+l&rsquo;utilisateur nous-même (on va pas laisser ce plaisir à l&rsquo;interpréteur Lua, non
+plus), tout en gardant un code compact et lisible. Tant mieux parce qu&rsquo;à part ça
+je commence à me perdre dans certains points particuliers à ConTeXt qu&rsquo;Hans est
+en train de détailler.)</p>
+</div>
+
+<div class="meta group">
+<div class="signature">
+    <p>Written by mpg <span class="edit"></span></p>
+    <p>août 22nd, 2008 at 6:38  </p>
+</div>	
+<div class="tags">
+    <p>Posted in <a href="../../../par-sujet/tex-et-cie/" title="Voir tous les articles dans TeX et compagnie" rel="category tag">TeX et compagnie</a></p>
+    <p>Tagged with <a href="../../../par-tag/context/" rel="tag">context</a></p></div>
+</div>
+
+<div class="navigation group">
+    <div class="alignleft">&laquo; <a href="../rencontre-context-2008-partie-5-2/" rel="prev">Rencontre ConTeXt 2008, partie 5</a></div>
+    <div class="alignright"><a href="../rencontre-context-2008-partie-7/" rel="next">Rencontre ConTeXt 2008, partie 7</a> &raquo;</div>
+</div>
+
+
+<!-- You can start editing here. -->
+
+<a name="comments" id="comments"></a>
+
+
+ 
+<!-- If comments are open, but there are no comments. -->
+
+
+
+
+</div> 
+
+<div id="sidebar">
+<h3>Pages</h3>		<ul>
+			<li class="page_item page-item-4"><a href="../../../qui-suis-je/">À propos</a></li>
+		</ul>
+		<h3>Mots-clés</h3><div class="tagcloud"><a href='../../../par-tag/astuce/' class='tag-link-24' title='2 sujets' style='font-size: 11.111111111111pt;'>astuce</a>
+<a href='../../../par-tag/biblatex/' class='tag-link-41' title='1 sujet' style='font-size: 8pt;'>biblatex</a>
+<a href='../../../par-tag/context/' class='tag-link-28' title='8 sujets' style='font-size: 19.234567901235pt;'>context</a>
+<a href='../../../par-tag/cap/' class='tag-link-49' title='1 sujet' style='font-size: 8pt;'>càp</a>
+<a href='../../../par-tag/debian/' class='tag-link-4' title='6 sujets' style='font-size: 17.506172839506pt;'>debian</a>
+<a href='../../../par-tag/fontes/' class='tag-link-30' title='2 sujets' style='font-size: 11.111111111111pt;'>fontes</a>
+<a href='../../../par-tag/google/' class='tag-link-37' title='1 sujet' style='font-size: 8pt;'>google</a>
+<a href='../../../par-tag/gutenberg/' class='tag-link-44' title='1 sujet' style='font-size: 8pt;'>gutenberg</a>
+<a href='../../../par-tag/howto/' class='tag-link-31' title='9 sujets' style='font-size: 20.098765432099pt;'>howto</a>
+<a href='../../../par-tag/latex/' class='tag-link-3' title='6 sujets' style='font-size: 17.506172839506pt;'>latex</a>
+<a href='../../../par-tag/latex3/' class='tag-link-39' title='1 sujet' style='font-size: 8pt;'>latex3</a>
+<a href='../../../par-tag/lualatex/' class='tag-link-43' title='1 sujet' style='font-size: 8pt;'>lualatex</a>
+<a href='../../../par-tag/luatex/' class='tag-link-21' title='7 sujets' style='font-size: 18.37037037037pt;'>luatex</a>
+<a href='../../../par-tag/miktex/' class='tag-link-47' title='1 sujet' style='font-size: 8pt;'>miktex</a>
+<a href='../../../par-tag/mplib/' class='tag-link-46' title='1 sujet' style='font-size: 8pt;'>mplib</a>
+<a href='../../../par-tag/ssh/' class='tag-link-36' title='2 sujets' style='font-size: 11.111111111111pt;'>ssh</a>
+<a href='../../../par-tag/texdoc/' class='tag-link-42' title='5 sujets' style='font-size: 16.296296296296pt;'>texdoc</a>
+<a href='../../../par-tag/texlive/' class='tag-link-34' title='12 sujets' style='font-size: 22pt;'>texlive</a>
+<a href='../../../par-tag/tlcontrib/' class='tag-link-45' title='1 sujet' style='font-size: 8pt;'>tlcontrib</a>
+<a href='../../../par-tag/unix-admin/' class='tag-link-33' title='3 sujets' style='font-size: 13.185185185185pt;'>unix-admin</a>
+<a href='../../../par-tag/unix-user/' class='tag-link-35' title='2 sujets' style='font-size: 11.111111111111pt;'>unix-user</a>
+<a href='../../../par-tag/vim/' class='tag-link-22' title='1 sujet' style='font-size: 8pt;'>vim</a>
+<a href='../../../par-tag/wordpress/' class='tag-link-40' title='2 sujets' style='font-size: 11.111111111111pt;'>wordpress</a>
+<a href='../../../par-tag/xetex/' class='tag-link-20' title='2 sujets' style='font-size: 11.111111111111pt;'>xetex</a></div>
+<h3>Catégories</h3>		<ul>
+	<li class="cat-item cat-item-14"><a href="../../../par-sujet/comp/" title="Geekeries diverses">Geekeries diverses</a>
+</li>
+	<li class="cat-item cat-item-1"><a href="../../../par-sujet/non-classe/" title="Voir tous les articles classés dans Non classé">Non classé</a>
+</li>
+	<li class="cat-item cat-item-13"><a href="../../../par-sujet/tex-et-cie/" title="Voir tous les articles classés dans TeX et compagnie">TeX et compagnie</a>
+</li>
+		</ul>
+
+
+</div>
+
+</div>
+
+<div id="footer">
+	<p>The Journalist template by <a href="http://lucianmarin.com/" rel="designer">Lucian E. Marin</a> &mdash; Built for <a href="http://wordpress.org/">WordPress</a></p>
+</div>
+
+</body>
+</html>

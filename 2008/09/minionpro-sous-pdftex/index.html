@@ -1,0 +1,210 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr-FR">
+<head profile="http://gmpg.org/xfn/11">
+<title>   MinionPro sous pdfTeX at Le mpg-blog</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="description" content="LaTeX et autres geekeries" />
+<link href="/style.css" rel="stylesheet" type="text/css" media="screen" />
+<link rel="shortcut icon" type="image/x-png" href="/favicon.png" />
+<link rel='stylesheet' id='wp-syntax-css-css'  href='/wp-syntax.css' type='text/css' media='all' />
+</head>
+
+<body>
+<div id="container" class="group">
+
+<h1><a href="../../../">Le mpg-blog</a></h1>
+<div id="bubble"><p>LaTeX et autres geekeries</p></div> <!-- erase this line if you want to turn the bubble off -->
+
+<div id="content" class="group">
+
+<h2 id="post-20"><a href="index.html" rel="bookmark">MinionPro sous pdfTeX</a></h2>
+<p class="comments"><a href="index.html#comments">with 2 comments</a></p>
+
+<div class="main">
+	<p>Je n&rsquo;ai pas encore finit de lire <em><a href="http://www.amazon.fr/Elements-Typographic-Style-Version-3-1/dp/toc/0881792063">The Elements of Typographic Style</a></em>
+mais j&rsquo;ai déjà eu le temps d&rsquo;apprécier la qualité de l&rsquo;ouvrage et de se
+composition, notamment la police principale, <em>Minion</em>. Il se trouve que j&rsquo;ai
+justement la version (très complète) incluse dans les <em><a href="http://www.adobe.com/products/fontfolio.html">Adobe Type Classics for
+Learning</a></em> (une collection de fontes Adobe bon marché pour les étudiants),
+et naturellement j&rsquo;ai envie de l&rsquo;utiliser dans mes documents LaTeX.</p>
+
+<p>Pour cela, on peut bien sûr utiliser XeLaTeX et l&rsquo;excellent module
+<em><a href="http://ctan.org/pkg/fontspec">fontspec</a></em>, ou convertir les polices au format PostScript Type 1, et générer
+les fichiers (<code>tfm</code>, <code>vf</code>, <code>fd</code>,&#8230;) dont ont besoin (pdf)TeX et LaTeX pour les
+utiliser. Je me propose ici de vous exposer comment j&rsquo;ai mis en oeuvre cette
+deuxième option,
+<span id="more-20"></span>
+ qui, on le verra dans un prochain billet, est également
+utile avec XeLaTeX, en attendant un meilleur support de l&rsquo;OpenType mathématique,
+et une police mathématique OpenType accordée à Minion (peut-être <a href="http://river-valley.tv/conferences/tug2008/#0202-Johannes_Kuster">Minion Math</a>
+?).</p>
+
+<p>Tout le travail pénible et déjà été fait pour nous : on trouve sur le CTAN les
+fichiers de support nécessaires, et un script pour la conversion des polices
+elles-même, dans le paquet <a href="http://ctan.org/pkg/minionpro">minionpro</a>. Les fichiers dont vous avez besoin
+dépendent de votre version de Minion. Parcourez le <a href="http://mirror.ctan.org/fonts/minionpro/README">README</a> pour savoir
+comment adapter les explications ci-dessous.</p>
+
+<p>Avant toute chose, vérifiez de vous avez installé <code>lcdf-typetools</code>, la
+collection d&rsquo;outils utilisée par les script de conversion. Puis créez un
+répertoire temporaire, récupérez et décompressez les fichiers nécessaires.</p>
+
+<pre><code>% mkdir tmp/minionpro
+% cd !$
+% wget http://mirror.ctan.org/fonts/minionpro/{README,enc-1.000.zip,metrics-base.zip,metrics-full.zip,metrics-opticals.zip,scripts.zip}
+% for i in *.zip; do unzip $i; done
+</code></pre>
+
+<p>Il s&rsquo;agit alors de copier dans le répertoire <code>otf</code> créé les fichiers de Minion
+au format OpenType. Vous êtes alors prêts à lancer la conversion et à placer le
+résultat dans un endroit approprié.</p>
+
+<pre><code>%  cp ~/.fonts/Adobe/Western\ Fonts/Minion\ Pro\ Opticals/* otf
+% ./convert.sh
+% mkdir -p fonts/type1/adobe
+% mv pfb !$/MinionPro
+</code></pre>
+
+<p>La dernière étape consiste à intégrer les fichiers au reste de votre
+distribution TeX. Si vous n&rsquo;êtes pas administrateur sur la machine en question,
+ou ne souhaitez installer les fontes que pour vous, remplacez le répertoire
+<code>TEXMF</code> de base par votre <code>TEXMFHOME</code>, et la commande <code>updmap-sys</code> par <code>updmap</code>.</p>
+
+<pre><code>% cp -r doc fonts tex /usr/local/texlive/texmf-local
+% mktexlsr !$
+% updmap-sys --enable Map MinionPro.map
+</code></pre>
+
+<p>Voilà, c&rsquo;est fini (c&rsquo;était facile, hein ?), il ne vous reste plus qu&rsquo;à tester.
+Chez moi, ça marche avec pdflatex, latex+dvips+pstopdf, et latex+xdvipdfmx. Il
+faut aussi avoir le paquet MnSymbol pour les maths, j&rsquo;ai supposé qu&rsquo;il était
+déjà installé.</p>
+
+<p>Un dernier mot d&rsquo;avertissement : comme tous les <code>how-to</code> ici, c&rsquo;est plutôt un «
+comment j&rsquo;ai fait chez moi pour que ça marche chez moi ». En particulier, je
+fais les suppositions suivantes :</p>
+
+<ul>
+<li>on est sous Linux, le shell est zsh ou un truc voisin (bash doit convenir) ;</li>
+<li>la distribution TeX est une TeX Live « nature », les chemins changent sinon ;</li>
+<li>l&rsquo;utilisateur qui fait la dernière étape a les droits en écriture sur
+l&rsquo;arborescence utilisée. Chez moi, j&rsquo;ai donné à l&rsquo;utilisateur <code>mpg</code> (moi) les
+droits sur <code>/usr/local/texlive</code> : ça m&rsquo;évite de passer <code>root</code> ou d&rsquo;utiliser
+<code>sudo</code> chaque fois que je veux bidouiller ma TeX Live.</li>
+</ul>
+
+<p>Amusez-vous bien avec cette jolie fonte, et faites de beaux documents !</p>
+</div>
+
+<div class="meta group">
+<div class="signature">
+    <p>Written by mpg <span class="edit"></span></p>
+    <p>septembre 30th, 2008 at 6:45  </p>
+</div>	
+<div class="tags">
+    <p>Posted in <a href="../../../par-sujet/tex-et-cie/" title="Voir tous les articles dans TeX et compagnie" rel="category tag">TeX et compagnie</a></p>
+    <p>Tagged with <a href="../../../par-tag/fontes/" rel="tag">fontes</a>, <a href="../../../par-tag/howto/index.html" rel="tag">howto</a>, <a href="../../../par-tag/latex/index.html" rel="tag">latex</a></p></div>
+</div>
+
+<div class="navigation group">
+    <div class="alignleft">&laquo; <a href="../../08/rencontre-context-2008-partie-8/" rel="prev">Rencontre ConTeXt 2008, partie 8</a></div>
+    <div class="alignright"><a href="../../11/tex-live-2008-a-la-vanille-sur-debian-like/" rel="next">TeX Live 2008 à la vanille sur Debian-like</a> &raquo;</div>
+</div>
+
+
+<!-- You can start editing here. -->
+
+<a name="comments" id="comments"></a>
+
+<h3 class="reply">2 Responses to 'MinionPro sous pdfTeX'</h3> 
+
+<ol class="commentlist">
+
+
+<li id="comment-85" class="pingback">
+	<div class="comment_mod">
+		</div>
+	
+	<div class="comment_text">
+	<p>[...] y a déjà quelques temps, j&#8217;expliquais comment utiliser Minion Pro sous pdfTeX. Comme je le disais, il est en fait bien plus naturel de vouloir utiliser XeTeX, qui prend en [...]</p>
+	</div>
+	
+	<div class="comment_author">
+		<img alt='' src='https://secure.gravatar.com/avatar/?d=identicon&amp;s=32' class='avatar avatar-32 photo avatar-default' height='32' width='32' />		<p><strong><a href='../../11/minion-pro-sous-xelatex/' rel='external nofollow' class='url'>Le mpg-blog &raquo; Archives du blog &raquo; Minion Pro sous XeLaTeX</a></strong></p>
+	<p><small>30 nov 08 at <a href="index.html#comment-85">3:49</a> <? edit_comment_link(__('Edit', 'sandbox'), ' ', ''); ?></small></p>
+	</div>
+	<div class="clear"></div>
+</li>
+
+
+<li id="comment-7055" class="pingback">
+	<div class="comment_mod">
+		</div>
+	
+	<div class="comment_text">
+	<p>[...]  [...]</p>
+	</div>
+	
+	<div class="comment_author">
+		<img alt='' src='https://secure.gravatar.com/avatar/?d=identicon&amp;s=32' class='avatar avatar-32 photo avatar-default' height='32' width='32' />		<p><strong><a href='http://www.hilpers.fr/1110812-minionpro' rel='external nofollow' class='url'>minionpro | hilpers</a></strong></p>
+	<p><small>7 mai 09 at <a href="index.html#comment-7055">23:03</a> <? edit_comment_link(__('Edit', 'sandbox'), ' ', ''); ?></small></p>
+	</div>
+	<div class="clear"></div>
+</li>
+
+
+</ol>
+
+
+
+
+</div> 
+
+<div id="sidebar">
+<h3>Pages</h3>		<ul>
+			<li class="page_item page-item-4"><a href="../../../qui-suis-je/">À propos</a></li>
+		</ul>
+		<h3>Mots-clés</h3><div class="tagcloud"><a href='../../../par-tag/astuce/' class='tag-link-24' title='2 sujets' style='font-size: 11.111111111111pt;'>astuce</a>
+<a href='../../../par-tag/biblatex/' class='tag-link-41' title='1 sujet' style='font-size: 8pt;'>biblatex</a>
+<a href='../../../par-tag/context/' class='tag-link-28' title='8 sujets' style='font-size: 19.234567901235pt;'>context</a>
+<a href='../../../par-tag/cap/' class='tag-link-49' title='1 sujet' style='font-size: 8pt;'>càp</a>
+<a href='../../../par-tag/debian/' class='tag-link-4' title='6 sujets' style='font-size: 17.506172839506pt;'>debian</a>
+<a href='../../../par-tag/fontes/' class='tag-link-30' title='2 sujets' style='font-size: 11.111111111111pt;'>fontes</a>
+<a href='../../../par-tag/google/' class='tag-link-37' title='1 sujet' style='font-size: 8pt;'>google</a>
+<a href='../../../par-tag/gutenberg/' class='tag-link-44' title='1 sujet' style='font-size: 8pt;'>gutenberg</a>
+<a href='../../../par-tag/howto/' class='tag-link-31' title='9 sujets' style='font-size: 20.098765432099pt;'>howto</a>
+<a href='../../../par-tag/latex/' class='tag-link-3' title='6 sujets' style='font-size: 17.506172839506pt;'>latex</a>
+<a href='../../../par-tag/latex3/' class='tag-link-39' title='1 sujet' style='font-size: 8pt;'>latex3</a>
+<a href='../../../par-tag/lualatex/' class='tag-link-43' title='1 sujet' style='font-size: 8pt;'>lualatex</a>
+<a href='../../../par-tag/luatex/' class='tag-link-21' title='7 sujets' style='font-size: 18.37037037037pt;'>luatex</a>
+<a href='../../../par-tag/miktex/' class='tag-link-47' title='1 sujet' style='font-size: 8pt;'>miktex</a>
+<a href='../../../par-tag/mplib/' class='tag-link-46' title='1 sujet' style='font-size: 8pt;'>mplib</a>
+<a href='../../../par-tag/ssh/' class='tag-link-36' title='2 sujets' style='font-size: 11.111111111111pt;'>ssh</a>
+<a href='../../../par-tag/texdoc/' class='tag-link-42' title='5 sujets' style='font-size: 16.296296296296pt;'>texdoc</a>
+<a href='../../../par-tag/texlive/' class='tag-link-34' title='12 sujets' style='font-size: 22pt;'>texlive</a>
+<a href='../../../par-tag/tlcontrib/' class='tag-link-45' title='1 sujet' style='font-size: 8pt;'>tlcontrib</a>
+<a href='../../../par-tag/unix-admin/' class='tag-link-33' title='3 sujets' style='font-size: 13.185185185185pt;'>unix-admin</a>
+<a href='../../../par-tag/unix-user/' class='tag-link-35' title='2 sujets' style='font-size: 11.111111111111pt;'>unix-user</a>
+<a href='../../../par-tag/vim/' class='tag-link-22' title='1 sujet' style='font-size: 8pt;'>vim</a>
+<a href='../../../par-tag/wordpress/' class='tag-link-40' title='2 sujets' style='font-size: 11.111111111111pt;'>wordpress</a>
+<a href='../../../par-tag/xetex/' class='tag-link-20' title='2 sujets' style='font-size: 11.111111111111pt;'>xetex</a></div>
+<h3>Catégories</h3>		<ul>
+	<li class="cat-item cat-item-14"><a href="../../../par-sujet/comp/" title="Geekeries diverses">Geekeries diverses</a>
+</li>
+	<li class="cat-item cat-item-1"><a href="../../../par-sujet/non-classe/" title="Voir tous les articles classés dans Non classé">Non classé</a>
+</li>
+	<li class="cat-item cat-item-13"><a href="../../../par-sujet/tex-et-cie/" title="Voir tous les articles classés dans TeX et compagnie">TeX et compagnie</a>
+</li>
+		</ul>
+
+
+</div>
+
+</div>
+
+<div id="footer">
+	<p>The Journalist template by <a href="http://lucianmarin.com/" rel="designer">Lucian E. Marin</a> &mdash; Built for <a href="http://wordpress.org/">WordPress</a></p>
+</div>
+
+</body>
+</html>

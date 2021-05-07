@@ -1,0 +1,175 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr-FR">
+<head profile="http://gmpg.org/xfn/11">
+<title>   Wordpress à ma sauce (partie 1) at Le mpg-blog</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="description" content="LaTeX et autres geekeries" />
+<link href="/style.css" rel="stylesheet" type="text/css" media="screen" />
+<link rel="shortcut icon" type="image/x-png" href="/favicon.png" />
+<link rel='stylesheet' id='wp-syntax-css-css'  href='/wp-syntax.css' type='text/css' media='all' />
+</head>
+
+<body>
+<div id="container" class="group">
+
+<h1><a href="../../../">Le mpg-blog</a></h1>
+<div id="bubble"><p>LaTeX et autres geekeries</p></div> <!-- erase this line if you want to turn the bubble off -->
+
+<div id="content" class="group">
+
+<h2 id="post-8"><a href="index.html" rel="bookmark">WordPress à ma sauce (partie 1)</a></h2>
+<p class="comments"><a href="index.html#comments">with one comment</a></p>
+
+<div class="main">
+	<p>Bon, ça faisait donc plus d&rsquo;un mois que je n&rsquo;avais pas posté ici. Pas bien.
+Reprenons. Je viens donc de mettre la touche (pour l&rsquo;instant) finale à mon
+installation WordPress en ajoutant la dernière brique qui me paraissait
+indispensable pour publier facilement de jolis billets : wp-syntax. Mais
+reprenons à partir du début.</p>
+
+<p>Le première point qui m&rsquo;a frappé en essayant WordPress, c&rsquo;est que jamais je ne
+pourrai m&rsquo;habituer au pseudo-éditeur de texte en ligne qu&rsquo;il propose par défaut
+pour rédiger les billets. 
+<span id="more-8"></span>
+ J&rsquo;ai pensé un moment copier-coller depuis vim,
+mais c&rsquo;est pénible, et de plus <abbr title="WordPress">WP</abbr> fait par défaut subir à mon texte un
+traitement bizarre qui remplace les fins de lignes par des balises <code>&lt;br /&gt;</code> :
+pénible, quand on édite sur 80 colonnes. (Je reviendrai sur ces traitements dans
+le prochain billet.)</p>
+
+<p>Pour l&rsquo;intégration de vim et de <abbr title="WordPress">WP</abbr>, j&rsquo;ai gougueuler un peu à tout hasard, et
+après avoir trouvé une extension Firefox qui permettrait d&rsquo;éditer n&rsquo;importe quel
+champ de texte d&rsquo;une page ouèbe dans vim (ou emacs pour ceux qui y tiennent), ce
+qui a l&rsquo;air prometteur mais ne tient malheureusement pas ses promesse après 5
+minutes d&rsquo;essai/combat, j&rsquo;ai plutôt rapidement trouvé le Nirvana, sous la forme
+de <a href="http://www.vim.org/scripts/script.php?script_id=1953">vimpress</a>, un <a href="http://www.vim.org/scripts/script.php?script_id=1953">plugin
+vim</a>.</p>
+
+<p>L&rsquo;idée est très simple : <abbr title="WordPress">WP</abbr> propose plusieurs <abbr title="Advanced programming interface">API</abbr> utilisant le protocole
+<a href="http://en.wikipedia.org/wiki/Xml-rpc"><abbr title="XML remote procedure call">XMLRPC</abbr></a>. En gros, ce protocole (pour ce que j&rsquo;en comprends) est très
+générique et permet de représenter en <abbr title="eXtensible Markup Language">XML</abbr> quelques types de données naturels
+dans les langages courants. À partir de là, on peut définir facilement des type
+de données « billet de blog », « liste de billets », etc. et les échangers en
+<abbr title="eXtensible Markup Language">XML</abbr>.  Pour l&rsquo;utilisateur-programmeur, c&rsquo;est magique : modulo l&rsquo;existence d&rsquo;une
+bibliothèque <abbr title="XML remote procedure call">XMLRPC</abbr> dans son langage favori, on a un type de données dans ce
+langage qui réprésente un billet de blog, et une fonction simple pour le
+récupérer ou l&rsquo;envoyer.</p>
+
+<p><a href="http://www.vim.org/scripts/script.php?script_id=1953">vimpress</a>, c&rsquo;est l&rsquo;implémentation de tout ça sous la forme d&rsquo;un plugin vim en
+python, utilisant l&rsquo;<abbr title="Advanced programming interface">API</abbr> <a href="http://help.typepad.com/">MovableType</a>, et sous <abbr title="General Public Licence">GPL</abbr>. (Il faut donc avoir une
+version de vim compilée avec le support python, j&rsquo;en reparlerai sans doute un de
+ces jours.) C&rsquo;est bel et bon, mais ça un défaut : ça ne gère pas la
+fonctionalité qui permet d&rsquo;affiicher seulement les première lignes d&rsquo;un billets
+comme je le fais sur le page d&rsquo;accueil : quand on tente de récupérer un tel
+billet pour l&rsquo;éditer, on reçoit seulement ses prmières lignes, justement.</p>
+
+<p>Heureusement, après avoir un peu fouillé, on finit par comprendre des choses sur
+l&rsquo;<abbr title="Advanced programming interface">API</abbr> metaWeblog (à mon avis mal documentée : là où j&rsquo;ai le mieux compris, c&rsquo;est
+dans le source PHP de <abbr title="WordPress">WP</abbr>), à savoir que les premières lignes d&rsquo;un message et sa
+suite sont deux éléments metaWeblog distincts, à savoir <code>description</code> et
+<code>mt_text_more</code>. Heureusement aussi que python est facile à lire et à éditer même
+si on ne le connait pas : quelques temps après, j&rsquo;avais patché avec succès ma
+version locale de vimpress.</p>
+
+<p>Bref, c&rsquo;est maintenant un plaisir pour moi de pouvoir éditer mes billets sous
+vim, confortablement. Pour augmenter ce confort, je rédige en <a href="http://daringfireball.net/projects/markdown/">markdown</a> (et
+plus précisément en <a href="http://michelf.ca/projects/php-markdown/extra/">markdown extra</a>), mais je vous ai déjà assez ennuyé
+pour aujourd&rsquo;hui : ce sera l&rsquo;objet du prochain billet.</p>
+</div>
+
+<div class="meta group">
+<div class="signature">
+    <p>Written by mpg <span class="edit"></span></p>
+    <p>juillet 14th, 2008 at 5:07  </p>
+</div>	
+<div class="tags">
+    <p>Posted in <a href="../../../par-sujet/comp/" title="Voir tous les articles dans Geekeries diverses" rel="category tag">Geekeries diverses</a></p>
+    <p>Tagged with <a href="../../../par-tag/howto/" rel="tag">howto</a>, <a href="../../../par-tag/vim/index.html" rel="tag">vim</a>, <a href="../../../par-tag/wordpress/index.html" rel="tag">wordpress</a></p></div>
+</div>
+
+<div class="navigation group">
+    <div class="alignleft">&laquo; <a href="../../06/sur-lavenir-de-latex/" rel="prev">Sur l&rsquo;avenir de (La)TeX</a></div>
+    <div class="alignright"><a href="../tester-si-une-commande-est-definie-en-latex/" rel="next">Tester si une commande est définie en (La)TeX</a> &raquo;</div>
+</div>
+
+
+<!-- You can start editing here. -->
+
+<a name="comments" id="comments"></a>
+
+<h3 class="reply">One Response to 'WordPress à ma sauce (partie 1)'</h3> 
+
+<ol class="commentlist">
+
+
+<li id="comment-63" class="pingback">
+	<div class="comment_mod">
+		</div>
+	
+	<div class="comment_text">
+	<p>[...] One highly annoying omission was support for the more tag. By default when opening old posts will only display content before the more tag. And when posting at least from my brief testing would insert the more tag as plain text. Luckily Manuel Pégourié-Gonn wrote a small patch to address that issue. As of yet it does not appear he has actually published the patch though he does have a post about Vimpress that mentions it <a href="index.html" rel="nofollow">https://weblog.elzevir.fr/2008/07/wordpress-a-ma-sauce-partie-1/</a>. [...]</p>
+	</div>
+	
+	<div class="comment_author">
+		<img alt='' src='https://secure.gravatar.com/avatar/?d=identicon&amp;s=32' class='avatar avatar-32 photo avatar-default' height='32' width='32' />		<p><strong><a href='http://www.cmdln.org/2008/10/26/vim-wordpress-vimpress-happiness/' rel='external nofollow' class='url'>Vim + wordpress == vimpress, happiness | cmdln.org (a sysadmin blog)</a></strong></p>
+	<p><small>29 oct 08 at <a href="index.html#comment-63">5:23</a> <? edit_comment_link(__('Edit', 'sandbox'), ' ', ''); ?></small></p>
+	</div>
+	<div class="clear"></div>
+</li>
+
+
+</ol>
+
+
+
+
+</div> 
+
+<div id="sidebar">
+<h3>Pages</h3>		<ul>
+			<li class="page_item page-item-4"><a href="../../../qui-suis-je/">À propos</a></li>
+		</ul>
+		<h3>Mots-clés</h3><div class="tagcloud"><a href='../../../par-tag/astuce/' class='tag-link-24' title='2 sujets' style='font-size: 11.111111111111pt;'>astuce</a>
+<a href='../../../par-tag/biblatex/' class='tag-link-41' title='1 sujet' style='font-size: 8pt;'>biblatex</a>
+<a href='../../../par-tag/context/' class='tag-link-28' title='8 sujets' style='font-size: 19.234567901235pt;'>context</a>
+<a href='../../../par-tag/cap/' class='tag-link-49' title='1 sujet' style='font-size: 8pt;'>càp</a>
+<a href='../../../par-tag/debian/' class='tag-link-4' title='6 sujets' style='font-size: 17.506172839506pt;'>debian</a>
+<a href='../../../par-tag/fontes/' class='tag-link-30' title='2 sujets' style='font-size: 11.111111111111pt;'>fontes</a>
+<a href='../../../par-tag/google/' class='tag-link-37' title='1 sujet' style='font-size: 8pt;'>google</a>
+<a href='../../../par-tag/gutenberg/' class='tag-link-44' title='1 sujet' style='font-size: 8pt;'>gutenberg</a>
+<a href='../../../par-tag/howto/' class='tag-link-31' title='9 sujets' style='font-size: 20.098765432099pt;'>howto</a>
+<a href='../../../par-tag/latex/' class='tag-link-3' title='6 sujets' style='font-size: 17.506172839506pt;'>latex</a>
+<a href='../../../par-tag/latex3/' class='tag-link-39' title='1 sujet' style='font-size: 8pt;'>latex3</a>
+<a href='../../../par-tag/lualatex/' class='tag-link-43' title='1 sujet' style='font-size: 8pt;'>lualatex</a>
+<a href='../../../par-tag/luatex/' class='tag-link-21' title='7 sujets' style='font-size: 18.37037037037pt;'>luatex</a>
+<a href='../../../par-tag/miktex/' class='tag-link-47' title='1 sujet' style='font-size: 8pt;'>miktex</a>
+<a href='../../../par-tag/mplib/' class='tag-link-46' title='1 sujet' style='font-size: 8pt;'>mplib</a>
+<a href='../../../par-tag/ssh/' class='tag-link-36' title='2 sujets' style='font-size: 11.111111111111pt;'>ssh</a>
+<a href='../../../par-tag/texdoc/' class='tag-link-42' title='5 sujets' style='font-size: 16.296296296296pt;'>texdoc</a>
+<a href='../../../par-tag/texlive/' class='tag-link-34' title='12 sujets' style='font-size: 22pt;'>texlive</a>
+<a href='../../../par-tag/tlcontrib/' class='tag-link-45' title='1 sujet' style='font-size: 8pt;'>tlcontrib</a>
+<a href='../../../par-tag/unix-admin/' class='tag-link-33' title='3 sujets' style='font-size: 13.185185185185pt;'>unix-admin</a>
+<a href='../../../par-tag/unix-user/' class='tag-link-35' title='2 sujets' style='font-size: 11.111111111111pt;'>unix-user</a>
+<a href='../../../par-tag/vim/' class='tag-link-22' title='1 sujet' style='font-size: 8pt;'>vim</a>
+<a href='../../../par-tag/wordpress/' class='tag-link-40' title='2 sujets' style='font-size: 11.111111111111pt;'>wordpress</a>
+<a href='../../../par-tag/xetex/' class='tag-link-20' title='2 sujets' style='font-size: 11.111111111111pt;'>xetex</a></div>
+<h3>Catégories</h3>		<ul>
+	<li class="cat-item cat-item-14"><a href="../../../par-sujet/comp/" title="Geekeries diverses">Geekeries diverses</a>
+</li>
+	<li class="cat-item cat-item-1"><a href="../../../par-sujet/non-classe/" title="Voir tous les articles classés dans Non classé">Non classé</a>
+</li>
+	<li class="cat-item cat-item-13"><a href="../../../par-sujet/tex-et-cie/" title="Voir tous les articles classés dans TeX et compagnie">TeX et compagnie</a>
+</li>
+		</ul>
+
+
+</div>
+
+</div>
+
+<div id="footer">
+	<p>The Journalist template by <a href="http://lucianmarin.com/" rel="designer">Lucian E. Marin</a> &mdash; Built for <a href="http://wordpress.org/">WordPress</a></p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,292 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr-FR">
+<head profile="http://gmpg.org/xfn/11">
+<title>   Rencontre ConTeXt 2008, partie 8 at Le mpg-blog</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="description" content="LaTeX et autres geekeries" />
+<link href="/style.css" rel="stylesheet" type="text/css" media="screen" />
+<link rel="shortcut icon" type="image/x-png" href="/favicon.png" />
+<link rel='stylesheet' id='wp-syntax-css-css'  href='/wp-syntax.css' type='text/css' media='all' />
+</head>
+
+<body>
+<div id="container" class="group">
+
+<h1><a href="../../../">Le mpg-blog</a></h1>
+<div id="bubble"><p>LaTeX et autres geekeries</p></div> <!-- erase this line if you want to turn the bubble off -->
+
+<div id="content" class="group">
+
+<h2 id="post-19"><a href="index.html" rel="bookmark">Rencontre ConTeXt 2008, partie 8</a></h2>
+<p class="comments"><a href="index.html#comments">without comments</a></p>
+
+<div class="main">
+	<p>On discutait avec Taco avant-hier du « mode conférence » qui permet
+contrairement à la vie normale de se coucher à point d&rsquo;heure <em>et</em> d&rsquo;être
+réveillé pour la présentation du matin le lendemain ; mode généralement suivi
+d&rsquo;un craquage en règle au retour. Je dois être un peu mal réglé car c&rsquo;est ce
+matin que j&rsquo;ai craqué. En même temps, je me suis réveillé exactement au moment
+de la pause café : tout n&rsquo;est donc pas perdu&#8230;<span id="more-19"></span>## Norbert Preining : idées du gestionnaire TeX Live</p>
+
+<p>Norbert commence par rappeler les idées et le fonctionnement de l&rsquo;installateur
+et du gestionnaire de paquets de TeX Live, sur lesquels j&rsquo;ai déjà promis de
+revenir ultérieurement. Il présent une nouvelle idée très intéressante : il
+serait possible assez facilement d&rsquo;adapter le gestionnaire de paquets pour gérer
+plusieurs sources d&rsquo;installation et de mise à jour (un peu à la manière de APT,
+le gestionnaire de paquets Debian).</p>
+
+<p>Une application intéressante serait de permettre aux mainteneurs de <em>context
+minimals</em>, la distribution de référence de ConTeXt, de proposer un dépôt TeX
+Live à partir duquel tout le monde pourrait installer facilement la toute
+dernière version de ConTeXt au sein de son installation TeX Live existante.
+L&rsquo;idée soulève un enthousiasme visible.</p>
+
+<h2>Taco : documentation ConTeXt</h2>
+
+<p>Différents projets : traduction de « ConTeXt, an excursion » du néerlandais vers
+l&rsquo;anglais (effectuée, une version imprimée et reliée est disponible ici pour la
+modique somme de 10€). Autre gros projet : le manuel de référence ConTeXt.
+Actuellement plus de 400 pages. Rédigé principalement pas Taco, qui lance un
+appel à contributions : il veut bien rédiger le texte, mais il aimerait l&rsquo;aide
+de relecteurs pour corriger les coquilles et signaler les passages peu clairs.
+Le manuel est sous GFDL et pourra être intégré dans TeX Live.</p>
+
+<p>(En passant, beaucoup de documentation existante sur ConTeXt, rédigée par Hans,
+n&rsquo;est pas incluse dans TeX Live parce qu&rsquo;Hans n&rsquo;en a pas publié les sources.
+C&rsquo;est l&rsquo;objet de légères tensions mais la position de TeX Live est claire et je
+l&rsquo;approuve.)</p>
+
+<h2>Hans et Taco : questions et réponses</h2>
+
+<p>La première question concerne la compatibilité entre MarkII et MarkIV. Hans
+évoque l&rsquo;idée de geler MarkII et de ne plus développer que MarkIV (en corrigeant
+quand même les bugs dans MarkII). Ceci réglerait en quelque sorte le problème :
+les documents pour lesquels la stabilité serait importante utiliseraient MkII,
+et MkIV continuerait à être utilisé par les gens vivant sur la brèche (comme
+c&rsquo;est souvent le cas des utilisateurs de ConTeXt).</p>
+
+<p>De façon peu surprenante, la question provoque des échanges vifs : les positions
+sont un peu variées et partagées entre l&rsquo;envie de profiter d&rsquo;un rythme
+de développement élevé et la crainte d&rsquo;un gros bazar pour compiler ses vieux
+documents en se demandant si c&rsquo;étaient des documents pour MarkIV ou pour
+MarkII. Taco suggère d&rsquo;introduire une commande dans le documents indiquant pour
+quelle version de ConTeXt il a été écrit. Hans ne semble pas enthousiasmé par
+l&rsquo;idée.</p>
+
+<h2>5 minutes de gloires</h2>
+
+<p>L&rsquo;après-midi commence par 5 minutes de gloire (auxquelles je vais lâchement
+essayer d&rsquo;échapper).</p>
+
+<ul>
+<li>Ancien utilisateur de ConTeXt : l&rsquo;avait découvert il y a quelques années en
+cherchant à installer TeX sous windows (!). L&rsquo;a utilisé pendant longtemps pour
+ses documents personnels, mais n&rsquo;a jamais abandonné LaTeX car c&rsquo;est le seul
+format accepté par la plupart des journaux mathématiques. A cessé d&rsquo;utiliser
+ConTeXt simplement parce que tous ses documents sont mathématiques (et le
+support mathématique de ConTeXt n&rsquo;est pas non plus totalement au niveau de
+celui de LaTeX).</li>
+<li>Utilisateur régulier de ConTeXt. Apprécie notamment MarkIV pour pouvoir hacker
+plus facilement en Lua.</li>
+</ul>
+
+<h2>Arthur : un nouveau logo ConTeXt ?</h2>
+
+<p>Visiblement la suite du bidouillage auquel j&rsquo;assistais cette nuit. Un peu plus
+ordonné quand même :-) Très graphique, donc dommage pour les notes&#8230; Taco fait
+remarquer très justement qu&rsquo;un vidéo-projecteur est un outil très utile pour
+travailler sur les fontes de façon précise : on peut bien voir et pointer les
+détails, puis s&rsquo;éloigner de quelques mètres pour avoir une bonne vue d&rsquo;ensemble.</p>
+
+<h2>Git</h2>
+
+<p>Système de contrôle de version, un peu comme CVS ou SVN. Git est la « stupid
+content tracker » d&rsquo;après sa page de man (d&rsquo;où son nom). L&rsquo;orateur avoue alors
+que ça n&rsquo;a pas de rapport direct avec ConTeXt (ouf) mais que comme les système
+de contrôle de version sont partout (documents perso, projet libres, et même
+distribution de logiciels). D&rsquo;après l&rsquo;orateur, git est le meilleur :-)</p>
+
+<p>Particularités de git :
+- Dépôts distribués : tous les dépôts son égaux (mais l&rsquo;un peut devenir quand
+  même central si l&rsquo;on veut). Les deux commandes de base sont <code>git pull</code> et
+  <code>git push</code>. On peut contrôler très facilement quelle partie du dépôt on
+  distribue. La propagation ressemble pas mal à ce qui se passe pour les
+  serveurs de news.
+- <em>merging</em> et <em>branching</em> faciles : le plus gros point fort de git. Avec SVN il
+  y a beaucoup de de choses à faire manuellement. Avec git, c&rsquo;est tellement
+  naturel que le cycle de travail finit par consister en grande partie en <code>git
+  branch</code> et <code>git merge</code> (qui marchent).
+- L&rsquo;index. Qu&rsquo;est-ce que c&rsquo;est ? C&rsquo;est une interface entre la copie de travail
+  et le dépôt. Tout doit être indexé avant d&rsquo;être « commité ». Ceci permet en
+  fait d&rsquo;indexer seulement certains changements, ce qui est incroyablement
+  pratique.
+- Très efficace. Par exemple, toutes les anciennes version de ConTeXt font 2.9G,
+  678M compressée, 156M dans un dépôt git, 15M dans le même dépôt après la
+  commande <code>git gc</code>. Également rapide.</p>
+
+<p>Deux trucs <strong>très</strong> faciles par rapport à svn : création d&rsquo;un dépôt personnel
+directement depuis une copie de travail : <code>git init</code> (à comparer à <code>svnadmin
+create foo &amp;&amp; svn import /path/to/foo &amp;&amp; mkdir foo &amp;&amp; svn co url:foo foo</code>&#8230;)
+Autre truc facile : on a pas besoin de lui dire quand on renomme ou copie des
+fichiers, il devine tout seul (pratique pour importer des archives, et le plus
+impressionnant, c&rsquo;est que ça marche pour de vrai). Un autre truc marrant :
+certaines commandes git permettent d&rsquo;envoyer les patchs par mail et de les
+importer depuis le mail :-)</p>
+
+<h2>Tutoriel ConTeXt, suite</h2>
+
+<p>Au programme : tableaux, figures et peut-être maths.</p>
+
+<h3>Tableaux</h3>
+
+<p>Le premier environnement de
+tableau, <code>\starttabulate</code>, ressemble beaucoup à l&rsquo;environnement <code>tabular</code> de
+LaTeX, en remplaçant <code>&amp;</code> par <code>\NC</code> et <code>\\</code> par <code>\NC\NR</code> (et sert juste à
+aligner, sans dessiner les grille). Il y a par contre beaucoup plus de types de
+colonnes et de choses pour régler les largeurs, les fontes, des commandes avant
+et après chaque cellule : en gros, à peu près ce que l&rsquo;on peut faire avec les
+extensions <em>array</em>, <em>longtable</em> et une partie de <em>tabularx</em> en LaTeX. On peut
+aussi régler pas mal de choses globalement par <code>\setuptabulate</code> et créer ses
+environnement de tableau personnels par <code>\definetabulate</code>.</p>
+
+<p>Pour dessiner les réglures, on a <code>\starttable</code>. La syntaxe est assez différente
+dans le sens où c&rsquo;est à chaque changement de cellule qu&rsquo;on indique la présence
+ou non d&rsquo;une  réglure. On a un équivalent facile à utiliser de <code>\multirow</code>, à
+savoir <code>\use2</code>. Suivent d&rsquo;autres variantes de tables (façon HTML ou autre) que
+je ne note pas ainsi que des détails sur les couleurs (qui semblent très bien
+marcher), le contrôle de l&rsquo;espacement, les titres et le placement. Pour en
+savoir plus, voir <em>ConTeXt, an excursion</em> p. 25-35, les deux articles (<a href="http://tug.org/TUGboat/Articles/tb28-3/tb90mahajan.pdf">1</a>,
+<a href="http://www.tug.org/TUGboat/Articles/tb29-1/tb91mahajan.pdf">2</a>) de TUGBoat, et la <a href="http://wiki.contextgarden.net/Table">page table</a> du wiki.</p>
+
+<h3>Flottants et graphiques</h3>
+
+<p>Inclusion de graphiques : on peut insérer des <code>jpg</code>, des <code>png</code> des (pages de
+<code>pdf</code>) et même des graphies MetaPost <code>mps</code>. Sont dissociés le placement par
+<code>\placefigure</code> et l&rsquo;insertion en soit avec <code>\externalfigure</code>.</p>
+
+<p>Flottants configurables avec <code>\setupfloat</code> qui a en gros les mêmes options que
+les paquets <em>floatrow</em>, <em>caption</em> et <em>placeins</em> de LaTeX. On peut aussi en
+définir de nouveaux avec <code>\definefloat</code> (sans grande surprise, hein). On peut
+aussi facilement placer plusieurs flottants ensemble avec <code>\startcombination</code>
+(un peu comme <em>subfig</em> ou <em>floatrow</em> en LaTeX). On peut aussi habiller
+des figures par du texte avec <code>\startfloat</code>. Pour aller plus loin :
+<code>metafun-p.pdf</code> et <code>details.pdf</code>.</p>
+
+<p>Maths : comme en LaTeX, <code>$$...$$</code> n&rsquo;est pas recommandé :-) L&rsquo;orateur passe très
+vite sur les bonnes façons de faire, il y a déjà eu une présentation à ce sujet
+ce matin (que j&rsquo;ai manquée). J&rsquo;en profite pour placer une remarque qui m&rsquo;a
+frappée : les matheux et assimilés ne sont pas la base d&rsquo;utilisateurs ni la
+cible principale de ConTeXt. C&rsquo;est assez intéressant parce que ça implique que
+ConTeXt soit vraiment performant et utilisable pour le reste, car il n&rsquo;y a pas
+la pression de « c&rsquo;est le seul truc décent pour taper des maths » pour attirer
+et retenir les utilisateurs. C&rsquo;est d&rsquo;ailleurs plaisant de voir que TeX (au sens
+large) peut être apprécié par d&rsquo;autres que les matheux et les geeks. Pour plus
+de détails sur les maths, voir les trois <em>my way</em> suivants (<a href="http://dl.contextgarden.net/myway/mathalign.pdf">1</a>, <a href="http://dl.contextgarden.net/myway/matharrows.pdf">2</a>
+<a href="http://dl.contextgarden.net/myway/context-latex-math.pdf">3</a>) sur le <em>garden</em>.</p>
+
+<h3> Présentation à la main</h3>
+
+<p>Tutoriel interactif, vi à la main de bout en bout, démontrant comment sans
+charger aucun module on peut transformer une texte quelconque en une jolie
+présentation à la beamer (sans overlay, quand même) avec même des fontes plus
+sympa (luatex inside) en moins de 100 lignes de code ConTeXt. Impressionnant
+mais très clair. Pas de notes sur les détails : je vais pas recopier et
+commenter 100 lignes de code en direct non plus ;-)</p>
+
+<h3>Fin du tutoriel : références, tables des matières, etc.</h3>
+
+<p>Peu de notes, mais en gros ça fait la majorité des choses qu&rsquo;on en attend : avec
+ou sans titres, styles prédéfinis, tables des matières partielles (à la
+<em>minitoc</em>), et de même pour les listes de flottants variées. Tout le systèm de
+références (croisée, tables de matières, index, biblio) dérive d&rsquo;un nombre fini
+de concept et de commandes ConTeXt, ce qui rend le tout assez homogène et
+configurable sans trop de non-sens.</p>
+
+<h2>Clôture</h2>
+
+<p>Après le tutoriel (à 18h20), Taco présente encore quelques logos expérimentaux
+pour ConTeXt, et propose qu&rsquo;au lieu du programme initial qui prévoyait une
+clôture de la conférence vers 16h, on aille d&rsquo;abord manger, puis qu&rsquo;on fasse la
+cérémonie de clôture et qu&rsquo;on continue à papoter de ConTeXt, à hacker et à créer
+des logos jusqu&rsquo;à 8h ou 9h. Je n&rsquo;ai pas trop compris s&rsquo;il voulait dire 21h ce
+soir, on 9h très tard cette nuit&#8230; Attendons et voyons, comme disent nos amis
+saxons.</p>
+</div>
+
+<div class="meta group">
+<div class="signature">
+    <p>Written by mpg <span class="edit"></span></p>
+    <p>août 24th, 2008 at 8:22  </p>
+</div>	
+<div class="tags">
+    <p>Posted in <a href="../../../par-sujet/tex-et-cie/" title="Voir tous les articles dans TeX et compagnie" rel="category tag">TeX et compagnie</a></p>
+    <p>Tagged with <a href="../../../par-tag/context/" rel="tag">context</a></p></div>
+</div>
+
+<div class="navigation group">
+    <div class="alignleft">&laquo; <a href="../rencontre-context-2008-partie-7/" rel="prev">Rencontre ConTeXt 2008, partie 7</a></div>
+    <div class="alignright"><a href="../../09/minionpro-sous-pdftex/" rel="next">MinionPro sous pdfTeX</a> &raquo;</div>
+</div>
+
+
+<!-- You can start editing here. -->
+
+<a name="comments" id="comments"></a>
+
+
+ 
+<!-- If comments are open, but there are no comments. -->
+
+
+
+
+</div> 
+
+<div id="sidebar">
+<h3>Pages</h3>		<ul>
+			<li class="page_item page-item-4"><a href="../../../qui-suis-je/">À propos</a></li>
+		</ul>
+		<h3>Mots-clés</h3><div class="tagcloud"><a href='../../../par-tag/astuce/' class='tag-link-24' title='2 sujets' style='font-size: 11.111111111111pt;'>astuce</a>
+<a href='../../../par-tag/biblatex/' class='tag-link-41' title='1 sujet' style='font-size: 8pt;'>biblatex</a>
+<a href='../../../par-tag/context/' class='tag-link-28' title='8 sujets' style='font-size: 19.234567901235pt;'>context</a>
+<a href='../../../par-tag/cap/' class='tag-link-49' title='1 sujet' style='font-size: 8pt;'>càp</a>
+<a href='../../../par-tag/debian/' class='tag-link-4' title='6 sujets' style='font-size: 17.506172839506pt;'>debian</a>
+<a href='../../../par-tag/fontes/' class='tag-link-30' title='2 sujets' style='font-size: 11.111111111111pt;'>fontes</a>
+<a href='../../../par-tag/google/' class='tag-link-37' title='1 sujet' style='font-size: 8pt;'>google</a>
+<a href='../../../par-tag/gutenberg/' class='tag-link-44' title='1 sujet' style='font-size: 8pt;'>gutenberg</a>
+<a href='../../../par-tag/howto/' class='tag-link-31' title='9 sujets' style='font-size: 20.098765432099pt;'>howto</a>
+<a href='../../../par-tag/latex/' class='tag-link-3' title='6 sujets' style='font-size: 17.506172839506pt;'>latex</a>
+<a href='../../../par-tag/latex3/' class='tag-link-39' title='1 sujet' style='font-size: 8pt;'>latex3</a>
+<a href='../../../par-tag/lualatex/' class='tag-link-43' title='1 sujet' style='font-size: 8pt;'>lualatex</a>
+<a href='../../../par-tag/luatex/' class='tag-link-21' title='7 sujets' style='font-size: 18.37037037037pt;'>luatex</a>
+<a href='../../../par-tag/miktex/' class='tag-link-47' title='1 sujet' style='font-size: 8pt;'>miktex</a>
+<a href='../../../par-tag/mplib/' class='tag-link-46' title='1 sujet' style='font-size: 8pt;'>mplib</a>
+<a href='../../../par-tag/ssh/' class='tag-link-36' title='2 sujets' style='font-size: 11.111111111111pt;'>ssh</a>
+<a href='../../../par-tag/texdoc/' class='tag-link-42' title='5 sujets' style='font-size: 16.296296296296pt;'>texdoc</a>
+<a href='../../../par-tag/texlive/' class='tag-link-34' title='12 sujets' style='font-size: 22pt;'>texlive</a>
+<a href='../../../par-tag/tlcontrib/' class='tag-link-45' title='1 sujet' style='font-size: 8pt;'>tlcontrib</a>
+<a href='../../../par-tag/unix-admin/' class='tag-link-33' title='3 sujets' style='font-size: 13.185185185185pt;'>unix-admin</a>
+<a href='../../../par-tag/unix-user/' class='tag-link-35' title='2 sujets' style='font-size: 11.111111111111pt;'>unix-user</a>
+<a href='../../../par-tag/vim/' class='tag-link-22' title='1 sujet' style='font-size: 8pt;'>vim</a>
+<a href='../../../par-tag/wordpress/' class='tag-link-40' title='2 sujets' style='font-size: 11.111111111111pt;'>wordpress</a>
+<a href='../../../par-tag/xetex/' class='tag-link-20' title='2 sujets' style='font-size: 11.111111111111pt;'>xetex</a></div>
+<h3>Catégories</h3>		<ul>
+	<li class="cat-item cat-item-14"><a href="../../../par-sujet/comp/" title="Geekeries diverses">Geekeries diverses</a>
+</li>
+	<li class="cat-item cat-item-1"><a href="../../../par-sujet/non-classe/" title="Voir tous les articles classés dans Non classé">Non classé</a>
+</li>
+	<li class="cat-item cat-item-13"><a href="../../../par-sujet/tex-et-cie/" title="Voir tous les articles classés dans TeX et compagnie">TeX et compagnie</a>
+</li>
+		</ul>
+
+
+</div>
+
+</div>
+
+<div id="footer">
+	<p>The Journalist template by <a href="http://lucianmarin.com/" rel="designer">Lucian E. Marin</a> &mdash; Built for <a href="http://wordpress.org/">WordPress</a></p>
+</div>
+
+</body>
+</html>

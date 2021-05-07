@@ -1,0 +1,208 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr-FR">
+<head profile="http://gmpg.org/xfn/11">
+<title>   MiKTeX et TeX Live en parallèle at Le mpg-blog</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="description" content="LaTeX et autres geekeries" />
+<link href="/style.css" rel="stylesheet" type="text/css" media="screen" />
+<link rel="shortcut icon" type="image/x-png" href="/favicon.png" />
+<link rel='stylesheet' id='wp-syntax-css-css'  href='/wp-syntax.css' type='text/css' media='all' />
+</head>
+
+<body>
+<div id="container" class="group">
+
+<h1><a href="../../../">Le mpg-blog</a></h1>
+<div id="bubble"><p>LaTeX et autres geekeries</p></div> <!-- erase this line if you want to turn the bubble off -->
+
+<div id="content" class="group">
+
+<h2 id="post-139"><a href="index.html" rel="bookmark">MiKTeX et TeX Live en parallèle</a></h2>
+<p class="comments"><a href="index.html#comments">without comments</a></p>
+
+<div class="main">
+	<p>Les deux distributions TeX modernes disponibles sous Windows, MiKTeX et TeX
+Live, ont ceci en commun qu&rsquo;il est possible d&rsquo;en installer plusieurs versions
+sur la même machine et de basculer rapidement de l&rsquo;une à l&rsquo;autre. En fait, il
+est également possible d&rsquo;installer et d&rsquo;utiliser les deux en parallèle, ce qui
+est particulièrement utile si l&rsquo;on souhaite effectuer des tests. Le présent
+billet explique le principe et deux façons de procéder.<span id="more-139"></span></p>
+
+<h2>Installation</h2>
+
+<p>L&rsquo;installation ne pose pas de problème particulier : installez d&rsquo;abord une
+distribution, l&rsquo;autre ensuite. Vous pouvez au choix installer « pour tous »
+(nécessite d&rsquo;être administrateur) ou bien seulement pour l&rsquo;utilisateur
+courant.</p>
+
+<p>Avec deux distributions installées, le principe est simple : celle qui arrive
+en premier dans le <code>PATH</code> gagne. En fait, c&rsquo;est un peu plus compliqué si les
+distributions ne fournissent pas exactement les mêmes programmes : si votre
+première (par ordre dans le <code>PATH</code>) distribution ne fournit pas un certain
+programme mais que la deuxième le fait, c&rsquo;est la version de la deuxième
+distribution qui sera utilisée, peut-être conjointement à d&rsquo;autres programmes
+issus de la première, ce qui peut créer une joyeuse pagaille et de fâcheux
+malentendus. Pour cette raison, je recommande d&rsquo;avoir toujours <em>au plus</em> une
+distribution dans son <code>PATH</code>.</p>
+
+<p>C&rsquo;est là que je vous propose deux options : la première est de n&rsquo;avoir aucune
+distribution « active » (c&rsquo;est-à-dire dans votre <code>PATH</code>) par défaut, il vous
+faudra en sélectionner une à chaque fois. La deuxième option est d&rsquo;avoir une
+distro par défaut dans son <code>PATH</code>, et de devoir entreprendre une action
+explicite pour utiliser l&rsquo;autre.</p>
+
+<p>En tout état de cause, après avoir installé vos deux distributions, il vous
+faut en retirer au moins une du <code>PATH</code>. Pour cela, allez dans les propriétés
+système (panneau de conf puis « système », ou bien clic droit sur le poste de
+travail et « propriétés »). Dans l&rsquo;onglet « avancé » choisissez « variables
+d&rsquo;environnement ». Attentions, <code>PATH</code> est potentiellement en deux morceaux :
+une partie « système », une « utilisateur », vérifiez les deux. Le <code>PATH</code>
+effectif d&rsquo;un utilisateur est formé de la concaténation des deux (dans cet
+ordre, ce qui ne laisse pas de me surprendre, mais passons).</p>
+
+<p>Si vous utilisez un environnement intégré pour TeX, par exemple TeXworks ou
+TeXmaker, vérifiez que dans sa configuration vous n&rsquo;utilisez que les noms des
+commandes et pas leurs chemins complets (par exemple <code>pdflatex.exe</code> mais pas
+<code>C:\texlive\2010\bin\win32\pdflatex.exe</code>).</p>
+
+<h2>Première option : pas de distro par défaut</h2>
+
+<p>Avec cette option, lorsque vous tapez <code>tex</code> à une invite de commande, vous
+obtenez en général un message d&rsquo;erreur. Pour utiliser une distribution donnée,
+l&rsquo;idée est de lancer une invite de commande avec le chemin de cette distro
+ajoutée au <code>PATH</code>. Depuis cette fenêtre, vous pourrez lancer vos compilations
+ou votre environnement intégré favori.</p>
+
+<p>Pour automatiser ceci, un petit <em>batchfile</em> fera l&rsquo;affaire, par exemple :</p>
+
+<pre><code>@echo off
+set PATH="C:\texlive\2010\bin\win32";%PATH%
+start "TeX Live 2010" cmd.exe
+</code></pre>
+
+<p>On donne un titre à la fenêtre afin de mieux s&rsquo;y retrouver si on a plusieurs
+invites de commandes ouvertes utilisant plusieurs distributions différentes,
+ce qui arrive facilement en période de test intensive. Créez un fichier <code>bat</code>
+pour chaque distribution que vous utilisez fréquemment et placez-les à un
+endroit commode (bureau, menu démarrer, etc.).</p>
+
+<h2>Deuxième option : une distro par défaut</h2>
+
+<p>Pour cette option, le script de lancement de la distribution alternative est
+un peu plus complexe. Il faut en effet retirer du <code>PATH</code> le chemin de la
+distribution actuelle et le remplacer par celui de l&rsquo;autre distribution. Je ne
+doute pas que ceci soit faisable en <em>bachfile</em> mais cela dépasse mes maigres
+compétences en ce langage. Heureusement, dès qu&rsquo;on a une installation
+TeX récente, on a sous la main un langage de script sympathique : Lua. Je vous
+propose donc le script suivant.</p>
+
+<script src="https://gist.github.com/mpg/831865.js?file=distsel.lua"></script>
+
+<p>Il détermine automatiquement le chemin de la distribution TeX courante (celle
+utilisée pour le lancer), puis explore le <code>PATH</code> pour remplacer ce chemin par
+celui qu&rsquo;on lui a donné en argument. Pour plus de commodité, j&rsquo;utilise un
+petit fichier <code>bat</code> pour le lancer, à adapter bien sûr en fonction de
+l&rsquo;endroit où vous aurez enregistré le script précédent et de l&rsquo;emplacement de
+votre distro alternative.</p>
+
+<pre><code>@texlua "C:\Documents and Settings\user\scripts\distsel.lua" ^
+"MiKTeX 2.9" "C:\miktex-2.9\miktex\bin"
+</code></pre>
+
+<p>(L&rsquo;accent circonflexe <code>^</code> est le caractère d&rsquo;échappement en script <code>bat</code>, il
+est utilisé ici pour pouvoir couper la longue ligne, comme on le ferait avec
+une contreoblique <code>\</code> en shell Unix, par contre il ne faut pas indenter la
+ligne suivante.)</p>
+
+<h2>Conclusion</h2>
+
+<p>Il est facile d&rsquo;installer plusieurs (versions de) distributions sur une même
+machine et de basculer rapidement entre elles ou d&rsquo;en utiliser plusieurs
+simultanément dans des environnements séparés. Ce montage est particulièrement
+commode pour explorer les spécificités de chaque distribution et vérifier la
+compatibilité de ses paquets si le besoin s&rsquo;en fait sentir.</p>
+
+<p>J&rsquo;utilise la deuxième option sur ma machine (virtuelle) de tests sous Windows
+XP SP3 avec MikTeX 2.9 et TeX Live 2010 installés en mode mono-utilisateur. Je
+ne maîtrise pas suffisamment la plateforme Windows pour garantir que ça
+fonctionnera aussi chez vous, aussi n&rsquo;hésitez pas à me faire savoir si vous
+rencontrez des problèmes avec ce montage.</p>
+</div>
+
+<div class="meta group">
+<div class="signature">
+    <p>Written by mpg <span class="edit"></span></p>
+    <p>février 17th, 2011 at 6:06  </p>
+</div>	
+<div class="tags">
+    <p>Posted in <a href="../../../par-sujet/tex-et-cie/" title="Voir tous les articles dans TeX et compagnie" rel="category tag">TeX et compagnie</a></p>
+    <p>Tagged with <a href="../../../par-tag/howto/" rel="tag">howto</a>, <a href="../../../par-tag/miktex/index.html" rel="tag">miktex</a>, <a href="../../../par-tag/texlive/index.html" rel="tag">texlive</a></p></div>
+</div>
+
+<div class="navigation group">
+    <div class="alignleft">&laquo; <a href="../../../2010/11/journee-gutenberg-2010/" rel="prev">Journée GUTenberg 2010</a></div>
+    <div class="alignright"><a href="../../03/jai-pris-la-bastille/" rel="next">J&rsquo;ai pris la bastille</a> &raquo;</div>
+</div>
+
+
+<!-- You can start editing here. -->
+
+<a name="comments" id="comments"></a>
+
+
+ 
+<!-- If comments are open, but there are no comments. -->
+
+
+
+
+</div> 
+
+<div id="sidebar">
+<h3>Pages</h3>		<ul>
+			<li class="page_item page-item-4"><a href="../../../qui-suis-je/">À propos</a></li>
+		</ul>
+		<h3>Mots-clés</h3><div class="tagcloud"><a href='../../../par-tag/astuce/' class='tag-link-24' title='2 sujets' style='font-size: 11.111111111111pt;'>astuce</a>
+<a href='../../../par-tag/biblatex/' class='tag-link-41' title='1 sujet' style='font-size: 8pt;'>biblatex</a>
+<a href='../../../par-tag/context/' class='tag-link-28' title='8 sujets' style='font-size: 19.234567901235pt;'>context</a>
+<a href='../../../par-tag/cap/' class='tag-link-49' title='1 sujet' style='font-size: 8pt;'>càp</a>
+<a href='../../../par-tag/debian/' class='tag-link-4' title='6 sujets' style='font-size: 17.506172839506pt;'>debian</a>
+<a href='../../../par-tag/fontes/' class='tag-link-30' title='2 sujets' style='font-size: 11.111111111111pt;'>fontes</a>
+<a href='../../../par-tag/google/' class='tag-link-37' title='1 sujet' style='font-size: 8pt;'>google</a>
+<a href='../../../par-tag/gutenberg/' class='tag-link-44' title='1 sujet' style='font-size: 8pt;'>gutenberg</a>
+<a href='../../../par-tag/howto/' class='tag-link-31' title='9 sujets' style='font-size: 20.098765432099pt;'>howto</a>
+<a href='../../../par-tag/latex/' class='tag-link-3' title='6 sujets' style='font-size: 17.506172839506pt;'>latex</a>
+<a href='../../../par-tag/latex3/' class='tag-link-39' title='1 sujet' style='font-size: 8pt;'>latex3</a>
+<a href='../../../par-tag/lualatex/' class='tag-link-43' title='1 sujet' style='font-size: 8pt;'>lualatex</a>
+<a href='../../../par-tag/luatex/' class='tag-link-21' title='7 sujets' style='font-size: 18.37037037037pt;'>luatex</a>
+<a href='../../../par-tag/miktex/' class='tag-link-47' title='1 sujet' style='font-size: 8pt;'>miktex</a>
+<a href='../../../par-tag/mplib/' class='tag-link-46' title='1 sujet' style='font-size: 8pt;'>mplib</a>
+<a href='../../../par-tag/ssh/' class='tag-link-36' title='2 sujets' style='font-size: 11.111111111111pt;'>ssh</a>
+<a href='../../../par-tag/texdoc/' class='tag-link-42' title='5 sujets' style='font-size: 16.296296296296pt;'>texdoc</a>
+<a href='../../../par-tag/texlive/' class='tag-link-34' title='12 sujets' style='font-size: 22pt;'>texlive</a>
+<a href='../../../par-tag/tlcontrib/' class='tag-link-45' title='1 sujet' style='font-size: 8pt;'>tlcontrib</a>
+<a href='../../../par-tag/unix-admin/' class='tag-link-33' title='3 sujets' style='font-size: 13.185185185185pt;'>unix-admin</a>
+<a href='../../../par-tag/unix-user/' class='tag-link-35' title='2 sujets' style='font-size: 11.111111111111pt;'>unix-user</a>
+<a href='../../../par-tag/vim/' class='tag-link-22' title='1 sujet' style='font-size: 8pt;'>vim</a>
+<a href='../../../par-tag/wordpress/' class='tag-link-40' title='2 sujets' style='font-size: 11.111111111111pt;'>wordpress</a>
+<a href='../../../par-tag/xetex/' class='tag-link-20' title='2 sujets' style='font-size: 11.111111111111pt;'>xetex</a></div>
+<h3>Catégories</h3>		<ul>
+	<li class="cat-item cat-item-14"><a href="../../../par-sujet/comp/" title="Geekeries diverses">Geekeries diverses</a>
+</li>
+	<li class="cat-item cat-item-1"><a href="../../../par-sujet/non-classe/" title="Voir tous les articles classés dans Non classé">Non classé</a>
+</li>
+	<li class="cat-item cat-item-13"><a href="../../../par-sujet/tex-et-cie/" title="Voir tous les articles classés dans TeX et compagnie">TeX et compagnie</a>
+</li>
+		</ul>
+
+
+</div>
+
+</div>
+
+<div id="footer">
+	<p>The Journalist template by <a href="http://lucianmarin.com/" rel="designer">Lucian E. Marin</a> &mdash; Built for <a href="http://wordpress.org/">WordPress</a></p>
+</div>
+
+</body>
+</html>

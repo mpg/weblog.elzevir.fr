@@ -1,0 +1,168 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr-FR">
+<head profile="http://gmpg.org/xfn/11">
+<title>   LuaTeX 0.60.0 at Le mpg-blog</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="description" content="LaTeX et autres geekeries" />
+<link href="/style.css" rel="stylesheet" type="text/css" media="screen" />
+<link rel="shortcut icon" type="image/x-png" href="/favicon.png" />
+<link rel='stylesheet' id='wp-syntax-css-css'  href='/wp-syntax.css' type='text/css' media='all' />
+</head>
+
+<body>
+<div id="container" class="group">
+
+<h1><a href="../../../">Le mpg-blog</a></h1>
+<div id="bubble"><p>LaTeX et autres geekeries</p></div> <!-- erase this line if you want to turn the bubble off -->
+
+<div id="content" class="group">
+
+<h2 id="post-112"><a href="index.html" rel="bookmark">LuaTeX 0.60.0</a></h2>
+<p class="comments"><a href="index.html#comments">without comments</a></p>
+
+<div class="main">
+	<p>Une nouvelle version de <a href="http://luatex.org/">LuaTeX</a>, le nouveau moteur TeX en plein
+développement, est <a href="http://tug.org/pipermail/luatex/2010-April/001458.html">sortie aujourd&rsquo;hui</a>. C&rsquo;est cette version (ou plus
+probablement une version 0.60.x) qui sera présente dans TeX Live 2010. Pas
+d&rsquo;énorme changement pour l&rsquo;utilisateur ordinaire, mais voici une traduction
+rapide des nouvelles présentes dans l&rsquo;annonce ce cette version.<span id="more-112"></span>Des exécutables seront bientôt disponibles sur la <a href="http://luatex.org/download.html">page téléchargements</a> du
+projet, et j&rsquo;ai précédemment expliqué comment <a href="../../../2009/02/integrer-un-luatex-recent-a-tex-live/">installer une version
+récente de LuaTeX sur TeX Live</a>, pour ceux qui veulent l&rsquo;essayer sans
+attendre.</p>
+
+<h2>Nouvelles fonctionnalités</h2>
+
+<ul>
+<li><code>os.name</code> prend maintenant en compte CYGWIN (par Élie Roux).</li>
+<li>La gestion interne des spécifications de direction est plus rapide maintenant.</li>
+<li>Chaque nœud de glyphe a maintenant trois champs virtuels en lecture seule :
+<code>width</code>, <code>height</code>, et <code>depth</code> (les valeurs sont en <code>sp</code> (points d&rsquo;échelle)
+bien sûr).</li>
+<li>Il y a de nouvelles fonctions <code>node.protrusion_skipable()</code> et <code>tex.badness()</code>
+(utiles pour le découpage des paragraphes en Lua).</li>
+<li>Également nouveau : <code>tex.linebreak()</code>. Voir le manuel pour les détails.</li>
+<li>Toutes les erreurs en Lua indiquent maintenant le fichier et le numéro de
+ligne pour aider à déboguer.</li>
+<li>Import de Metapost 1.211.</li>
+<li><code>pdf.pdfcatalog</code> sera bientôt remplacé par le nouveau <code>pdf.catalog</code> ;
+<code>pdf.pdfinfo</code> sera bientôt remplacé par le nouveau <code>pdf.info</code> ;
+<code>pdf.pdfnames</code> sera bientôt remplacé par le nouveau <code>pdf.names</code> ;
+<code>pdf.pdftrailer</code> sera bientôt remplacé par le nouveau <code>pdf.trailer</code>.</li>
+<li><code>pdf.pdfmapfile</code> et <code>pdf.pdfmapline</code> sont remplacés pas les nouvelles
+fonctions <code>pdf.mapfile()</code> et <code>pdf.mapline()</code> (une fonction convient mieux
+comme interface pour ces paramètres vu qu&rsquo;il ne retournent jamais rien).</li>
+<li>Nouvelles variables Lua en lecture et écriture : <code>pdf.pagesattributes</code>,
+<code>pdf.pageresources</code>, <code>pdf.pagesresources</code>.</li>
+<li><code>getluatexsvnversion.sh</code> détecte maintenant correctement git-svn et arrive
+encore à trouver un numéro de révision SVN valide (de Patrick Gundlacj).</li>
+<li>Plusieurs fichiers sources ont été convertis en CWEB.</li>
+</ul>
+
+<h2>Corrections de bogues</h2>
+
+<ul>
+<li>GNU libtool est maintenant utilisé pour résoudre les problèmes techniques
+variés liés au chargement dynamique de modules Lua.</li>
+<li>La détection des erreurs dans <code>scan_interger_part</code> était incorrecte car
+<code>OK_so_far</code> n&rsquo;était pas initialisée (remarqué par Javier Mugica).</li>
+<li>Synctex était cassé dans 0.51 et 0.52.</li>
+<li><code>\lastlinefit</code> était cassé depuis&#8230; euh, à peu près toujours.</li>
+<li>La lecture des fichiers binaires de taille nulle était cassée.</li>
+<li>Détection des réglures non initialisées (pour les nœuds de réglures créés de
+travers depuis Lua).</li>
+<li><code>pdfimmediatobj('streamfile')</code> était cassé sur les plate-formes 64 bits.</li>
+<li><code>tex.linebreak</code> ne prenait pas les valeurs de ressort droit et gauche données,
+mais utilisait en fait les valeurs courantes coté TeX (bug #356).</li>
+<li>La commande <code>make</code> de <code>build.sh</code> est maintenant passée à <code>configure</code> pour
+résoudre les problèmes où GNU make n&rsquo;était pas trouvé alors qu&rsquo;il était
+effectivement installé.</li>
+<li><code>dofile(&lt;nil&gt;)</code> et <code>loadfile(&lt;nil&gt;)</code> en <code>batchmode</code> provoquent maintenant une
+erreur et continuent plutôt que d&rsquo;attendre inutilement une entrée de
+l&rsquo;utilisateur.</li>
+<li>Annulé le commit numéro 3417 (l&rsquo;expérience avec <code>buildpage</code>) car il provoque
+des problèmes quand des items sont en attente au moment du saut de page.</li>
+<li><code>loaders[4]</code> est écrasé en mode <code>--safer</code>; <code>require()</code> se comporte de façon
+plus semblable au Lua 5.1 normal ; meilleurs messages d&rsquo;erreur (d&rsquo;après un
+e-mail et des patchs de Manuel Pégourié-Gonnard).</li>
+<li>Test supplémentaire au chargement <code>GDEF</code> dans <code>luafontloader</code>, basé sur un
+crash causé par la fonte <code>AkaashNormal.ttf</code> de Linux.</li>
+</ul>
+</div>
+
+<div class="meta group">
+<div class="signature">
+    <p>Written by mpg <span class="edit"></span></p>
+    <p>avril 4th, 2010 at 11:34  </p>
+</div>	
+<div class="tags">
+    <p>Posted in <a href="../../../par-sujet/tex-et-cie/" title="Voir tous les articles dans TeX et compagnie" rel="category tag">TeX et compagnie</a></p>
+    <p>Tagged with <a href="../../../par-tag/luatex/" rel="tag">luatex</a></p></div>
+</div>
+
+<div class="navigation group">
+    <div class="alignleft">&laquo; <a href="../../03/les-differents-modes-de-texdoc/" rel="prev">Les différents modes de texdoc</a></div>
+    <div class="alignright"><a href="../texdoc-et-texdoctk/" rel="next">texdoc et texdoctk</a> &raquo;</div>
+</div>
+
+
+<!-- You can start editing here. -->
+
+<a name="comments" id="comments"></a>
+
+
+ 
+<!-- If comments are open, but there are no comments. -->
+
+
+
+
+</div> 
+
+<div id="sidebar">
+<h3>Pages</h3>		<ul>
+			<li class="page_item page-item-4"><a href="../../../qui-suis-je/">À propos</a></li>
+		</ul>
+		<h3>Mots-clés</h3><div class="tagcloud"><a href='../../../par-tag/astuce/' class='tag-link-24' title='2 sujets' style='font-size: 11.111111111111pt;'>astuce</a>
+<a href='../../../par-tag/biblatex/' class='tag-link-41' title='1 sujet' style='font-size: 8pt;'>biblatex</a>
+<a href='../../../par-tag/context/' class='tag-link-28' title='8 sujets' style='font-size: 19.234567901235pt;'>context</a>
+<a href='../../../par-tag/cap/' class='tag-link-49' title='1 sujet' style='font-size: 8pt;'>càp</a>
+<a href='../../../par-tag/debian/' class='tag-link-4' title='6 sujets' style='font-size: 17.506172839506pt;'>debian</a>
+<a href='../../../par-tag/fontes/' class='tag-link-30' title='2 sujets' style='font-size: 11.111111111111pt;'>fontes</a>
+<a href='../../../par-tag/google/' class='tag-link-37' title='1 sujet' style='font-size: 8pt;'>google</a>
+<a href='../../../par-tag/gutenberg/' class='tag-link-44' title='1 sujet' style='font-size: 8pt;'>gutenberg</a>
+<a href='../../../par-tag/howto/' class='tag-link-31' title='9 sujets' style='font-size: 20.098765432099pt;'>howto</a>
+<a href='../../../par-tag/latex/' class='tag-link-3' title='6 sujets' style='font-size: 17.506172839506pt;'>latex</a>
+<a href='../../../par-tag/latex3/' class='tag-link-39' title='1 sujet' style='font-size: 8pt;'>latex3</a>
+<a href='../../../par-tag/lualatex/' class='tag-link-43' title='1 sujet' style='font-size: 8pt;'>lualatex</a>
+<a href='../../../par-tag/luatex/' class='tag-link-21' title='7 sujets' style='font-size: 18.37037037037pt;'>luatex</a>
+<a href='../../../par-tag/miktex/' class='tag-link-47' title='1 sujet' style='font-size: 8pt;'>miktex</a>
+<a href='../../../par-tag/mplib/' class='tag-link-46' title='1 sujet' style='font-size: 8pt;'>mplib</a>
+<a href='../../../par-tag/ssh/' class='tag-link-36' title='2 sujets' style='font-size: 11.111111111111pt;'>ssh</a>
+<a href='../../../par-tag/texdoc/' class='tag-link-42' title='5 sujets' style='font-size: 16.296296296296pt;'>texdoc</a>
+<a href='../../../par-tag/texlive/' class='tag-link-34' title='12 sujets' style='font-size: 22pt;'>texlive</a>
+<a href='../../../par-tag/tlcontrib/' class='tag-link-45' title='1 sujet' style='font-size: 8pt;'>tlcontrib</a>
+<a href='../../../par-tag/unix-admin/' class='tag-link-33' title='3 sujets' style='font-size: 13.185185185185pt;'>unix-admin</a>
+<a href='../../../par-tag/unix-user/' class='tag-link-35' title='2 sujets' style='font-size: 11.111111111111pt;'>unix-user</a>
+<a href='../../../par-tag/vim/' class='tag-link-22' title='1 sujet' style='font-size: 8pt;'>vim</a>
+<a href='../../../par-tag/wordpress/' class='tag-link-40' title='2 sujets' style='font-size: 11.111111111111pt;'>wordpress</a>
+<a href='../../../par-tag/xetex/' class='tag-link-20' title='2 sujets' style='font-size: 11.111111111111pt;'>xetex</a></div>
+<h3>Catégories</h3>		<ul>
+	<li class="cat-item cat-item-14"><a href="../../../par-sujet/comp/" title="Geekeries diverses">Geekeries diverses</a>
+</li>
+	<li class="cat-item cat-item-1"><a href="../../../par-sujet/non-classe/" title="Voir tous les articles classés dans Non classé">Non classé</a>
+</li>
+	<li class="cat-item cat-item-13"><a href="../../../par-sujet/tex-et-cie/" title="Voir tous les articles classés dans TeX et compagnie">TeX et compagnie</a>
+</li>
+		</ul>
+
+
+</div>
+
+</div>
+
+<div id="footer">
+	<p>The Journalist template by <a href="http://lucianmarin.com/" rel="designer">Lucian E. Marin</a> &mdash; Built for <a href="http://wordpress.org/">WordPress</a></p>
+</div>
+
+</body>
+</html>

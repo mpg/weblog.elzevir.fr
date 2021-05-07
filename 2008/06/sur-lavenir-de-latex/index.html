@@ -1,0 +1,232 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr-FR">
+<head profile="http://gmpg.org/xfn/11">
+<title>   Sur l&rsquo;avenir de (La)TeX at Le mpg-blog</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="description" content="LaTeX et autres geekeries" />
+<link href="/style.css" rel="stylesheet" type="text/css" media="screen" />
+<link rel="shortcut icon" type="image/x-png" href="/favicon.png" />
+<link rel='stylesheet' id='wp-syntax-css-css'  href='/wp-syntax.css' type='text/css' media='all' />
+</head>
+
+<body>
+<div id="container" class="group">
+
+<h1><a href="../../../">Le mpg-blog</a></h1>
+<div id="bubble"><p>LaTeX et autres geekeries</p></div> <!-- erase this line if you want to turn the bubble off -->
+
+<div id="content" class="group">
+
+<h2 id="post-6"><a href="index.html" rel="bookmark">Sur l&rsquo;avenir de (La)TeX</a></h2>
+<p class="comments"><a href="index.html#comments">with one comment</a></p>
+
+<div class="main">
+	<p>Suite à une discussion récente sur <abbr title="fr.comp.text.tex">fctt</abbr>,
+je reformule ici quelques réflexions sur l&rsquo;avenir de (La)TeX. La première
+remarque est qu&rsquo;il faut bien distinguer LaTeX en lui-même, et plus
+particulièrement sa version actuelle, LaTeX2e, des outils basés sur TeX en
+général. Je crois fortement à l&rsquo;avenir d&rsquo;outils reprenant les points forts de
+TeX, mais à condition de révolutionner certains de leurs aspects, qui en
+particulier feraient sans doute voler en éclats le LaTeX2e que nous
+connaissons.</p>
+
+<p>D&rsquo;abord, quelques rappels historiques.
+<span id="more-6"></span>
+ TeX était sans doute le mieux qu&rsquo;on
+puisse faire à l&rsquo;époque où il a été créé, et peut-être encore 10 ans après.
+Aujourd&rsquo;hui, il est vieux et porte les traces de l&rsquo;époque de sa jeunesse : à ce
+moment, ni pdf, ni unicode, ni opentype n&rsquo;existaient : en fait, postscript non
+plus, latin1 non plus, et sans doute aucun format vectoriel de police. Sur ces
+points, le retard est en train d&rsquo;être rattrapé (voire de l&rsquo;avance prise) par
+XeTeX, et une partie de LuaTeX.</p>
+
+<p>Il est sans doute intéressant de noter que Microsoft a produit avec Word 2007
+une police mathématique (Cambria Math) au format OpenType avec toutes les
+informations métriques voulues pour composer des maths correctement.  Leurs
+algo de composition mathématique sont ouvertement calqués sur ceux de TeX et
+produisent un résultat de qualité comparable (pour les maths, le texte est
+encore largement à la traîne). Pour l&rsquo;instant, ni XeTeX ni LuaTeX ne gèrent
+l&rsquo;OpenType mathématique (mais ça ne va pas tarder à changer).</p>
+
+<p>C&rsquo;est à mon avis significatif sur le fait que TeX avait à une époque plusieurs
+longueurs d&rsquo;avance, puisqu&rsquo;on le copie presque 30 ans après. Par contre, en le
+copiant, on va un peu plus loin : il s&rsquo;agit donc de ne pas se reposer sur ses
+lauriers si TeX doit garder un rôle de leader. Des progrès importants sont en
+cours dans ce sens avec XeTeX et LuaTeX.</p>
+
+<p>Un autre point où TeX porte un peu la trace de son âge, c&rsquo;est son manque
+d&rsquo;intégration au reste du monde en général. On a déjà parlé des grands
+standards comme Pdf, PostScript, Unicode et OpenType, mais une foule d&rsquo;autres
+détails existent, comme le problème des formats d&rsquo;images et des modes de
+compilation, légitimement agaçants pour les utilisateurs.</p>
+
+<p>Par ailleurs, on peut envisager et souhaiter des réformes profondes au niveau
+de l&rsquo;interface utilisateur et programmeur de TeX, allant jusqu&rsquo;à la disparition
+de TeX en tant que langage. En effet, ce dernier présente des particularités
+incontournables (dans le sens où on ne peut pas les cacher à l&rsquo;utilisateur),
+comme le célèbre problème du verbatim dans les arguments de commandes, qui sont
+profondément ancrées dans la structure du langage.</p>
+
+<p>La moins profonde des réformes qu&rsquo;on peut envisager est déjà en cours avec le
+projet LuaTeX : il s&rsquo;agit d&rsquo;ouvrir certaines des routines internes de TeX au
+programmeur. En effet, celui-ci est parfois bloqué par quelques hypothèses
+codées en dur dans TeX, qui ne correspondent pas à la situation où il se
+trouve, tant il est vrai que même Knuth ne pouvait anticiper toutes les
+utilisations qu&rsquo;on voudrait faire de TeX après le développement fabuleux qu&rsquo;il
+a connu.</p>
+
+<p>Pour le moment, il s&rsquo;agit, à certains points judicieusement choisis du
+traitement d&rsquo;un document par TeX, de rendre la main au programmeur. Ceci laisse
+en place le flot d&rsquo;exécution normal prévu par TeX. Or celui-ci est parfois très
+contraignant, par exemple la notion de routine de sortie.</p>
+
+<p>Au final, on aimerait donc dans l&rsquo;idéal pourvoir complètement désosser TeX, et
+n&rsquo;en garder que les parties les plus intéressantes : algorithmes de césure, de
+construction des paragraphes, de composition mathématique, structures de
+données particulièrement adaptées (listes, boîtes) éventuellement en les
+améliorant, mais en étant libre de les agencer comme on veut. C&rsquo;est un travail
+particulièrement énorme, vu le caractère très monolithique de TeX tant dans sa
+conception que dans son implémentation.</p>
+
+<p>On peut alors rêver d&rsquo;un système en plusieurs couches comme suit : un cœur
+centré sur des composants de TeX liés entre eux de façon souple. Des <em>back-end</em>
+produisant un peu ce qu&rsquo;on veut : Pdf (X)Html, MathML, etc.  Un <em>front-end</em> en
+deux couches : l&rsquo;une destinée au programmeur, l&rsquo;autre à l&rsquo;utilisateur final.</p>
+
+<p>En effet, actuellement les deux disposent d&rsquo;un langage commun qui ne satisfait
+réellement personne. Du point de vue des deux, il est trop complexe et parfois
+difficile à prévoir, et pour le programmeur il manque de la souplesse que
+savent fournir des langages modernes, sans même parler du concept de séparation
+lecture/développement/exécution qui est pour beaucoup dans la complexité du
+langage actuel.</p>
+
+<p>Notons que cette séparation en couches était plus ou moins prévue dès le départ
+par Knuth avec la notion de format, et est aussi un des points importants du
+projet LaTeX3. Enfin, avec des efforts, un bonne conception de ces deux couches
+permettrait peut-être d&rsquo;éviter que l&rsquo;utilisateur de retrouve confronté à des
+messages d&rsquo;erreurs que seul le programmeur expérimenté peut comprendre à défaut
+d&rsquo;apprécier.</p>
+
+<p>Après ce qui peut ressembler à un réquisitoire, quelques réflexions sur la
+place de TeX dans le paysage actuel. Il est le seul, parmi les outils destinés
+à produire des documents de bonne qualité typographique, à fonctionner comme un
+compilateur de documents, et à être réellement programmable. Ceci le rend très
+difficile à comparer à d&rsquo;éventuels concurrents.</p>
+
+<p>Ses atouts essentiels, conséquence des précédents, est qu&rsquo;il peut automatiser
+de nombreuses tâches comme la gestion de des références au sens large, notes de
+bas de pages, etc, mais aussi trouver automatiquement l&rsquo;optimum typographique
+sous des contraintes données dans de nombreuses circonstances, là où des outils
+comme Quark Xpress ou Adobe InDesign demandent une gestion et un ajustement
+manuel. Il peut aussi beaucoup plus facilement d&rsquo;intégrer dans des flots de
+traitement automatisé de documents (penser XML, Docbook, texinfo).</p>
+
+<p>Pour conclure, tant par la place à part qu&rsquo;il occupe dans le paysage de la
+typographie assistée par ordinateur, l&rsquo;intérêt constant de ses algorithmes
+typographiques, les projets existants visant à mieux l&rsquo;insérer dans le monde
+informatique moderne, que par goût personnel, je crois fortement à l&rsquo;avenir
+d&rsquo;une forme de TeX.</p>
+
+<p>Mais le monde de TeX a été très conservateur pendant une longue période,
+choisissant toujours la stabilité au détriment de l&rsquo;innovation. Il a donc dans
+un sens du retard à rattraper, et je pense et espère que les évolutions en
+cours avec XeTeX et plus encore LuaTeX ne sont que le début d&rsquo;une révolution,
+qui promet d&rsquo;être excitante et riche.</p>
+</div>
+
+<div class="meta group">
+<div class="signature">
+    <p>Written by mpg <span class="edit"></span></p>
+    <p>juin 5th, 2008 at 1:05  </p>
+</div>	
+<div class="tags">
+    <p>Posted in <a href="../../../par-sujet/tex-et-cie/" title="Voir tous les articles dans TeX et compagnie" rel="category tag">TeX et compagnie</a></p>
+    <p>Tagged with <a href="../../../par-tag/latex/" rel="tag">latex</a>, <a href="../../../par-tag/luatex/index.html" rel="tag">luatex</a>, <a href="../../../par-tag/xetex/index.html" rel="tag">xetex</a></p></div>
+</div>
+
+<div class="navigation group">
+    <div class="alignleft">&laquo; <a href="../installation-wordpress-sur-apache-sur-debian/" rel="prev">Installation WordPress sur Apache sur Debian</a></div>
+    <div class="alignright"><a href="../../07/wordpress-a-ma-sauce-partie-1/" rel="next">WordPress à ma sauce (partie 1)</a> &raquo;</div>
+</div>
+
+
+<!-- You can start editing here. -->
+
+<a name="comments" id="comments"></a>
+
+<h3 class="reply">One Response to 'Sur l&rsquo;avenir de (La)TeX'</h3> 
+
+<ol class="commentlist">
+
+
+<li id="comment-7320" class="">
+	<div class="comment_mod">
+		</div>
+	
+	<div class="comment_text">
+	<p>totalement d&rsquo;accord !</p>
+	</div>
+	
+	<div class="comment_author">
+		<img alt='' src='https://secure.gravatar.com/avatar/f4350daee0de9442fb21b68a464fcabf?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />		<p><strong><a href='http://www.mxp2.com' rel='external nofollow' class='url'>mxp2</a></strong></p>
+	<p><small>23 jan 11 at <a href="index.html#comment-7320">11:41</a> <? edit_comment_link(__('Edit', 'sandbox'), ' ', ''); ?></small></p>
+	</div>
+	<div class="clear"></div>
+</li>
+
+
+</ol>
+
+
+
+
+</div> 
+
+<div id="sidebar">
+<h3>Pages</h3>		<ul>
+			<li class="page_item page-item-4"><a href="../../../qui-suis-je/">À propos</a></li>
+		</ul>
+		<h3>Mots-clés</h3><div class="tagcloud"><a href='../../../par-tag/astuce/' class='tag-link-24' title='2 sujets' style='font-size: 11.111111111111pt;'>astuce</a>
+<a href='../../../par-tag/biblatex/' class='tag-link-41' title='1 sujet' style='font-size: 8pt;'>biblatex</a>
+<a href='../../../par-tag/context/' class='tag-link-28' title='8 sujets' style='font-size: 19.234567901235pt;'>context</a>
+<a href='../../../par-tag/cap/' class='tag-link-49' title='1 sujet' style='font-size: 8pt;'>càp</a>
+<a href='../../../par-tag/debian/' class='tag-link-4' title='6 sujets' style='font-size: 17.506172839506pt;'>debian</a>
+<a href='../../../par-tag/fontes/' class='tag-link-30' title='2 sujets' style='font-size: 11.111111111111pt;'>fontes</a>
+<a href='../../../par-tag/google/' class='tag-link-37' title='1 sujet' style='font-size: 8pt;'>google</a>
+<a href='../../../par-tag/gutenberg/' class='tag-link-44' title='1 sujet' style='font-size: 8pt;'>gutenberg</a>
+<a href='../../../par-tag/howto/' class='tag-link-31' title='9 sujets' style='font-size: 20.098765432099pt;'>howto</a>
+<a href='../../../par-tag/latex/' class='tag-link-3' title='6 sujets' style='font-size: 17.506172839506pt;'>latex</a>
+<a href='../../../par-tag/latex3/' class='tag-link-39' title='1 sujet' style='font-size: 8pt;'>latex3</a>
+<a href='../../../par-tag/lualatex/' class='tag-link-43' title='1 sujet' style='font-size: 8pt;'>lualatex</a>
+<a href='../../../par-tag/luatex/' class='tag-link-21' title='7 sujets' style='font-size: 18.37037037037pt;'>luatex</a>
+<a href='../../../par-tag/miktex/' class='tag-link-47' title='1 sujet' style='font-size: 8pt;'>miktex</a>
+<a href='../../../par-tag/mplib/' class='tag-link-46' title='1 sujet' style='font-size: 8pt;'>mplib</a>
+<a href='../../../par-tag/ssh/' class='tag-link-36' title='2 sujets' style='font-size: 11.111111111111pt;'>ssh</a>
+<a href='../../../par-tag/texdoc/' class='tag-link-42' title='5 sujets' style='font-size: 16.296296296296pt;'>texdoc</a>
+<a href='../../../par-tag/texlive/' class='tag-link-34' title='12 sujets' style='font-size: 22pt;'>texlive</a>
+<a href='../../../par-tag/tlcontrib/' class='tag-link-45' title='1 sujet' style='font-size: 8pt;'>tlcontrib</a>
+<a href='../../../par-tag/unix-admin/' class='tag-link-33' title='3 sujets' style='font-size: 13.185185185185pt;'>unix-admin</a>
+<a href='../../../par-tag/unix-user/' class='tag-link-35' title='2 sujets' style='font-size: 11.111111111111pt;'>unix-user</a>
+<a href='../../../par-tag/vim/' class='tag-link-22' title='1 sujet' style='font-size: 8pt;'>vim</a>
+<a href='../../../par-tag/wordpress/' class='tag-link-40' title='2 sujets' style='font-size: 11.111111111111pt;'>wordpress</a>
+<a href='../../../par-tag/xetex/' class='tag-link-20' title='2 sujets' style='font-size: 11.111111111111pt;'>xetex</a></div>
+<h3>Catégories</h3>		<ul>
+	<li class="cat-item cat-item-14"><a href="../../../par-sujet/comp/" title="Geekeries diverses">Geekeries diverses</a>
+</li>
+	<li class="cat-item cat-item-1"><a href="../../../par-sujet/non-classe/" title="Voir tous les articles classés dans Non classé">Non classé</a>
+</li>
+	<li class="cat-item cat-item-13"><a href="../../../par-sujet/tex-et-cie/" title="Voir tous les articles classés dans TeX et compagnie">TeX et compagnie</a>
+</li>
+		</ul>
+
+
+</div>
+
+</div>
+
+<div id="footer">
+	<p>The Journalist template by <a href="http://lucianmarin.com/" rel="designer">Lucian E. Marin</a> &mdash; Built for <a href="http://wordpress.org/">WordPress</a></p>
+</div>
+
+</body>
+</html>

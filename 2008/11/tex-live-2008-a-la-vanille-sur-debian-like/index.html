@@ -1,0 +1,624 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr-FR">
+<head profile="http://gmpg.org/xfn/11">
+<title>   TeX Live 2008 à la vanille sur Debian-like at Le mpg-blog</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="description" content="LaTeX et autres geekeries" />
+<link href="/style.css" rel="stylesheet" type="text/css" media="screen" />
+<link rel="shortcut icon" type="image/x-png" href="/favicon.png" />
+<link rel='stylesheet' id='wp-syntax-css-css'  href='/wp-syntax.css' type='text/css' media='all' />
+</head>
+
+<body>
+<div id="container" class="group">
+
+<h1><a href="../../../">Le mpg-blog</a></h1>
+<div id="bubble"><p>LaTeX et autres geekeries</p></div> <!-- erase this line if you want to turn the bubble off -->
+
+<div id="content" class="group">
+
+<h2 id="post-22"><a href="index.html" rel="bookmark">TeX Live 2008 à la vanille sur Debian-like</a></h2>
+<p class="comments"><a href="index.html#comments">with 12 comments</a></p>
+
+<div class="main">
+	<p>Suite notamment à une discussion sur <code>fr.comp.text.tex</code>, mais aussi pour me
+servir d&rsquo;aide-mémoire, voici une description de mon installation de TeX Live
+2008 « à la vanille » (c&rsquo;est-à-dire la version <em>upstream</em> non empaquetée par
+Debian), et plus précisément de comment établir de bonnes relations entre cette
+installation locale et la gestionnaire de paquets de Debian.  <span id="more-22"></span></p>
+
+<p>Premièrement, pourquoi avoir installé une TeX Live nature plutôt que les paquets
+TeX Live de Debian ?  Plusieurs raisons :</p>
+
+<ul>
+<li>L&rsquo;équipe TeX de Debian n&rsquo;a pas encore eu le temps d&rsquo;empaqueter la version
+2008, et j&rsquo;étais impatient de jouer avec les nouveautés de cette version.</li>
+<li>La version 2008 de TeX Live possède son propre gestionnaire de paquet, et je
+ne sais pas comment il sera utilisable dans la version Debian de la chose :
+dans le doute, installer la version nature me paraît raisonnable.</li>
+<li>Une raison personnelle : étant développeur TeX Live, il me paraît naturel
+d&rsquo;utiliser la version nature pour mieux la connaître.</li>
+</ul>
+
+<p>Maintenant, le problème qui se pose avec les installations locales, c&rsquo;est que le
+gestionnaire de paquets de la distribution n&rsquo;en est a priori pas au courant, et
+qu&rsquo;il faudrait qu&rsquo;il en tienne compte dans ses calculs de dépendance pour ne pas
+installer une deuxième version de ce qu&rsquo;on a déjà installé. (On peut bien sûr
+choisir d&rsquo;installer côte à côte une TeX Live de Debian et une nature, mais il
+faut être sûr de bien contrôler son environnement si on veut éviter les
+problèmes.)</p>
+
+<p>La solution proposée par Debian tient en un mot : <code>equivs</code>. Ce petit paquet
+contient ce qu&rsquo;il faut pour créer facilement des paquets Debian ne contenant
+rien à part des informations de dépendances pour APT. Voyons comment s&rsquo;en servir
+pour créer un paquet <code>texlive-local</code> qui informera APT qu&rsquo;on a déjà une TeX
+Live, merci. On commence par installer <code>equivs</code> et se mettre dans un répertoire
+temporaire de travail (je suppose que <code>~/tmp</code> existe et que c&rsquo;est là-dessous
+qu&rsquo;on aime travailler). On commence alors par utiliser <code>equivs-control</code>.</p>
+
+<pre><code># aptitude install equivs
+$ mkdir ~/tmp/tl-loc
+$ cd !$
+$ equivs-control texlive-local
+</code></pre>
+
+<p>La dernière ligne a pour effet de préparer un squelette fichier de contrôle pour
+notre futur paquet. C&rsquo;est là qu&rsquo;on va indiquer à quels paquets Debian réels
+correspond notre installation locale, grâce à la ligne <code>Provides:</code>. On édite
+aussi quelques autres informations au passage (champs <code>Package</code>, <code>Version</code>,
+<code>Maintainner</code> et <code>Description</code>) ; le fichier obtenu est le suivant.</p>
+
+<pre><code>Section: misc
+Priority: optional
+Standards-Version: 3.6.2
+
+Package: texlive-local
+Version: 2008-1
+Maintainer: MPG &lt;mpg@roth.elzevir.fr&gt;
+Provides: cm-super, cm-super-minimal, context, latex-beamer,
+ latex-cjk-all, latex-cjk-chinese, latex-cjk-chinese-arphic-bkai00mp,
+ latex-cjk-chinese-arphic-bsmi00lp, latex-cjk-chinese-arphic-gbsn00lp,
+ latex-cjk-chinese-arphic-gkai00mp, latex-cjk-common, latex-cjk-japanese,
+ latex-cjk-japanese-wadalab, latex-cjk-korean, latex-cjk-thai,
+ latex-sanskrit, latex-xcolor, lmodern, luatex, musixtex, pgf, prosper,
+ tex4ht, tex4ht-common, texinfo, texlive-base, texlive-base-bin,
+ texlive-base-bin-doc, texlive-bibtex-extra, texlive-common,
+ texlive-doc-base, texlive-doc-bg, texlive-doc-cs+sk, texlive-doc-de,
+ texlive-doc-el, texlive-doc-en, texlive-doc-es, texlive-doc-fi,
+ texlive-doc-fr, texlive-doc-it, texlive-doc-ja, texlive-doc-ko,
+ texlive-doc-mn, texlive-doc-nl, texlive-doc-pl, texlive-doc-pt,
+ texlive-doc-ru, texlive-doc-th, texlive-doc-tr, texlive-doc-uk,
+ texlive-doc-vi, texlive-doc-zh, texlive-extra-utils, texlive-font-utils,
+ texlive-fonts-extra, texlive-fonts-extra-doc, texlive-fonts-recommended,
+ texlive-fonts-recommended-doc, texlive-formats-extra, texlive-full,
+ texlive-games, texlive-generic-extra, texlive-generic-recommended,
+ texlive-humanities, texlive-humanities-doc, texlive-lang-african,
+ texlive-lang-arab, texlive-lang-armenian, texlive-lang-croatian,
+ texlive-lang-cyrillic, texlive-lang-czechslovak, texlive-lang-danish,
+ texlive-lang-dutch, texlive-lang-finnish, texlive-lang-french,
+ texlive-lang-german, texlive-lang-greek, texlive-lang-hebrew,
+ texlive-lang-hungarian, texlive-lang-indic, texlive-lang-italian,
+ texlive-lang-latin, texlive-lang-manju, texlive-lang-mongolian,
+ texlive-lang-norwegian, texlive-lang-other, texlive-lang-polish,
+ texlive-lang-portuguese, texlive-lang-spanish, texlive-lang-swedish,
+ texlive-lang-tibetan, texlive-lang-ukenglish, texlive-lang-vietnamese,
+ texlive-latex-base, texlive-latex-base-doc, texlive-latex-extra,
+ texlive-latex-extra-doc, texlive-latex-recommended,
+ texlive-latex-recommended-doc, texlive-latex3, texlive-math-extra,
+ texlive-metapost, texlive-metapost-doc, texlive-music, texlive-omega,
+ texlive-pictures, texlive-pictures-doc, texlive-plain-extra,
+ texlive-pstricks, texlive-pstricks-doc, texlive-publishers,
+ texlive-publishers-doc, texlive-science, texlive-science-doc,
+ texlive-xetex, tipa, 
+Architecture: all
+Description: Installation locale de TeX Live.
+ Installation locale d'une TeX Live nature complete.
+</code></pre>
+
+<p>C&rsquo;est presque fini. Maintenant que notre fichier de contrôle est prêt, on peut
+créer le paquet et l&rsquo;installer :</p>
+
+<pre><code>$ equivs-build texlive-local
+# dpkg -i texlive-local_2008-1_all.deb
+</code></pre>
+
+<p>(Seule le dernière étape se fait en root ou avec <code>sudo</code> : dans tous mes
+exemples, <code>$</code> ou <code>%</code> représent un shell utilisateur, et <code>#</code> un shell root.)
+On peut aussi si on le souhaite sauvegarder le paquet Debian créé :
+personnellement, je garde une copie de tous mes paquets créés localement dans
+<code>/usr/local/debs</code>.</p>
+
+<p>Enfin, j&rsquo;ai quand même installé <code>lmodern</code>, et <code>tex-common</code> dont il dépend,
+depuis les dépôts Debian : le but est simplement d&rsquo;enregistrer ces polices au
+niveau de <code>defoma</code> et de <code>X11</code>. (Si j&rsquo;étais un peu moins pataud en fontes, je le
+ferais à la main.) Le paquet <code>tex-common</code> ne risque pas d&rsquo;interférer avec mon
+installation : il contient essentiellement des scripts de gestion propres à
+Debian.</p>
+
+<p>Je peux ainsi installer (depuis les dépôts Debian) des éditeurs comme Kile ou
+TeXmaker, voire le module aucTeX pour Emacs (que j&rsquo;essaierai un jour lointain,
+quand j&rsquo;aurai beaucoup de temps) sans qu&rsquo;Aptitude n&rsquo;essaie de m&rsquo;installer le
+moitié d&rsquo;une TeX Live Debian en plus comme dépendances.</p>
+
+<p><strong>Mise à jour</strong> Cette méthode présente des limitations : si un paquet présente
+une dépendance versionnée sur un paquet de TeX Live (par exemple, dépend de
+texlive-foo 2009-1 ou supérieur) alors le paquet virtuel ne sera pas pris en
+compte. De telles dépendances versionnées se sont présentées par le passé et
+empêchaient par exemple d&rsquo;installer Kile sans tirer une foule de paquets
+texlive Debian avec.</p>
+
+<p>Quand ce cas se présente, je préconise de laisser APT installer ce qu&rsquo;il veut,
+en modérant quand même son appétit en lui faisant n&rsquo;installer que les
+dépendances dures (par opposition aux recommandations), avec l&rsquo;option de ligne
+de commande <code>-o APT::Install-Recommends=0</code>. Dans tous les cas, la TeX Live
+installée localement sera la seule utilisée du moment qu&rsquo;elle arrive en
+premier dans le <code>PATH</code>.</p>
+</div>
+
+<div class="meta group">
+<div class="signature">
+    <p>Written by mpg <span class="edit"></span></p>
+    <p>novembre 30th, 2008 at 1:15  </p>
+</div>	
+<div class="tags">
+    <p>Posted in <a href="../../../par-sujet/tex-et-cie/" title="Voir tous les articles dans TeX et compagnie" rel="category tag">TeX et compagnie</a></p>
+    <p>Tagged with <a href="../../../par-tag/debian/" rel="tag">debian</a>, <a href="../../../par-tag/howto/index.html" rel="tag">howto</a>, <a href="../../../par-tag/texlive/index.html" rel="tag">texlive</a>, <a href="../../../par-tag/unix-admin/index.html" rel="tag">unix-admin</a></p></div>
+</div>
+
+<div class="navigation group">
+    <div class="alignleft">&laquo; <a href="../../09/minionpro-sous-pdftex/" rel="prev">MinionPro sous pdfTeX</a></div>
+    <div class="alignright"><a href="../minion-pro-sous-xelatex/" rel="next">Minion Pro sous XeLaTeX</a> &raquo;</div>
+</div>
+
+
+<!-- You can start editing here. -->
+
+<a name="comments" id="comments"></a>
+
+<h3 class="reply">12 Responses to 'TeX Live 2008 à la vanille sur Debian-like'</h3> 
+
+<ol class="commentlist">
+
+
+<li id="comment-7009" class="pingback">
+	<div class="comment_mod">
+		</div>
+	
+	<div class="comment_text">
+	<p>&lt;</p>
+
+<p>p>[...] APT de ce</p>
+	</div>
+	
+	<div class="comment_author">
+		<img alt='' src='https://secure.gravatar.com/avatar/?d=identicon&amp;s=32' class='avatar avatar-32 photo avatar-default' height='32' width='32' />		<p><strong><a href='http://www.hilpers.fr/1040016-texlive-et-debian' rel='external nofollow' class='url'>texlive et debian | hilpers</a></strong></p>
+	<p><small>17 jan 09 at <a href="index.html#comment-7009">22:18</a> <? edit_comment_link(__('Edit', 'sandbox'), ' ', ''); ?></small></p>
+	</div>
+	<div class="clear"></div>
+</li>
+
+
+<li id="comment-7020" class="pingback">
+	<div class="comment_mod">
+		</div>
+	
+	<div class="comment_text">
+	<p>&lt;</p>
+
+<p>p>[...] On peut installer Kile, TexMaker</p>
+	</div>
+	
+	<div class="comment_author">
+		<img alt='' src='https://secure.gravatar.com/avatar/?d=identicon&amp;s=32' class='avatar avatar-32 photo avatar-default' height='32' width='32' />		<p><strong><a href='http://www.hilpers.fr/1086539-installation-de-tlive-2008-sur' rel='external nofollow' class='url'>installation de TLive 2008 sur Ubuntu 8.10 | hilpers</a></strong></p>
+	<p><small>9 fév 09 at <a href="index.html#comment-7020">23:04</a> <? edit_comment_link(__('Edit', 'sandbox'), ' ', ''); ?></small></p>
+	</div>
+	<div class="clear"></div>
+</li>
+
+
+<li id="comment-7043" class="">
+	<div class="comment_mod">
+		</div>
+	
+	<div class="comment_text">
+	<p>Merci Manuel pour ce tutoriel.</p>
+
+<p>Je viens d&rsquo;essayer de faire ce que tu dis sous ubuntu 9.04 et&#8230; ça ne fonctionne pas :-(</p>
+
+<p>Récapitulons. J&rsquo;ai installé TL2008 : tout semble ok (je l&rsquo;ai installée en root, je n&rsquo;ai changé aucun des paramètres par défaut).</p>
+
+<p>J&rsquo;ai préparé le package texlive-local comme tu le suggères et je l&rsquo;ai installé. Puis, en utilisateur &laquo;&nbsp;normal&nbsp;&raquo;, je tape latex et là</p>
+
+<p>Le programme « latex » n&rsquo;est pas installé actuellement.  Vous pouvez l&rsquo;installer en tapant :
+sudo apt-get install texlive-latex-base</p>
+
+<p>Donc, d&rsquo;une part le path de la texlive n&rsquo;est pas configuré pour l&rsquo;utilisateur (je n&rsquo;ai pas encore lu la doc, ça doit être normal si l&rsquo;installation est faite en root), mais surtout comment cela se fait que apt ne soit pas au courant que texlive-local a installé (virtuellement) texlive-latex-base (qui est dans ta liste).</p>
+
+<p>Pour être sûr que texlive-local est bien installé, j&rsquo;ai fait</p>
+
+<p>sudo dpkg -s texlive-local</p>
+
+<p>et résultat</p>
+
+<p>Package: texlive-local
+Status: install ok installed
+Priority: optional
+Section: misc
+Installed-Size: 36</p>
+
+<p>As-tu une idée ?</p>
+
+<p>Merci</p>
+	</div>
+	
+	<div class="comment_author">
+		<img alt='' src='https://secure.gravatar.com/avatar/3b5383fd066c04435563f12f88a95eae?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />		<p><strong>Christophe</strong></p>
+	<p><small>24 avr 09 at <a href="index.html#comment-7043">2:26</a> <? edit_comment_link(__('Edit', 'sandbox'), ' ', ''); ?></small></p>
+	</div>
+	<div class="clear"></div>
+</li>
+
+
+<li id="comment-7044" class=" byuser comment-author-admin bypostauthor">
+	<div class="comment_mod">
+		</div>
+	
+	<div class="comment_text">
+	<p>Hmm&#8230; je pense que le seul problème est que pour terminer l&rsquo;installation de TeX Live avec les options par défaut, il faut ajouter <code>/usr/local/texlive/2008/bin/x86_64-linux</code> (la fin peut changer selon ton architecture) au <code>PATH</code>. C&rsquo;est normal, que l&rsquo;installation soit faite en <code>root</code> ou pas, l&rsquo;installateur ne sait a priori pas comment régler le <code>PATH</code> sur ta machine, donc il n&rsquo;essaye pas de jouer au plus malin et il te laisse le faire toi-même (sauf sur windows).</p>
+
+<p>Ce qui est étrange par contre, c&rsquo;est qu&rsquo;en principe à la fin de l&rsquo;installation, un message assez explicite à ce sujet devrait apparaître. Je viens de tester en faisant une installation minimal pour voir, je ne l&rsquo;ai pas vu, donc peut-être qu&rsquo;il y a un problème avec l&rsquo;installateur.</p>
+
+<p>Toujours est-il que la solution est d&rsquo;ajouter le chemin Kivabien au début du <code>PATH</code>. Pour ça, je crois que le mieux est d&rsquo;aller éditer (en root) <code>/etc/logins.def</code> et <code>/etc/profile</code> (pour couvrir tous les cas : environnement graphique, shell de login ou pas). Il faut changer <code>ENV_PATH</code> et <code>ENV_SUPATH</code>) dans le premier, et les deux lignes définissant <code>PATH</code> dans le deuxième. On commence à comprendre pourquoi l&rsquo;installateur n&rsquo;essaie pas de s&rsquo;en mêler :-)</p>
+
+<p>Pour le message te conseillant d&rsquo;installer <code>texlive-latex-base</code>, je pense que de toutes façons il apparaît dès que le commande n&rsquo;est pas trouvée, et qu&rsquo;aucune vérification n&rsquo;est faite pour savoir si le paquets est déjà installé ou fournit par un autre.</p>
+
+<p>Tiens-moi au courant.</p>
+	</div>
+	
+	<div class="comment_author">
+		<img alt='' src='https://secure.gravatar.com/avatar/18f47779fe3a7aaa0c13d18460497a9a?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />		<p><strong><a href='https://elzevir.fr/imj/' rel='external nofollow' class='url'>mpg</a></strong></p>
+	<p><small>24 avr 09 at <a href="index.html#comment-7044">13:30</a> <? edit_comment_link(__('Edit', 'sandbox'), ' ', ''); ?></small></p>
+	</div>
+	<div class="clear"></div>
+</li>
+
+
+<li id="comment-7045" class="">
+	<div class="comment_mod">
+		</div>
+	
+	<div class="comment_text">
+	<p><a href="index.html#comment-7044" rel="nofollow">@mpg</a> 
+Merci de ta réponse.</p>
+
+<blockquote cite="#commentbody-7044">
+<strong><a href="index.html#comment-7044" rel="nofollow">mpg</a> :</strong>
+<p>Hmm… je pense que le seul problème est que pour terminer l’installation de TeX Live avec les options par défaut, il faut ajouter <code>/usr/local/texlive/2008/bin/x86_64-linux</code> (la fin peut changer selon ton architecture) au <code>PATH</code>. C’est normal, que l’installation soit faite en <code>root</code> ou pas, l’installateur ne sait a priori pas comment régler le <code>PATH</code> sur ta machine, donc il n’essaye pas de jouer au plus malin et il te laisse le faire toi-même (sauf sur windows).</p>
+
+<p>Ce qui est étrange par contre, c’est qu’en principe à la fin de l’installation, un message assez explicite à ce sujet devrait apparaître. Je viens de tester en faisant une installation minimal pour voir, je ne l’ai pas vu, donc peut-être qu’il y a un problème avec l’installateur.</p>
+</blockquote>
+
+<p>Oui. C&rsquo;est dommage que l&rsquo;installateur ne soit pas assez explicite sur le sujet. Mais bon, c&rsquo;est clairement écrit dans la doc que j&rsquo;ai lue après.</p>
+
+<blockquote cite="#commentbody-7044">
+<strong><a href="index.html#comment-7044" rel="nofollow">mpg</a> :</strong>
+<p>Toujours est-il que la solution est d’ajouter le chemin Kivabien au début du <code>PATH</code>. Pour ça, je crois que le mieux est d’aller éditer (en root) <code>/etc/logins.def</code> et <code>/etc/profile</code> (pour couvrir tous les cas : environnement graphique, shell de login ou pas). Il faut changer <code>ENV_PATH</code> et <code>ENV_SUPATH</code>) dans le premier, et les deux lignes définissant <code>PATH</code> dans le deuxième. </p>
+</blockquote>
+
+<p>Je n&rsquo;ai pas de <code>PATH</code> dans <code>/etc/profile</code>. Mais je peux le rajouter, si c&rsquo;est ça qu&rsquo;il faut. Ne faut-il pas mettre ce genre de chose dans <code>/etc/bash.bashrc</code> ?</p>
+
+<p>Au passage, où doit-on modifier le chemin pour les manpages et les infopages ? Je pense qu&rsquo;un petit paragraphe dans la doc sur ce qu&rsquo;il faut faire dans une ubuntu serait peut-être le bienvenu (vu que c&rsquo;est quand même une des distributions à la mode).</p>
+
+<blockquote cite="#commentbody-7044">
+<strong><a href="index.html#comment-7044" rel="nofollow">mpg</a> :</strong>
+<p>Pour le message te conseillant d’installer <code>texlive-latex-base</code>, je pense que de toutes façons il apparaît dès que le commande n’est pas trouvée, et qu’aucune vérification n’est faite pour savoir si le paquets est déjà installé ou fournit par un autre.</p>
+</blockquote>
+
+<p>Tu dois avoir raison, en effet.</p>
+
+<p>Bon, mais il y a un truc qui me chagrine un peu. Pourquoi quand je fais
+<code>
+ christophe@xenon:~$ sudo apt-get install texlive-latex-base
+</code>
+j&rsquo;obtient
+<code>
+Lecture des listes de paquets... Fait
+Construction de l'arbre des dépendances
+Lecture des informations d'état... Fait
+Les paquets supplémentaires suivants seront installés : 
+  dvipdfmx texlive-base texlive-base-bin texlive-common texlive-doc-base
+Paquets suggérés :
+  perl-tk
+Les NOUVEAUX paquets suivants seront installés :
+  dvipdfmx texlive-base texlive-base-bin texlive-common texlive-doc-base texlive-latex-base
+0 mis à jour, 6 nouvellement installés, 0 à enlever et 0 non mis à jour.
+Il est nécessaire de prendre 10,9Mo dans les archives.
+Après cette opération, 37,2Mo d'espace disque supplémentaires seront utilisés.
+Souhaitez-vous continuer [O/n] ?
+</code>
+Normalement, aptitude devrait me répondre que ce paquet est déjà installé (comme les 5 autres d&rsquo;ailleurs).</p>
+
+<p>Qu&rsquo;en penses-tu ?</p>
+
+<p>Merci</p>
+	</div>
+	
+	<div class="comment_author">
+		<img alt='' src='https://secure.gravatar.com/avatar/3b5383fd066c04435563f12f88a95eae?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />		<p><strong>Christophe</strong></p>
+	<p><small>24 avr 09 at <a href="index.html#comment-7045">14:21</a> <? edit_comment_link(__('Edit', 'sandbox'), ' ', ''); ?></small></p>
+	</div>
+	<div class="clear"></div>
+</li>
+
+
+<li id="comment-7046" class=" byuser comment-author-admin bypostauthor">
+	<div class="comment_mod">
+		</div>
+	
+	<div class="comment_text">
+	<p>Pour le <code>PATH</code>, s&rsquo;il n&rsquo;y a rien à son sujet dans <code>/etc/profile</code>, n&rsquo;y touche pas, celui de <code>/etc/logins.def</code> devrait être utilisé (il faut se reloguer pour qu&rsquo;il prenne effet, au fait). D&rsquo;ailleurs, je trouve ça anormal que chez moi le <code>PATH</code>soit spécifié dans <code>/etc/profile</code>. Pour <code>/etc/bash.bashrc</code>, j&rsquo;ai tendance à dire pareil : s&rsquo;il y a déjà des indications absolues de <code>PATH</code>, les changer, sinon, ne pas y toucher. Tout le problème avec ses histoires de <code>PATH</code> est qu&rsquo;a priori on ne veut pas régler seulement celui de son shell, mais aussi celui des applications graphiques.</p>
+
+<p>Pour <code>MANPATH</code> par contre c&rsquo;est bien plus simple : vu qu&rsquo;on ne va lancer la commande <code>man</code> que depuis un shell, il suffit de mettre</p>
+
+<pre><code>export MANPATH="/usr/local/texlive/2008/texmf/doc/man:$MANPATH"
+</code></pre>
+
+<p>dans un fichier de démarrage de son shell (typiquement <code>~/.bashrc</code>).</p>
+
+<p>Concernant la réaction d&rsquo;<code>aptitude</code>, je ne suis pas surpris qu&rsquo;il ne réponde pas que le paquet est installé, puisque concrètement il ne l&rsquo;est pas, il est juste « fourni » par un autre paquet. Par contre qu&rsquo;il veuille installer les dépendances est un peu surprenant, mais bon, ça me paraît un peu limite comme cas. En tout cas, ce que je sais, c&rsquo;est que je n&rsquo;ai jamais eu de problème en installant des paquets qui dépendent « normalement » de texlive mais qui ne sont pas des composants de texlive.</p>
+	</div>
+	
+	<div class="comment_author">
+		<img alt='' src='https://secure.gravatar.com/avatar/18f47779fe3a7aaa0c13d18460497a9a?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />		<p><strong><a href='https://elzevir.fr/imj/' rel='external nofollow' class='url'>mpg</a></strong></p>
+	<p><small>24 avr 09 at <a href="index.html#comment-7046">14:36</a> <? edit_comment_link(__('Edit', 'sandbox'), ' ', ''); ?></small></p>
+	</div>
+	<div class="clear"></div>
+</li>
+
+
+<li id="comment-7048" class="">
+	<div class="comment_mod">
+		</div>
+	
+	<div class="comment_text">
+	<p><a href="index.html#comment-7046" rel="nofollow">@mpg</a></p>
+
+<blockquote cite="#commentbody-7046">
+<strong><a href="index.html#comment-7046" rel="nofollow">mpg</a> :</strong>
+<p>Tout le problème avec ses histoires de <code>PATH</code> est qu’a priori on ne veut pas régler seulement celui de son shell, mais aussi celui des applications graphiques.</p></blockquote>
+
+<p>Oui, ça doit d&rsquo;ailleurs être pour cette raison qu&rsquo;emacs ne trouve toujours pas les exécutables et que j&rsquo;ai dû bidouiller emacs pour que ça fonctionne.</p>
+
+<p><a href="index.html#comment-7046" rel="nofollow">@mpg</a></p>
+
+<blockquote cite="#commentbody-7046">
+<strong><a href="index.html#comment-7046" rel="nofollow">mpg</a> :</strong>
+<p>Concernant la réaction d’<code>aptitude</code>, je ne suis pas surpris qu’il ne réponde pas que le paquet est installé, puisque concrètement il ne l’est pas, il est juste « fourni&nbsp;» par un autre paquet. Par contre qu’il veuille installer les dépendances est un peu surprenant, mais bon, ça me paraît un peu limite comme cas. En tout cas, ce que je sais, c’est que je n’ai jamais eu de problème en installant des paquets qui dépendent «&nbsp;normalement&nbsp;» de texlive mais qui ne sont pas des composants de texlive.</p></blockquote>
+
+<p>C&rsquo;est vrai. Je n&rsquo;ai pas eu de problème par exemple avec auctex. Mais cela reste contre-intuitif pour moi.</p>
+
+<p>Merci encore</p>
+	</div>
+	
+	<div class="comment_author">
+		<img alt='' src='https://secure.gravatar.com/avatar/3b5383fd066c04435563f12f88a95eae?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />		<p><strong>Christophe</strong></p>
+	<p><small>24 avr 09 at <a href="index.html#comment-7048">15:41</a> <? edit_comment_link(__('Edit', 'sandbox'), ' ', ''); ?></small></p>
+	</div>
+	<div class="clear"></div>
+</li>
+
+
+<li id="comment-7059" class="">
+	<div class="comment_mod">
+		</div>
+	
+	<div class="comment_text">
+	<p>Bonjour,</p>
+
+<p>J&rsquo;utilise la même méthode que vous depuis plusieures années, et je confirme le message de Christophe, ça ne fonctionne plus sous kubuntu 9.04.
+J&rsquo;ai essayé de changer la version du package pour passer en 2007.dsfg.1-5 qui est la version utilisée par le système, mais rien n&rsquo;y fait.
+De plus, le paquet (le faux créé par nos soins) s&rsquo;intalle, mais n&rsquo;apparaît pas dans synaptic ou autre gestionnaire de paquets.</p>
+
+<p>Vous trouverez ci-dessous le morceau de console qui montre que pour installer kile, le système ne tient pas compte du faux paquet de substitution.</p>
+
+<p>Olivier V</p>
+
+<p>meloli@fixe:~/Temp$ equivs-build texlive-equivs 
+dh_testdir
+dh_testroot
+dh_clean -k
+dh_testdir
+dh_testroot
+dh_install
+dh_installdocs
+dh_installchangelogs
+dh_compress
+dh_fixperms
+dh_installdeb
+dh_gencontrol
+dh_md5sums
+dh_builddeb
+dpkg-deb : construction du paquet « texlive-full-equivs » dans « ../texlive-full-equivs_2007.dsfg.1-5_all.deb ».</p>
+
+<p>The package has been created.
+Attention, the package has been created in the current directory,
+not in &laquo;&nbsp;..&nbsp;&raquo; as indicated by the message above!
+meloli@fixe:~/Temp$ ls
+cur  texlive-equivs  texlive-full-equivs_2007.dsfg.1-5_all.deb
+meloli@fixe:~/Temp$ sudo dpkg -i texlive-full-equivs_2007.dsfg.1-5_all.deb 
+dpkg &#8211; avertissement : texlive-full-equivs mis à jour de la version 2008-1 vers l&rsquo;ancienne version 2007.dsfg.1-5.
+(Lecture de la base de données&#8230; 100368 fichiers et répertoires déjà installés.)
+Préparation du remplacement de texlive-full-equivs 2008-1 (en utilisant texlive-full-equivs_2007.dsfg.1-5_all.deb) &#8230;
+Dépaquetage de la mise à jour de texlive-full-equivs &#8230;
+Paramétrage de texlive-full-equivs (2007.dsfg.1-5) &#8230;
+meloli@fixe:~/Temp$ sudo apt-get install kile
+Lecture des listes de paquets&#8230; Fait
+Construction de l&rsquo;arbre des dépendances
+Lecture des informations d&rsquo;état&#8230; Fait
+Les paquets supplémentaires suivants seront installés :
+  asymptote asymptote-doc blt dblatex doc-base dvipdfmx dvipng guile-1.8
+  guile-1.8-libs imagemagick imagemagick-doc kbibtex lacheck latex-beamer
+  latex-xcolor latex2html libfftw3-3 libfreezethaw-perl libkpathsea4
+  libmldbm-perl libnetpbm10 libsigsegv0 libt1-5 libuuid-perl lilypond
+  lilypond-data lilypond-doc lmodern netpbm perl-doc pgf preview-latex-style
+  prosper psutils python-imaging-tk python-tk tcl8.5 tex-common texlive
+  texlive-base texlive-base-bin texlive-common texlive-doc-base
+  texlive-extra-utils texlive-fonts-recommended texlive-lang-cyrillic
+  texlive-latex-base texlive-latex-extra texlive-latex-recommended
+  texlive-math-extra texlive-pictures texlive-xetex tipa tk8.5 xsltproc
+Paquets suggérés :
+  gv xpdf blt-demo docbook opensp transfig guile-1.8-doc bibtex2html latex2rtf
+  kile-doc auctex libfftw3-dev groff python-imaging-doc python-imaging-tk-dbg
+  tix python-tk-dbg tclreadline perl-tk dvi2tty dvidvi scalable-cyrfonts-tex
+  texpower
+Les NOUVEAUX paquets suivants seront installés :
+  asymptote asymptote-doc blt dblatex doc-base dvipdfmx dvipng guile-1.8
+  guile-1.8-libs imagemagick imagemagick-doc kbibtex kile lacheck latex-beamer
+  latex-xcolor latex2html libfftw3-3 libfreezethaw-perl libkpathsea4
+  libmldbm-perl libnetpbm10 libsigsegv0 libt1-5 libuuid-perl lilypond
+  lilypond-data lilypond-doc lmodern netpbm perl-doc pgf preview-latex-style
+  prosper psutils python-imaging-tk python-tk tcl8.5 tex-common texlive
+  texlive-base texlive-base-bin texlive-common texlive-doc-base
+  texlive-extra-utils texlive-fonts-recommended texlive-lang-cyrillic
+  texlive-latex-base texlive-latex-extra texlive-latex-recommended
+  texlive-math-extra texlive-pictures texlive-xetex tipa tk8.5 xsltproc
+0 mis à jour, 56 nouvellement installés, 0 à enlever et 4 non mis à jour.
+Il est nécessaire de prendre 195Mo dans les archives.
+Après cette opération, 540Mo d&rsquo;espace disque supplémentaires seront utilisés.
+Souhaitez-vous continuer [O/n] ? n
+Annulation.</p>
+	</div>
+	
+	<div class="comment_author">
+		<img alt='' src='https://secure.gravatar.com/avatar/29149fd760bd1b81ce22d2d763378d78?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />		<p><strong>Olivier V</strong></p>
+	<p><small>13 sept 09 at <a href="index.html#comment-7059">12:42</a> <? edit_comment_link(__('Edit', 'sandbox'), ' ', ''); ?></small></p>
+	</div>
+	<div class="clear"></div>
+</li>
+
+
+<li id="comment-7064" class="pingback">
+	<div class="comment_mod">
+		</div>
+	
+	<div class="comment_text">
+	<p>[...] ou une distribution dérivée tout en satisfaisant le gestionnaire de paquet, je renvoie à un précédent billet. Notez que des paquets debpour TeX Live 2009 seront prochainement disponibles pour Debian (puis ses [...]</p>
+	</div>
+	
+	<div class="comment_author">
+		<img alt='' src='https://secure.gravatar.com/avatar/?d=identicon&amp;s=32' class='avatar avatar-32 photo avatar-default' height='32' width='32' />		<p><strong><a href='../../../2009/11/tex-live-2009-est-sortie/' rel='external nofollow' class='url'>Le mpg-blog &raquo; TeX Live 2009 est sortie</a></strong></p>
+	<p><small>9 nov 09 at <a href="index.html#comment-7064">3:04</a> <? edit_comment_link(__('Edit', 'sandbox'), ' ', ''); ?></small></p>
+	</div>
+	<div class="clear"></div>
+</li>
+
+
+<li id="comment-7068" class="">
+	<div class="comment_mod">
+		</div>
+	
+	<div class="comment_text">
+	<p>J&rsquo;ai rencontré un problème pour installer lilypond via synaptic. L&rsquo;installation a retourné un «problème», puis plus moyen de désinstaller lilypond-data (qui était dans un «état incohérent»). Il m&rsquo;a donc fallu installer le paquet texlive-base puis réinstaller lilypond-data puis désinstaller lilypond-data et enfin désinstaller texlive-base. Je me retrouve avec mon système d&rsquo;aplomb. J&rsquo;ai installer lilypond à la main en local et tout fonctionne.
+Je tenais à signaler ce problème au cas où ça intéresserait d&rsquo;autre personne. 
+Mis à part ce problème, cette méthode à la vanille est parfaite !!!</p>
+	</div>
+	
+	<div class="comment_author">
+		<img alt='' src='https://secure.gravatar.com/avatar/2fe519cbaa1d372899cb5c9bacd18cd7?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />		<p><strong><a href='https://www.ljll.math.upmc.fr/~chupin/' rel='external nofollow' class='url'>Chupin Maxime</a></strong></p>
+	<p><small>3 déc 09 at <a href="index.html#comment-7068">14:46</a> <? edit_comment_link(__('Edit', 'sandbox'), ' ', ''); ?></small></p>
+	</div>
+	<div class="clear"></div>
+</li>
+
+
+<li id="comment-7253" class="">
+	<div class="comment_mod">
+		</div>
+	
+	<div class="comment_text">
+	<p>Astuce très pratique&#8230; Une petite remarque, avec une vieille Ubuntu et TL 2008, elle m&rsquo;avait provoqué un bug énervant lors de l&rsquo;installation et/ou la désinstallation de nombreux paquets sous ubuntu à cause d&rsquo;un problème de version de tex-info qui ne prenait plus le bon nombre d&rsquo;arguments&#8230;</p>
+
+<p>Je retente avec une ubuntu récente et TL 2010&#8230; on verra bien.</p>
+	</div>
+	
+	<div class="comment_author">
+		<img alt='' src='https://secure.gravatar.com/avatar/2f1fdf798edfb380d20faa5e8a39e854?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />		<p><strong>Drébon</strong></p>
+	<p><small>28 oct 10 at <a href="index.html#comment-7253">15:42</a> <? edit_comment_link(__('Edit', 'sandbox'), ' ', ''); ?></small></p>
+	</div>
+	<div class="clear"></div>
+</li>
+
+
+<li id="comment-7254" class=" byuser comment-author-admin bypostauthor">
+	<div class="comment_mod">
+		</div>
+	
+	<div class="comment_text">
+	<p>Oui, le problème de conflit avec <code>install-info</code> est connu. C&rsquo;est d&rsquo;ailleurs pour ça que texinfo a été retiré de TeX Live depuis la version 2010. Il ne devrait donc plus y avoir de problème maintenant.</p>
+
+<p>(Pour les versions antérieures, je signale brièvement la chose sur la <a href="http://www.tug.org/texlive/debian.html#vanilla" rel="nofollow">page officielle Debian-TeX Live</a>, mais il est vrai que j&rsquo;avais oublié de la faire ici.)</p>
+	</div>
+	
+	<div class="comment_author">
+		<img alt='' src='https://secure.gravatar.com/avatar/18f47779fe3a7aaa0c13d18460497a9a?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />		<p><strong><a href='https://elzevir.fr/imj/' rel='external nofollow' class='url'>mpg</a></strong></p>
+	<p><small>28 oct 10 at <a href="index.html#comment-7254">15:50</a> <? edit_comment_link(__('Edit', 'sandbox'), ' ', ''); ?></small></p>
+	</div>
+	<div class="clear"></div>
+</li>
+
+
+</ol>
+
+
+
+
+</div> 
+
+<div id="sidebar">
+<h3>Pages</h3>		<ul>
+			<li class="page_item page-item-4"><a href="../../../qui-suis-je/">À propos</a></li>
+		</ul>
+		<h3>Mots-clés</h3><div class="tagcloud"><a href='../../../par-tag/astuce/' class='tag-link-24' title='2 sujets' style='font-size: 11.111111111111pt;'>astuce</a>
+<a href='../../../par-tag/biblatex/' class='tag-link-41' title='1 sujet' style='font-size: 8pt;'>biblatex</a>
+<a href='../../../par-tag/context/' class='tag-link-28' title='8 sujets' style='font-size: 19.234567901235pt;'>context</a>
+<a href='../../../par-tag/cap/' class='tag-link-49' title='1 sujet' style='font-size: 8pt;'>càp</a>
+<a href='../../../par-tag/debian/' class='tag-link-4' title='6 sujets' style='font-size: 17.506172839506pt;'>debian</a>
+<a href='../../../par-tag/fontes/' class='tag-link-30' title='2 sujets' style='font-size: 11.111111111111pt;'>fontes</a>
+<a href='../../../par-tag/google/' class='tag-link-37' title='1 sujet' style='font-size: 8pt;'>google</a>
+<a href='../../../par-tag/gutenberg/' class='tag-link-44' title='1 sujet' style='font-size: 8pt;'>gutenberg</a>
+<a href='../../../par-tag/howto/' class='tag-link-31' title='9 sujets' style='font-size: 20.098765432099pt;'>howto</a>
+<a href='../../../par-tag/latex/' class='tag-link-3' title='6 sujets' style='font-size: 17.506172839506pt;'>latex</a>
+<a href='../../../par-tag/latex3/' class='tag-link-39' title='1 sujet' style='font-size: 8pt;'>latex3</a>
+<a href='../../../par-tag/lualatex/' class='tag-link-43' title='1 sujet' style='font-size: 8pt;'>lualatex</a>
+<a href='../../../par-tag/luatex/' class='tag-link-21' title='7 sujets' style='font-size: 18.37037037037pt;'>luatex</a>
+<a href='../../../par-tag/miktex/' class='tag-link-47' title='1 sujet' style='font-size: 8pt;'>miktex</a>
+<a href='../../../par-tag/mplib/' class='tag-link-46' title='1 sujet' style='font-size: 8pt;'>mplib</a>
+<a href='../../../par-tag/ssh/' class='tag-link-36' title='2 sujets' style='font-size: 11.111111111111pt;'>ssh</a>
+<a href='../../../par-tag/texdoc/' class='tag-link-42' title='5 sujets' style='font-size: 16.296296296296pt;'>texdoc</a>
+<a href='../../../par-tag/texlive/' class='tag-link-34' title='12 sujets' style='font-size: 22pt;'>texlive</a>
+<a href='../../../par-tag/tlcontrib/' class='tag-link-45' title='1 sujet' style='font-size: 8pt;'>tlcontrib</a>
+<a href='../../../par-tag/unix-admin/' class='tag-link-33' title='3 sujets' style='font-size: 13.185185185185pt;'>unix-admin</a>
+<a href='../../../par-tag/unix-user/' class='tag-link-35' title='2 sujets' style='font-size: 11.111111111111pt;'>unix-user</a>
+<a href='../../../par-tag/vim/' class='tag-link-22' title='1 sujet' style='font-size: 8pt;'>vim</a>
+<a href='../../../par-tag/wordpress/' class='tag-link-40' title='2 sujets' style='font-size: 11.111111111111pt;'>wordpress</a>
+<a href='../../../par-tag/xetex/' class='tag-link-20' title='2 sujets' style='font-size: 11.111111111111pt;'>xetex</a></div>
+<h3>Catégories</h3>		<ul>
+	<li class="cat-item cat-item-14"><a href="../../../par-sujet/comp/" title="Geekeries diverses">Geekeries diverses</a>
+</li>
+	<li class="cat-item cat-item-1"><a href="../../../par-sujet/non-classe/" title="Voir tous les articles classés dans Non classé">Non classé</a>
+</li>
+	<li class="cat-item cat-item-13"><a href="../../../par-sujet/tex-et-cie/" title="Voir tous les articles classés dans TeX et compagnie">TeX et compagnie</a>
+</li>
+		</ul>
+
+
+</div>
+
+</div>
+
+<div id="footer">
+	<p>The Journalist template by <a href="http://lucianmarin.com/" rel="designer">Lucian E. Marin</a> &mdash; Built for <a href="http://wordpress.org/">WordPress</a></p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,313 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr-FR">
+<head profile="http://gmpg.org/xfn/11">
+<title>   Ma vie sans libc at Le mpg-blog</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="description" content="LaTeX et autres geekeries" />
+<link href="/style.css" rel="stylesheet" type="text/css" media="screen" />
+<link rel="shortcut icon" type="image/x-png" href="/favicon.png" />
+<link rel='stylesheet' id='wp-syntax-css-css'  href='/wp-syntax.css' type='text/css' media='all' />
+</head>
+
+<body>
+<div id="container" class="group">
+
+<h1><a href="../../../">Le mpg-blog</a></h1>
+<div id="bubble"><p>LaTeX et autres geekeries</p></div> <!-- erase this line if you want to turn the bubble off -->
+
+<div id="content" class="group">
+
+<h2 id="post-34"><a href="index.html" rel="bookmark">Ma vie sans libc</a></h2>
+<p class="comments"><a href="index.html#comments">with 4 comments</a></p>
+
+<div class="main">
+	<p>Avoir des amis <em>geeks</em>, c&rsquo;est mal. Ça pousse à parler de blagues de <em>geek</em>, ce
+qui pousse à tester des trucs pas clairs. Pas plus tard qu&rsquo;aujourd&rsquo;hui, je
+parlais à un ami du message marrant lancé par <em>apt-get</em>, <em>aptitude</em> ou <em>dpkg</em>
+(je ne sais plus) quand on demande à désinstaller la <a href="http://fr.wikipedia.org/wiki/Biblioth%C3%A8que_standard_du_C">libc</a> : au lieu de
+confirmer seulement en appuyant sur <code>y</code>, on doit recopier textuellement une
+longue phrase du style « Oui, je sais que ça a l&rsquo;air bizarre, mais je suis un
+grand garçon et je veux le faire quand même ». <span id="more-34"></span></p>
+
+<p>Petite parenthèse pour qui se demande d&rsquo;où vient cette idée de désinstaller la
+<code>libc</code> : ça fait partie du folklore de <a href="news://fr.misc.bavarges.linux">fr.misc.bavardages.linux</a>, un
+groupe <a href="http://www.usenet-fr.net/">iouzenette</a> ma foi fort sympathique (voir ses <a href="http://www.usenet-fr.net/fur/chartes/misc.bavardages.linux.html">conseils
+d&rsquo;utilisation</a> et notamment les liens de la section 4 (<em>alerte
+procrastination</em>) mais aussi le <em><a href="http://hivernal.org/resources/static/FMBL/GFA">fortune-file</a></em> (alerte bis)). La
+vérification du rapport avec la <a href="http://www.pafoo.net/uninstallglibc/uninstglibc.html">désinstallation de <code>libc</code></a> est laissée
+au lecteur.</p>
+
+<p>Bref, souhaitant retrouver les termes exacts de la phase de sécurité en question
+(pour vérifier si elle suppose bien que l&rsquo;utilisateur est de sexe masculin, ce
+qui ne serait pas forcément sexiste : une fille est bien trop responsable pour
+désinstaller sa <code>libc</code>&#8230;), me voilà parti à bidouiller les trois commandes
+sus-citées pour leur faire cracher le message. Quand, sûr de moi car n&rsquo;ayant pas
+précisé <code>--force-remove-essential</code> je tape (en <code>root</code> sur mon <em>laptop</em>, qui est
+ma machine principale) :</p>
+
+<pre><code>dpkg --force-depends --remove libc6
+</code></pre>
+
+<p>à ma grande surprise ça « marche » (si l&rsquo;on peut dire), sauf les scripts
+post-désinstallation, qui échouent, comme on devrait s&rsquo;en douter. J&rsquo;ai alors le
+plaisir d&rsquo;entretenir avec mon <em>shell</em> préféré un dialogue aussi réjouissant que</p>
+
+<pre><code>% /bin/ls
+zsh: command not found: /bin/ls
+% ??!
+</code></pre>
+
+<p>le temps de réaliser ce que je viens de faire.</p>
+
+<p>Arrivés à ce stade de votre lecture, vous êtes sans doute mort de rire. Même si
+j&rsquo;en suis heureux, ce n&rsquo;est pas la finalité principale de ce blog, qui avait
+plutôt pour but de partager des astuces techniques en LaTeX, ou en <em>geekeries</em>
+linuxiennes. La partie technique arrive : je vais vous expliquer comment il est
+facile de réinstaller sa <code>libc</code>. (Je lis la déception dans votre regard :
+rassurez-vous, ça m&rsquo;a quand même pris un bon moment avant de comprendre que
+c&rsquo;était facile.)</p>
+
+<p>On s&rsquo;arme bien sûr d&rsquo;un bon Live CD, car le système n&rsquo;est pas <em>bootable</em> (on
+pourrait en fait, avec l&rsquo;option <code>init=/sbin/sash</code> mais je ne pense pas que ça
+avance à grand chose). Mon choix se porte que <a href="http://grml.org/">grml</a> pour sa parenté avec
+Debian, son état d&rsquo;esprit et sa finition que j&rsquo;apprécie (je pratique aussi
+<a href="http://www.sysresccd.org/Index.fr.php">sysresccd</a> à l&rsquo;occasion). Je vous épargne les détails, mais je finis par
+découvrir <a href="http://www.debian.org/doc/manuals/reference/ch-package.en.html#s-un-bootable">ici</a> l&rsquo;option <code>--root</code> de <code>dpkg</code> qui semble résoudre mon
+problème.</p>
+
+<p>Après avoir monté toutes les partition adéquates de mon disque dur (petit
+instant de doute en voyant qu&rsquo;il n&rsquo;y a rien dans <code>/dev/mapper</code>, mais la FAQ grml
+me conseille <code>Start lvm</code> et a bien raison), j&rsquo;essaie et là c&rsquo;est le drame : la
+version de <code>dpkg</code> du CD grml gravé il y a un an est trop vieille pour toucher à
+ma <em>Lenny</em> (la prochaine version de Debian) à jour. Yaka en graver une plus
+récente. Ou pas, parce que graver un CD en tournant sur Live CD, euh&#8230;
+Bref, vivent le <em>boot</em> sur clé USB, et les <a href="http://wiki.grml.org/doku.php?id=usb">tutoriels</a> qui marchent du
+premier coup (c&rsquo;est aussi pour ça que j&rsquo;aime grml).</p>
+
+<p>Deuxième essai. Ok, <code>dpkg</code> fait de son mieux mais c&rsquo;est le script d&rsquo;installation
+qui marche pas : <code>command not found: /bin/ls</code>, ça vous dit quelque chose ?
+Visiblement <code>--root</code> en fait un peu trop. On passe donc au 6.3.7 de <a href="http://www.debian.org/doc/manuals/reference/ch-package.en.html#s-un-bootable">la
+page</a> qui en parlait : faire soi-même le boulot de <code>dpkg</code>. Enfin, juste
+une partie de son boulot, lui il est plus subtil. Mais ça suffit, ouf.</p>
+
+<p>Donc résumé en deux mots, le <em>how-to</em> (même si le mieux c&rsquo;est de pas commencer,
+hein) :</p>
+
+<ol>
+<li>Démarrer sur Live CD, récent ou pas.</li>
+<li>Télécharger le <code>.deb</code> de la <code>libc</code> sur <a href="http://packages.debian.org">http://packages.debian.org</a>.</li>
+<li>Monter ses partoches ou volumes LVM du système cassé quelque part.</li>
+<li><code>ar x lic6-*.deb</code> où vous voulez, puis <code>tar xf data.tar.gz</code> à la racine du
+point de montage.</li>
+<li>Redémarrage sur le système anciennement cassé, et <code>dpkg -i libc6-*.deb</code> quand
+même, juste pour que les petits papiers de <code>dpkg</code> soient à jour.</li>
+</ol>
+
+<p>Morale de l&rsquo;histoire : ne plus jamais tester des trucs idiots ailleurs que sur
+une machine de test (fut-ce une machine virtuelle ou un simple <em>chroot</em>).</p>
+</div>
+
+<div class="meta group">
+<div class="signature">
+    <p>Written by mpg <span class="edit"></span></p>
+    <p>janvier 12th, 2009 at 4:46  </p>
+</div>	
+<div class="tags">
+    <p>Posted in <a href="../../../par-sujet/comp/" title="Voir tous les articles dans Geekeries diverses" rel="category tag">Geekeries diverses</a></p>
+    <p>Tagged with <a href="../../../par-tag/debian/" rel="tag">debian</a>, <a href="../../../par-tag/howto/index.html" rel="tag">howto</a></p></div>
+</div>
+
+<div class="navigation group">
+    <div class="alignleft">&laquo; <a href="../../../2008/12/noyau-a-la-vanille-facon-debian/" rel="prev">Noyau à la vanille façon Debian</a></div>
+    <div class="alignright"><a href="../petit-hack-de-ssh-agent/" rel="next">Petit hack de ssh-agent</a> &raquo;</div>
+</div>
+
+
+<!-- You can start editing here. -->
+
+<a name="comments" id="comments"></a>
+
+<h3 class="reply">4 Responses to 'Ma vie sans libc'</h3> 
+
+<ol class="commentlist">
+
+
+<li id="comment-7012" class="pingback">
+	<div class="comment_mod">
+		</div>
+	
+	<div class="comment_text">
+	<p>&lt;</p>
+
+<p>p>[...] lancer aucun programme qui serait li</p>
+	</div>
+	
+	<div class="comment_author">
+		<img alt='' src='https://secure.gravatar.com/avatar/?d=identicon&amp;s=32' class='avatar avatar-32 photo avatar-default' height='32' width='32' />		<p><strong><a href='http://www.hilpers.fr/1083846-code-binaire-de-la-bibliotheque/2' rel='external nofollow' class='url'>Code binaire de la bibliotheque standard - Page 2 | hilpers</a></strong></p>
+	<p><small>6 fév 09 at <a href="index.html#comment-7012">13:04</a> <? edit_comment_link(__('Edit', 'sandbox'), ' ', ''); ?></small></p>
+	</div>
+	<div class="clear"></div>
+</li>
+
+
+<li id="comment-7013" class="">
+	<div class="comment_mod">
+		</div>
+	
+	<div class="comment_text">
+	<p>debian:~# apt-get remove libc6
+Reading Package Lists&#8230; Done
+Building Dependency Tree&#8230; Done
+The following extra packages will be installed:
+  gcc-3.3-base
+The following packages will be REMOVED:
+  adduser apt apt-utils aptitude at base-config base-files base-passwd bash
+  bsdmainutils bsdutils clamav clamav-base clamav-daemon clamav-freshclam
+  console-common console-data console-tools coreutils cpio cpp cpp-3.3
+  cramfsprogs cron dash debconf debconf-i18n debianutils defoma dhcp-client
+  diff discover1 docbook-xml dpkg dselect e2fslibs e2fsprogs ed exim4
+  exim4-base exim4-config exim4-daemon-light fdutils file findutils fontconfig
+  gettext-base gksu grep groff-base grub gzip hermes1 hostname hotplug
+  ifupdown info initrd-tools initscripts ipchains iptables iputils-ping
+  kernel-image-2.4-686 kernel-image-2.4.27-1-686 klogd lbxproxy less libacl1
+  libapt-pkg-perl libatk1.0-0 libattr1 libblkid1 libbz2-1.0 libc6 libcanlock2
+  libcap1 libclamav1 libcomerr2 libconfig-inifiles-perl libconsole libcurl3
+  libdb1-compat libdb3 libdb4.2 libdiscover1 libdps1 libexpat1 libfontconfig1
+  libfreetype6 libgcc1 libgcrypt11 libgcrypt7 libgdbm3 libgksu1.2-0
+  libgksuui1.0-0 libglade2-0 libglib2.0-0 libgmp3 libgnutls10 libgnutls11
+  libgpg-error0 libgtk2.0-0 libgtk2.0-bin libgtk2.0-common libice6 libidn11
+  libjpeg62 liblocale-gettext-perl liblockfile1 liblzo1 libmagic1 libncurses5
+  libnewt0.51 libopencdk8 libpam-modules libpam0g libpango1.0-0
+  libpango1.0-common libpcap0.7 libpcre3 libpng12-0 libpopt0 libscrollkeeper0
+  libsigc++-1.2-5c102 libsm6 libss2 libssl0.9.7 libstdc++5 libtasn1-2
+  libtext-charwidth-perl libtext-iconv-perl libtext-wrapi18n-perl libtextwrap1
+  libtiff4 libungif4g libusb-0.1-4 libuuid1 libvte4 libwrap0 libwraster2
+  libx11-6 libxaw7 libxcursor1 libxext6 libxft1 libxft2 libxi6 libxml2 libxmu6
+  libxmuu1 libxp6 libxpm4 libxrandr2 libxrender1 libxslt1.1 libxt6 libxtrap6
+  libxtst6 libxv1 locales localization-config login logrotate mailx makedev
+  man-db mawk mdetect menu modutils mount nano ncurses-bin net-tools netbase
+  netkit-inetd nvi p3scan passwd pciutils perl perl-base perl-modules ppp
+  pppconfig pppoe pppoeconf procps proxymngr psmisc read-edid scrollkeeper sed
+  sgml-base sgml-data slang1 slang1a-utf8 slrn ssh synaptic sysklogd sysvinit
+  tar tasksel tcpd telnet ttf-bitstream-vera twm usbutils util-linux wget
+  whiptail wmaker x-window-system x-window-system-core xbase-clients xdm
+  xfonts-100dpi xfonts-75dpi xfonts-base xfonts-scalable xfree86-common xfs
+  xfwp xlibmesa-dri xlibmesa-gl xlibmesa-glu xlibs xml-core xnest xonix
+  xprt-common xprt-xprintorg xserver-common xserver-xfree86 xterm xutils xvfb
+  zlib1g
+The following packages will be upgraded:
+  gcc-3.3-base
+WARNING: The following essential packages will be removed
+This should NOT be done unless you know exactly what you are doing!
+  apt libc6 (due to apt) libgcc1 (due to apt) libstdc++5 (due to apt)
+  base-files base-passwd (due to base-files) bash passwd (due to bash)
+  libncurses5 (due to bash) bsdutils coreutils libacl1 (due to coreutils)
+  debianutils diff dpkg dselect (due to dpkg) e2fsprogs e2fslibs (due to
+  e2fsprogs) libblkid1 (due to e2fsprogs) libcomerr2 (due to e2fsprogs) libss2
+  (due to e2fsprogs) libuuid1 (due to e2fsprogs) findutils grep gzip hostname
+  login libpam-modules (due to login) libpam0g (due to login) mount
+  ncurses-bin perl-base sed sysvinit initscripts (due to sysvinit) tar
+  util-linux slang1a-utf8 (due to util-linux) zlib1g (due to util-linux)
+1 upgraded, 0 newly installed, 239 to remove and 4 not upgraded.
+Need to get 148kB of archives.
+After unpacking 315MB disk space will be freed.
+You are about to do something potentially harmful
+To continue type in the phrase &lsquo;Yes, do as I say!&rsquo;</p>
+	</div>
+	
+	<div class="comment_author">
+		<img alt='' src='https://secure.gravatar.com/avatar/f769305329308418595bad5177dae8fb?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />		<p><strong>Kevin</strong></p>
+	<p><small>6 fév 09 at <a href="index.html#comment-7013">17:33</a> <? edit_comment_link(__('Edit', 'sandbox'), ' ', ''); ?></small></p>
+	</div>
+	<div class="clear"></div>
+</li>
+
+
+<li id="comment-7080" class="">
+	<div class="comment_mod">
+		</div>
+	
+	<div class="comment_text">
+	<p>Euh, comment dire ? dans fr.misc.bavargaes.linux il y a un mot qui semble un peu brotché, non ?</p>
+	</div>
+	
+	<div class="comment_author">
+		<img alt='' src='https://secure.gravatar.com/avatar/788ccb36972da7642519dd2c48623bd4?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />		<p><strong><a href='http://foo.bar.quux.over-blog.com/' rel='external nofollow' class='url'>tth</a></strong></p>
+	<p><small>13 jan 10 at <a href="index.html#comment-7080">18:20</a> <? edit_comment_link(__('Edit', 'sandbox'), ' ', ''); ?></small></p>
+	</div>
+	<div class="clear"></div>
+</li>
+
+
+<li id="comment-7081" class=" byuser comment-author-admin bypostauthor">
+	<div class="comment_mod">
+		</div>
+	
+	<div class="comment_text">
+	<p><a href="index.html#comment-7080" rel="nofollow">@tth</a> 
+Hum, ce n&rsquo;est pas faux. Je viens de corriger.</p>
+	</div>
+	
+	<div class="comment_author">
+		<img alt='' src='https://secure.gravatar.com/avatar/18f47779fe3a7aaa0c13d18460497a9a?s=32&amp;d=identicon&amp;r=G' class='avatar avatar-32 photo' height='32' width='32' />		<p><strong><a href='https://elzevir.fr/imj/' rel='external nofollow' class='url'>mpg</a></strong></p>
+	<p><small>13 jan 10 at <a href="index.html#comment-7081">18:39</a> <? edit_comment_link(__('Edit', 'sandbox'), ' ', ''); ?></small></p>
+	</div>
+	<div class="clear"></div>
+</li>
+
+
+</ol>
+
+
+
+
+</div> 
+
+<div id="sidebar">
+<h3>Pages</h3>		<ul>
+			<li class="page_item page-item-4"><a href="../../../qui-suis-je/">À propos</a></li>
+		</ul>
+		<h3>Mots-clés</h3><div class="tagcloud"><a href='../../../par-tag/astuce/' class='tag-link-24' title='2 sujets' style='font-size: 11.111111111111pt;'>astuce</a>
+<a href='../../../par-tag/biblatex/' class='tag-link-41' title='1 sujet' style='font-size: 8pt;'>biblatex</a>
+<a href='../../../par-tag/context/' class='tag-link-28' title='8 sujets' style='font-size: 19.234567901235pt;'>context</a>
+<a href='../../../par-tag/cap/' class='tag-link-49' title='1 sujet' style='font-size: 8pt;'>càp</a>
+<a href='../../../par-tag/debian/' class='tag-link-4' title='6 sujets' style='font-size: 17.506172839506pt;'>debian</a>
+<a href='../../../par-tag/fontes/' class='tag-link-30' title='2 sujets' style='font-size: 11.111111111111pt;'>fontes</a>
+<a href='../../../par-tag/google/' class='tag-link-37' title='1 sujet' style='font-size: 8pt;'>google</a>
+<a href='../../../par-tag/gutenberg/' class='tag-link-44' title='1 sujet' style='font-size: 8pt;'>gutenberg</a>
+<a href='../../../par-tag/howto/' class='tag-link-31' title='9 sujets' style='font-size: 20.098765432099pt;'>howto</a>
+<a href='../../../par-tag/latex/' class='tag-link-3' title='6 sujets' style='font-size: 17.506172839506pt;'>latex</a>
+<a href='../../../par-tag/latex3/' class='tag-link-39' title='1 sujet' style='font-size: 8pt;'>latex3</a>
+<a href='../../../par-tag/lualatex/' class='tag-link-43' title='1 sujet' style='font-size: 8pt;'>lualatex</a>
+<a href='../../../par-tag/luatex/' class='tag-link-21' title='7 sujets' style='font-size: 18.37037037037pt;'>luatex</a>
+<a href='../../../par-tag/miktex/' class='tag-link-47' title='1 sujet' style='font-size: 8pt;'>miktex</a>
+<a href='../../../par-tag/mplib/' class='tag-link-46' title='1 sujet' style='font-size: 8pt;'>mplib</a>
+<a href='../../../par-tag/ssh/' class='tag-link-36' title='2 sujets' style='font-size: 11.111111111111pt;'>ssh</a>
+<a href='../../../par-tag/texdoc/' class='tag-link-42' title='5 sujets' style='font-size: 16.296296296296pt;'>texdoc</a>
+<a href='../../../par-tag/texlive/' class='tag-link-34' title='12 sujets' style='font-size: 22pt;'>texlive</a>
+<a href='../../../par-tag/tlcontrib/' class='tag-link-45' title='1 sujet' style='font-size: 8pt;'>tlcontrib</a>
+<a href='../../../par-tag/unix-admin/' class='tag-link-33' title='3 sujets' style='font-size: 13.185185185185pt;'>unix-admin</a>
+<a href='../../../par-tag/unix-user/' class='tag-link-35' title='2 sujets' style='font-size: 11.111111111111pt;'>unix-user</a>
+<a href='../../../par-tag/vim/' class='tag-link-22' title='1 sujet' style='font-size: 8pt;'>vim</a>
+<a href='../../../par-tag/wordpress/' class='tag-link-40' title='2 sujets' style='font-size: 11.111111111111pt;'>wordpress</a>
+<a href='../../../par-tag/xetex/' class='tag-link-20' title='2 sujets' style='font-size: 11.111111111111pt;'>xetex</a></div>
+<h3>Catégories</h3>		<ul>
+	<li class="cat-item cat-item-14"><a href="../../../par-sujet/comp/" title="Geekeries diverses">Geekeries diverses</a>
+</li>
+	<li class="cat-item cat-item-1"><a href="../../../par-sujet/non-classe/" title="Voir tous les articles classés dans Non classé">Non classé</a>
+</li>
+	<li class="cat-item cat-item-13"><a href="../../../par-sujet/tex-et-cie/" title="Voir tous les articles classés dans TeX et compagnie">TeX et compagnie</a>
+</li>
+		</ul>
+
+
+</div>
+
+</div>
+
+<div id="footer">
+	<p>The Journalist template by <a href="http://lucianmarin.com/" rel="designer">Lucian E. Marin</a> &mdash; Built for <a href="http://wordpress.org/">WordPress</a></p>
+</div>
+
+</body>
+</html>

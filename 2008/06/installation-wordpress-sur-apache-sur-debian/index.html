@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr-FR">
+<head profile="http://gmpg.org/xfn/11">
+<title>   Installation Wordpress sur Apache sur Debian at Le mpg-blog</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="description" content="LaTeX et autres geekeries" />
+<link href="/style.css" rel="stylesheet" type="text/css" media="screen" />
+<link rel="shortcut icon" type="image/x-png" href="/favicon.png" />
+<link rel='stylesheet' id='wp-syntax-css-css'  href='/wp-syntax.css' type='text/css' media='all' />
+</head>
+
+<body>
+<div id="container" class="group">
+
+<h1><a href="../../../">Le mpg-blog</a></h1>
+<div id="bubble"><p>LaTeX et autres geekeries</p></div> <!-- erase this line if you want to turn the bubble off -->
+
+<div id="content" class="group">
+
+<h2 id="post-5"><a href="index.html" rel="bookmark">Installation WordPress sur Apache sur Debian</a></h2>
+<p class="comments"><a href="index.html#comments">without comments</a></p>
+
+<div class="main">
+	<p>En guise de premier article, un how-to de circonstance : tout frais avant que
+j&rsquo;aie oublié. Et un avertissement pour inaugurer le tag « how-to » : il ne faut
+pas le lire « comment faire », mais plutôt « comment j&rsquo;ai fait »&#8230;</p>
+
+<p>Tout d&rsquo;abord, j&rsquo;ai lancé un petit <code>aptitude install wordpress</code> et commencé à
+regarder ce qui se trouvait dans <code>/u/s/d/wordpress</code>. Il y avait un <code>README</code> et
+des exemples de configuration Apache et de script pour aider à créer une base
+mysql et permettre à wordpress d&rsquo;y accéder.
+<span id="more-5"></span></p>
+
+<p>J&rsquo;ai d&rsquo;abord été surpris de constater que le script échouait, tout simplement
+parce que je n&rsquo;avais pas de serveur mysql qui tournait. Enquête faite,
+mysql-server est simplement suggéré par wordpress et pas installé d&rsquo;office, car
+on pourrait en principe utiliser une <abbr title="base de données">bdd</abbr>
+distante. Soit, j&rsquo;installe <code>mysql-server-5.0</code> et tout marche.</p>
+
+<p>Mais après quelques minutes à configurer la chose, je change d&rsquo;avis et me met à
+penser que c&rsquo;est mieux d&rsquo;installer wordpress à la main dans mon home : je trouve
+lourd d&rsquo;avoir à être root pour installer des thèmes par exemple. Donc on efface
+tout et on recommence, sauf qu&rsquo;avant de désinstaller on dit <code>aptitude
+unmarkauto</code> avec la liste des dépendances de wordpress histoire de les garder
+sous le coude.</p>
+
+<p>Bref, je suis donc parti du site <a href="http://fr.wordpress.org/">http://fr.wordpress.org/</a>, j&rsquo;ai téléchargé
+l&rsquo;archive et l&rsquo;ai dézippée dans <code>~/www/weblog</code>. J&rsquo;ai alors suivi les
+instructions en bas de page et plus spécifiquement celles présentes
+<a href="http://codex.wordpress.org/Installing_WordPress">ici</a> pour la création et
+configuration de la bdd. Tout a bien marché.</p>
+
+<p>Par contre, en testant, j&rsquo;ai une mauvaise surprise, provenant des exemples de
+<code>.htaccess</code> préalablement recopiés : il semblerait que la directive <code>ErrorLog</code>,
+qui ne provoquait pas d&rsquo;erreur à la relecture de la configuration, faisait par
+contre tout bonnement mourir le serveur (dans des souffrances atroces,
+j&rsquo;imagine) quand on tentait d&rsquo;accéder à la page. J&rsquo;ai abandonné l&rsquo;idée
+d&rsquo;utiliser cette fonctionnalité pour le moment.</p>
+
+<p>L&rsquo;autre petit souci est survenu quand j&rsquo;ai voulu configurer des jolis
+<em>permaliens</em> : d&rsquo;une part il faut penser à mettre le code aimablement fournit
+par wordpress dans une directive <code>&lt;Directory&gt;</code> comme nous l&rsquo;apprend le message
+d&rsquo;erreur. D&rsquo;autre part, c&rsquo;est stupide mais il faut y penser : il faut activer
+<code>mod_rewrite</code> :-)</p>
+
+<p>Pour finir, deux mots sur la configuration d&rsquo;Apache. Comme souvent chez Debian,
+c&rsquo;est un peu sophistiqué mais assez bien fait : pour les sites comme pour les
+modules, il y a un répertoire <code>*-available</code> et un <code>*-enabled</code> et on active les
+trucs en faisant des liens symboliques du deuxième vers le premier. J&rsquo;en profite
+d&rsquo;ailleurs pour place dans le home de mon utilisateur les fichiers de
+configuration propres à chacun des serveurs virtuels, et lui donne le droit
+grâce à sudo de demander à Apache de relire ses fichiers de configuration.</p>
+
+<p>Je trouve ça plus pratique que de lister les sites virtuels dans le fichier de
+conf principal d&rsquo;Apache puis d&rsquo;utiliser des <code>.haccess</code>. D&rsquo;une part, au moment du
+<code>reload</code> on a les messages d&rsquo;erreur si les directives ne sont pas correctes,
+d&rsquo;autre part, ça fait toujours un fichier de moins à analyser chaque requête
+pour Apache.</p>
+
+<p>Bref, mon <code>~/www/weblog.conf</code> Kimarch® est le suivant :</p>
+
+<pre><code>&lt;VirtualHost *:*&gt;
+    ServerName weblog.elzevir.fr
+    DocumentRoot /home/mpg/www/weblog
+    &lt;Directory /&gt;
+        Options FollowSymLinks
+        AllowOverride All
+    &lt;IfModule mod_rewrite.c&gt;
+        RewriteEngine On
+        RewriteBase /
+        RewriteCond %{REQUEST_FILENAME} !-f
+        RewriteCond %{REQUEST_FILENAME} !-d
+        RewriteRule . /index.php [L]
+    &lt;/IfModule&gt;
+    &lt;/Directory&gt;
+&lt;/VirtualHost&gt;
+</code></pre>
+
+<p>Je crois n&rsquo;avoir rien oublié, tout a l&rsquo;air de marcher pour le moment.</p>
+</div>
+
+<div class="meta group">
+<div class="signature">
+    <p>Written by mpg <span class="edit"></span></p>
+    <p>juin 4th, 2008 at 11:46  </p>
+</div>	
+<div class="tags">
+    <p>Posted in <a href="../../../par-sujet/comp/" title="Voir tous les articles dans Geekeries diverses" rel="category tag">Geekeries diverses</a></p>
+    <p>Tagged with <a href="../../../par-tag/debian/" rel="tag">debian</a>, <a href="../../../par-tag/howto/index.html" rel="tag">howto</a>, <a href="../../../par-tag/unix-admin/index.html" rel="tag">unix-admin</a>, <a href="../../../par-tag/wordpress/index.html" rel="tag">wordpress</a></p></div>
+</div>
+
+<div class="navigation group">
+    <div class="alignleft"></div>
+    <div class="alignright"><a href="../sur-lavenir-de-latex/" rel="next">Sur l&rsquo;avenir de (La)TeX</a> &raquo;</div>
+</div>
+
+
+<!-- You can start editing here. -->
+
+<a name="comments" id="comments"></a>
+
+
+ 
+<!-- If comments are open, but there are no comments. -->
+
+
+
+
+</div> 
+
+<div id="sidebar">
+<h3>Pages</h3>		<ul>
+			<li class="page_item page-item-4"><a href="../../../qui-suis-je/">À propos</a></li>
+		</ul>
+		<h3>Mots-clés</h3><div class="tagcloud"><a href='../../../par-tag/astuce/' class='tag-link-24' title='2 sujets' style='font-size: 11.111111111111pt;'>astuce</a>
+<a href='../../../par-tag/biblatex/' class='tag-link-41' title='1 sujet' style='font-size: 8pt;'>biblatex</a>
+<a href='../../../par-tag/context/' class='tag-link-28' title='8 sujets' style='font-size: 19.234567901235pt;'>context</a>
+<a href='../../../par-tag/cap/' class='tag-link-49' title='1 sujet' style='font-size: 8pt;'>càp</a>
+<a href='../../../par-tag/debian/' class='tag-link-4' title='6 sujets' style='font-size: 17.506172839506pt;'>debian</a>
+<a href='../../../par-tag/fontes/' class='tag-link-30' title='2 sujets' style='font-size: 11.111111111111pt;'>fontes</a>
+<a href='../../../par-tag/google/' class='tag-link-37' title='1 sujet' style='font-size: 8pt;'>google</a>
+<a href='../../../par-tag/gutenberg/' class='tag-link-44' title='1 sujet' style='font-size: 8pt;'>gutenberg</a>
+<a href='../../../par-tag/howto/' class='tag-link-31' title='9 sujets' style='font-size: 20.098765432099pt;'>howto</a>
+<a href='../../../par-tag/latex/' class='tag-link-3' title='6 sujets' style='font-size: 17.506172839506pt;'>latex</a>
+<a href='../../../par-tag/latex3/' class='tag-link-39' title='1 sujet' style='font-size: 8pt;'>latex3</a>
+<a href='../../../par-tag/lualatex/' class='tag-link-43' title='1 sujet' style='font-size: 8pt;'>lualatex</a>
+<a href='../../../par-tag/luatex/' class='tag-link-21' title='7 sujets' style='font-size: 18.37037037037pt;'>luatex</a>
+<a href='../../../par-tag/miktex/' class='tag-link-47' title='1 sujet' style='font-size: 8pt;'>miktex</a>
+<a href='../../../par-tag/mplib/' class='tag-link-46' title='1 sujet' style='font-size: 8pt;'>mplib</a>
+<a href='../../../par-tag/ssh/' class='tag-link-36' title='2 sujets' style='font-size: 11.111111111111pt;'>ssh</a>
+<a href='../../../par-tag/texdoc/' class='tag-link-42' title='5 sujets' style='font-size: 16.296296296296pt;'>texdoc</a>
+<a href='../../../par-tag/texlive/' class='tag-link-34' title='12 sujets' style='font-size: 22pt;'>texlive</a>
+<a href='../../../par-tag/tlcontrib/' class='tag-link-45' title='1 sujet' style='font-size: 8pt;'>tlcontrib</a>
+<a href='../../../par-tag/unix-admin/' class='tag-link-33' title='3 sujets' style='font-size: 13.185185185185pt;'>unix-admin</a>
+<a href='../../../par-tag/unix-user/' class='tag-link-35' title='2 sujets' style='font-size: 11.111111111111pt;'>unix-user</a>
+<a href='../../../par-tag/vim/' class='tag-link-22' title='1 sujet' style='font-size: 8pt;'>vim</a>
+<a href='../../../par-tag/wordpress/' class='tag-link-40' title='2 sujets' style='font-size: 11.111111111111pt;'>wordpress</a>
+<a href='../../../par-tag/xetex/' class='tag-link-20' title='2 sujets' style='font-size: 11.111111111111pt;'>xetex</a></div>
+<h3>Catégories</h3>		<ul>
+	<li class="cat-item cat-item-14"><a href="../../../par-sujet/comp/" title="Geekeries diverses">Geekeries diverses</a>
+</li>
+	<li class="cat-item cat-item-1"><a href="../../../par-sujet/non-classe/" title="Voir tous les articles classés dans Non classé">Non classé</a>
+</li>
+	<li class="cat-item cat-item-13"><a href="../../../par-sujet/tex-et-cie/" title="Voir tous les articles classés dans TeX et compagnie">TeX et compagnie</a>
+</li>
+		</ul>
+
+
+</div>
+
+</div>
+
+<div id="footer">
+	<p>The Journalist template by <a href="http://lucianmarin.com/" rel="designer">Lucian E. Marin</a> &mdash; Built for <a href="http://wordpress.org/">WordPress</a></p>
+</div>
+
+</body>
+</html>
